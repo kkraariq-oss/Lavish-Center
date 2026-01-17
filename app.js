@@ -351,6 +351,144 @@ const productsDatabase = {
             description: 'شنطة لابتوب عملية بتصميم احترافي، حماية ممتازة.',
             filter: 'new'
         }
+    ],
+    cosmetics: [
+        {
+            id: 26,
+            name: 'عطر نسائي فاخر',
+            price: 180000,
+            oldPrice: 250000,
+            image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=800',
+            category: 'cosmetics',
+            badge: 'hot',
+            rating: 5.0,
+            reviews: 245,
+            description: 'عطر نسائي فرنسي فاخر برائحة زهرية ساحرة، ثبات طويل يدوم لأكثر من 12 ساعة.',
+            discount: '-28%',
+            filter: 'popular'
+        },
+        {
+            id: 27,
+            name: 'مجموعة مكياج كاملة',
+            price: 320000,
+            oldPrice: 450000,
+            image: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800',
+            category: 'cosmetics',
+            badge: 'sale',
+            rating: 4.9,
+            reviews: 312,
+            description: 'مجموعة مكياج احترافية كاملة تحتوي على جميع المستلزمات الأساسية، جودة عالمية.',
+            discount: '-29%',
+            filter: 'sale'
+        },
+        {
+            id: 28,
+            name: 'كريم مرطب للبشرة',
+            price: 85000,
+            oldPrice: null,
+            image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800',
+            category: 'cosmetics',
+            badge: 'new',
+            rating: 4.8,
+            reviews: 167,
+            description: 'كريم مرطب طبيعي للعناية بالبشرة، يمنح البشرة نعومة ونضارة فائقة.',
+            filter: 'new'
+        },
+        {
+            id: 29,
+            name: 'أحمر شفاه ماتي',
+            price: 65000,
+            oldPrice: 85000,
+            image: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800',
+            category: 'cosmetics',
+            badge: 'hot',
+            rating: 4.7,
+            reviews: 198,
+            description: 'أحمر شفاه بتركيبة مخملية مات، لون ثابت ومريح طوال اليوم.',
+            discount: '-24%',
+            filter: 'popular'
+        },
+        {
+            id: 30,
+            name: 'سيروم للوجه',
+            price: 145000,
+            oldPrice: null,
+            image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800',
+            category: 'cosmetics',
+            badge: 'new',
+            rating: 4.9,
+            reviews: 223,
+            description: 'سيروم مضاد للشيخوخة يحتوي على فيتامين C وحمض الهيالورونيك لبشرة أكثر شباباً.',
+            filter: 'new'
+        },
+        {
+            id: 31,
+            name: 'ماسكارا حجم طبيعي',
+            price: 58000,
+            oldPrice: 75000,
+            image: 'https://images.unsplash.com/photo-1631214524020-7e18db9a8f92?w=800',
+            category: 'cosmetics',
+            badge: 'sale',
+            rating: 4.6,
+            reviews: 142,
+            description: 'ماسكارا بتركيبة مقاومة للماء تمنح الرموش كثافة وطول طبيعي.',
+            discount: '-23%',
+            filter: 'sale'
+        },
+        {
+            id: 32,
+            name: 'باليت ظلال عيون',
+            price: 125000,
+            oldPrice: 165000,
+            image: 'https://images.unsplash.com/photo-1583241800698-4836b0fb1012?w=800',
+            category: 'cosmetics',
+            badge: 'hot',
+            rating: 4.8,
+            reviews: 267,
+            description: 'باليت ظلال عيون بـ 20 لون متنوع بين الماتي واللامع، قابلة للمزج بسهولة.',
+            discount: '-24%',
+            filter: 'popular'
+        },
+        {
+            id: 33,
+            name: 'كريم أساس سائل',
+            price: 95000,
+            oldPrice: null,
+            image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800',
+            category: 'cosmetics',
+            badge: 'new',
+            rating: 4.7,
+            reviews: 189,
+            description: 'كريم أساس بتغطية متوسطة إلى كاملة، متوفر بعدة درجات لجميع ألوان البشرة.',
+            filter: 'new'
+        },
+        {
+            id: 34,
+            name: 'مزيل مكياج لطيف',
+            price: 48000,
+            oldPrice: 62000,
+            image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=800',
+            category: 'cosmetics',
+            badge: 'sale',
+            rating: 4.8,
+            reviews: 156,
+            description: 'مزيل مكياج ثنائي الطور ينظف البشرة بلطف ويزيل المكياج المقاوم للماء بفعالية.',
+            discount: '-23%',
+            filter: 'sale'
+        },
+        {
+            id: 35,
+            name: 'طقم فرش مكياج احترافي',
+            price: 175000,
+            oldPrice: null,
+            image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800',
+            category: 'cosmetics',
+            badge: 'hot',
+            rating: 5.0,
+            reviews: 312,
+            description: 'طقم من 12 فرشاة مكياج احترافية بشعيرات طبيعية وصناعية، مثالي للمحترفين والمبتدئين.',
+            filter: 'popular'
+        }
     ]
 };
 
@@ -763,7 +901,7 @@ function loadFavorites() {
 // WHATSAPP FUNCTIONS
 // ============================================
 function sendToWhatsApp(isCart = false) {
-    const phone = '9647701234567'; // رقم الواتساب
+    const phone = '9647813798636'; // رقم الواتساب
     let message = '';
     
     if (isCart) {
@@ -1051,3 +1189,141 @@ function initializeScrollToTop() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
+
+// ============================================
+// SPLASH SCREEN
+// ============================================
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        const splashScreen = document.getElementById('splashScreen');
+        if (splashScreen) {
+            splashScreen.style.display = 'none';
+        }
+    }, 3000); // 3 seconds
+});
+
+// ============================================
+// PAGE NAVIGATION
+// ============================================
+function showHome() {
+    // Hide all pages
+    document.getElementById('aboutPage').style.display = 'none';
+    document.getElementById('teamPage').style.display = 'none';
+    document.getElementById('favoritesPage').style.display = 'none';
+    document.getElementById('cartPage').style.display = 'none';
+    
+    // Show home page
+    document.getElementById('homePage').classList.add('active');
+    document.getElementById('heroSection').style.display = 'block';
+    document.getElementById('mainContent').style.display = 'block';
+    
+    // Update navbar
+    updateNavbar('home');
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showAboutUs() {
+    // Hide all pages
+    document.getElementById('homePage').classList.remove('active');
+    document.getElementById('heroSection').style.display = 'none';
+    document.getElementById('teamPage').style.display = 'none';
+    document.getElementById('favoritesPage').style.display = 'none';
+    document.getElementById('cartPage').style.display = 'none';
+    
+    // Show about page
+    document.getElementById('aboutPage').style.display = 'block';
+    
+    // Update navbar
+    updateNavbar('about');
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Reinitialize AOS for about page
+    if (typeof AOS !== 'undefined') {
+        AOS.refresh();
+    }
+}
+
+function showTeam() {
+    // Hide all pages
+    document.getElementById('homePage').classList.remove('active');
+    document.getElementById('heroSection').style.display = 'none';
+    document.getElementById('aboutPage').style.display = 'none';
+    document.getElementById('favoritesPage').style.display = 'none';
+    document.getElementById('cartPage').style.display = 'none';
+    
+    // Show team page
+    document.getElementById('teamPage').style.display = 'block';
+    
+    // Update navbar
+    updateNavbar('team');
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Reinitialize AOS for team page
+    if (typeof AOS !== 'undefined') {
+        AOS.refresh();
+    }
+}
+
+function updateNavbar(page) {
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    if (page === 'home') {
+        navLinks[0].classList.add('active');
+    } else if (page === 'about') {
+        navLinks[1].classList.add('active');
+    } else if (page === 'team') {
+        navLinks[2].classList.add('active');
+    }
+}
+
+// ============================================
+// SCROLL TO PRODUCTS
+// ============================================
+function scrollToProducts() {
+    showHome();
+    setTimeout(() => {
+        const productsSection = document.getElementById('productsSection');
+        if (productsSection) {
+            productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, 100);
+}
+
+// ============================================
+// ENHANCED CATEGORY FILTER
+// ============================================
+function filterByCategory(category) {
+    showHome();
+    
+    setTimeout(() => {
+        currentCategory = category;
+        currentFilter = 'all';
+        currentSearchQuery = '';
+        
+        // Clear search input
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.value = '';
+        }
+        
+        // Reset filter buttons
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => btn.classList.remove('active'));
+        filterBtns[0].classList.add('active');
+        
+        loadProducts();
+        
+        // Scroll to products
+        scrollToProducts();
+    }, 100);
+}
+
