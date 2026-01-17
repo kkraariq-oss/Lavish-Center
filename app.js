@@ -351,6 +351,135 @@ const productsDatabase = {
             description: 'شنطة لابتوب عملية بتصميم احترافي، حماية ممتازة.',
             filter: 'new'
         }
+    ],
+    silver: [
+        {
+            id: 26,
+            name: 'سلسلة فضة إيطالية',
+            price: 120000,
+            oldPrice: 165000,
+            image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800',
+            category: 'silver',
+            badge: 'hot',
+            rating: 4.9,
+            reviews: 215,
+            description: 'سلسلة فضة إيطالية عيار 925، تصميم فاخر وأنيق.',
+            discount: '-27%',
+            filter: 'popular'
+        },
+        {
+            id: 27,
+            name: 'خاتم فضة بحجر كريم',
+            price: 85000,
+            oldPrice: null,
+            image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800',
+            category: 'silver',
+            badge: 'new',
+            rating: 4.7,
+            reviews: 143,
+            description: 'خاتم فضة عيار 925 مرصع بحجر كريم أصلي.',
+            filter: 'new'
+        },
+        {
+            id: 28,
+            name: 'أقراط فضة',
+            price: 65000,
+            oldPrice: 90000,
+            image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800',
+            category: 'silver',
+            badge: 'sale',
+            rating: 4.8,
+            reviews: 167,
+            description: 'أقراط فضة ناعمة، مثالية للإطلالات اليومية.',
+            discount: '-28%',
+            filter: 'sale'
+        }
+    ],
+    gifts: [
+        {
+            id: 29,
+            name: 'طقم هدايا فاخر',
+            price: 125000,
+            oldPrice: 175000,
+            image: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=800',
+            category: 'gifts',
+            badge: 'hot',
+            rating: 4.9,
+            reviews: 198,
+            description: 'طقم هدايا فاخر يحتوي على عدة قطع أنيقة، مثالي للمناسبات.',
+            discount: '-29%',
+            filter: 'popular'
+        },
+        {
+            id: 30,
+            name: 'صندوق هدايا مخملي',
+            price: 45000,
+            oldPrice: null,
+            image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=800',
+            category: 'gifts',
+            badge: 'new',
+            rating: 4.6,
+            reviews: 112,
+            description: 'صندوق هدايا مخملي فاخر بتصميم راقي.',
+            filter: 'new'
+        },
+        {
+            id: 31,
+            name: 'باقة ورد صناعي',
+            price: 38000,
+            oldPrice: 55000,
+            image: 'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=800',
+            category: 'gifts',
+            badge: 'sale',
+            rating: 4.5,
+            reviews: 89,
+            description: 'باقة ورد صناعي بألوان جذابة، تدوم طويلاً.',
+            discount: '-31%',
+            filter: 'sale'
+        }
+    ],
+    perfumes: [
+        {
+            id: 32,
+            name: 'عطر فرنسي فاخر',
+            price: 185000,
+            oldPrice: 250000,
+            image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=800',
+            category: 'perfumes',
+            badge: 'hot',
+            rating: 5.0,
+            reviews: 287,
+            description: 'عطر فرنسي أصلي برائحة ساحرة تدوم طويلاً.',
+            discount: '-26%',
+            filter: 'popular'
+        },
+        {
+            id: 33,
+            name: 'عطر نسائي زهري',
+            price: 145000,
+            oldPrice: null,
+            image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=800',
+            category: 'perfumes',
+            badge: 'new',
+            rating: 4.8,
+            reviews: 176,
+            description: 'عطر نسائي بروائح زهرية منعشة، مثالي للصيف.',
+            filter: 'new'
+        },
+        {
+            id: 34,
+            name: 'عطر رجالي كلاسيكي',
+            price: 165000,
+            oldPrice: 220000,
+            image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=800',
+            category: 'perfumes',
+            badge: 'sale',
+            rating: 4.9,
+            reviews: 234,
+            description: 'عطر رجالي بتركيبة كلاسيكية وأنيقة.',
+            discount: '-25%',
+            filter: 'sale'
+        }
     ]
 };
 
@@ -763,7 +892,7 @@ function loadFavorites() {
 // WHATSAPP FUNCTIONS
 // ============================================
 function sendToWhatsApp(isCart = false) {
-    const phone = '9647701234567'; // رقم الواتساب
+    const phone = '9647813798636'; // رقم الواتساب
     let message = '';
     
     if (isCart) {
@@ -1050,4 +1179,56 @@ function initializeScrollToTop() {
     scrollBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+    
+    // ============================================
+    // NOTIFICATIONS
+    // ============================================
+    const notificationsBtn = document.getElementById('notificationsBtn');
+    if (notificationsBtn) {
+        notificationsBtn.addEventListener('click', () => {
+            showPage('notificationsPage');
+            updateNotificationsCount(0);
+        });
+    }
+    
+    function updateNotificationsCount(count) {
+        const badge = document.getElementById('notificationsCount');
+        if (badge) {
+            badge.textContent = count;
+            badge.style.display = count > 0 ? 'flex' : 'none';
+        }
+    }
+    
+    // ============================================
+    // ENHANCED PAGE NAVIGATION WITH SCROLL
+    // ============================================
+    const originalShowPage = showPage;
+    showPage = function(pageId) {
+        originalShowPage(pageId);
+        
+        // إذا كان الانتقال إلى الصفحة الرئيسية، قم بالتمرير إلى المنتجات
+        if (pageId === 'homePage') {
+            setTimeout(() => {
+                const productsSection = document.querySelector('.products-section');
+                if (productsSection) {
+                    productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
+        }
+    };
+    
+    // ============================================
+    // LOADING COUNTDOWN
+    // ============================================
+    const countdown = document.getElementById('loadingCountdown');
+    if (countdown) {
+        let count = 3;
+        const countdownInterval = setInterval(() => {
+            count--;
+            countdown.textContent = count;
+            if (count === 0) {
+                clearInterval(countdownInterval);
+            }
+        }, 1000);
+    }
 }
