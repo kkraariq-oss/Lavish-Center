@@ -2,10 +2,21 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="LaVish Center - متجر الأزياء الراقية">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="LaVish Center - متجر الأزياء الراقية - أفضل الأسعار وأحدث الموديلات">
     <meta name="theme-color" content="#ff6b9d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="LaVish Center">
     <title>LaVish Center - Premium Fashion Store</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
     
     <!-- Bootstrap RTL CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
@@ -17,1290 +28,75 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
     
-    <style>
-        /* ============================================
-           BASE STYLES
-           ============================================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        :root {
-            --primary-color: #ff6b9d;
-            --secondary-color: #c44569;
-            --dark-color: #1a1a2e;
-            --light-color: #f8f9fa;
-            --gold-color: #ffd700;
-            --success-color: #28a745;
-            --purple-gradient: linear-gradient(135deg, #667eea, #764ba2);
-            --pink-gradient: linear-gradient(135deg, #ff6b9d, #c44569);
-            --blue-gradient: linear-gradient(135deg, #4facfe, #00f2fe);
-            
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
-            --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
-            --shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
-        }
-        
-        body {
-            font-family: 'Cairo', sans-serif;
-            background: #ffffff;
-            color: var(--dark-color);
-            overflow-x: hidden;
-        }
-        
-        ::selection {
-            background: var(--primary-color);
-            color: white;
-        }
-        
-        /* ============================================
-           TOP HEADER BAR
-           ============================================ */
-        .top-header {
-            background: var(--dark-color);
-            color: white;
-            padding: 0.8rem 0;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1001;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .top-header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .brand-logo {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .brand-logo i {
-            color: var(--gold-color);
-            animation: pulse 2s infinite;
-        }
-        
-        .brand-logo:hover {
-            color: var(--primary-color);
-            transform: scale(1.05);
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .search-bar {
-            position: relative;
-            width: 350px;
-        }
-        
-        .search-input {
-            width: 100%;
-            padding: 0.7rem 3rem 0.7rem 1rem;
-            border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 25px;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            font-size: 0.95rem;
-            transition: var(--transition);
-        }
-        
-        .search-input::placeholder {
-            color: rgba(255,255,255,0.6);
-        }
-        
-        .search-input:focus {
-            outline: none;
-            background: rgba(255,255,255,0.15);
-            border-color: var(--primary-color);
-        }
-        
-        .search-btn {
-            position: absolute;
-            left: 5px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--pink-gradient);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            color: white;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .search-btn:hover {
-            transform: translateY(-50%) scale(1.1);
-        }
-        
-        .header-icon-btn {
-            position: relative;
-            background: rgba(255,255,255,0.1);
-            border: 2px solid rgba(255,255,255,0.2);
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            color: white;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .header-icon-btn:hover {
-            background: var(--primary-color);
-            border-color: var(--primary-color);
-            transform: translateY(-3px);
-        }
-        
-        .header-badge {
-            position: absolute;
-            top: -5px;
-            left: -5px;
-            background: var(--gold-color);
-            color: var(--dark-color);
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            font-size: 0.75rem;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .mobile-menu-toggle {
-            display: none;
-            background: var(--primary-color);
-            border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 10px;
-            color: white;
-            font-size: 1.3rem;
-            cursor: pointer;
-        }
-        
-        /* ============================================
-           CATEGORIES NAVIGATION BAR
-           ============================================ */
-        .categories-nav {
-            background: white;
-            box-shadow: var(--shadow-sm);
-            padding: 1rem 0;
-            position: fixed;
-            top: 60px;
-            width: 100%;
-            z-index: 1000;
-            border-bottom: 2px solid #f0f0f0;
-        }
-        
-        .categories-container {
-            display: flex;
-            gap: 0.5rem;
-            overflow-x: auto;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary-color) #f0f0f0;
-            padding: 0.5rem 0;
-        }
-        
-        .categories-container::-webkit-scrollbar {
-            height: 6px;
-        }
-        
-        .categories-container::-webkit-scrollbar-track {
-            background: #f0f0f0;
-            border-radius: 10px;
-        }
-        
-        .categories-container::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 10px;
-        }
-        
-        .category-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            min-width: 90px;
-            padding: 0.8rem 1rem;
-            background: white;
-            border: 2px solid #f0f0f0;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            color: var(--dark-color);
-            white-space: nowrap;
-        }
-        
-        .category-item:hover,
-        .category-item.active {
-            background: var(--pink-gradient);
-            color: white;
-            border-color: var(--primary-color);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .category-icon {
-            font-size: 1.8rem;
-            transition: var(--transition);
-        }
-        
-        .category-item:hover .category-icon {
-            transform: scale(1.2) rotate(360deg);
-        }
-        
-        .category-name {
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-        
-        /* ============================================
-           SIDEBAR FOR MOBILE
-           ============================================ */
-        .mobile-sidebar {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 300px;
-            height: 100vh;
-            background: white;
-            box-shadow: -5px 0 30px rgba(0,0,0,0.3);
-            z-index: 10000;
-            transition: var(--transition);
-            overflow-y: auto;
-        }
-        
-        .mobile-sidebar.active {
-            right: 0;
-        }
-        
-        .sidebar-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(0,0,0,0.5);
-            z-index: 9999;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-        }
-        
-        .sidebar-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .sidebar-header {
-            background: var(--pink-gradient);
-            color: white;
-            padding: 2rem;
-            position: relative;
-        }
-        
-        .sidebar-close {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: rgba(255,255,255,0.2);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-        
-        .sidebar-menu {
-            padding: 1rem 0;
-        }
-        
-        .sidebar-menu-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem 2rem;
-            color: var(--dark-color);
-            text-decoration: none;
-            transition: var(--transition);
-            border-right: 3px solid transparent;
-        }
-        
-        .sidebar-menu-item:hover,
-        .sidebar-menu-item.active {
-            background: rgba(255, 107, 157, 0.1);
-            border-right-color: var(--primary-color);
-        }
-        
-        /* ============================================
-           MAIN CONTENT
-           ============================================ */
-        .main-content {
-            margin-top: 140px;
-            padding: 2rem 0;
-        }
-        
-        /* ============================================
-           ADVERTISEMENTS SLIDER
-           ============================================ */
-        .ads-section {
-            margin-bottom: 3rem;
-            position: relative;
-        }
-        
-        .swiper {
-            width: 100%;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .swiper-slide {
-            position: relative;
-            height: 400px;
-            overflow: hidden;
-        }
-        
-        .ad-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition-slow);
-        }
-        
-        .swiper-slide:hover .ad-image {
-            transform: scale(1.1);
-        }
-        
-        .ad-overlay {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 100%;
-            padding: 2rem;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            color: white;
-        }
-        
-        .ad-title {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-        
-        .ad-description {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-        }
-        
-        .ad-btn {
-            background: var(--pink-gradient);
-            color: white;
-            border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .ad-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .swiper-button-next,
-        .swiper-button-prev {
-            color: white !important;
-            background: rgba(255, 107, 157, 0.8);
-            width: 50px !important;
-            height: 50px !important;
-            border-radius: 50% !important;
-        }
-        
-        .swiper-button-next:after,
-        .swiper-button-prev:after {
-            font-size: 1.5rem !important;
-        }
-        
-        .swiper-pagination-bullet {
-            background: white !important;
-            opacity: 0.5;
-        }
-        
-        .swiper-pagination-bullet-active {
-            opacity: 1 !important;
-            background: var(--primary-color) !important;
-        }
-        
-        /* ============================================
-           SEARCH SECTION
-           ============================================ */
-        .search-section {
-            margin-bottom: 3rem;
-        }
-        
-        .search-box-large {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .search-input-large {
-            width: 100%;
-            padding: 1.2rem 4rem 1.2rem 1.5rem;
-            border: 3px solid var(--primary-color);
-            border-radius: 50px;
-            font-size: 1.1rem;
-            transition: var(--transition);
-        }
-        
-        .search-input-large:focus {
-            outline: none;
-            box-shadow: 0 0 0 5px rgba(255, 107, 157, 0.2);
-        }
-        
-        .search-btn-large {
-            position: absolute;
-            left: 5px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--pink-gradient);
-            border: none;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .search-btn-large:hover {
-            transform: translateY(-50%) scale(1.1);
-        }
-        
-        /* ============================================
-           FILTERS SECTION
-           ============================================ */
-        .filters-section {
-            background: white;
-            padding: 0.5rem;
-            border-radius: 12px;
-            box-shadow: var(--shadow-sm);
-            margin-bottom: 1rem;
-            max-width: 220px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .filters-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--dark-color);
-            text-align: center;
-        }
-
-        .filters-container {
-            display: flex;
-            gap: 0.3rem;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            justify-content: center;
-        }
-
-        .filter-item {
-            padding: 0.2rem 0.7rem;
-            background: #f8f9fa;
-            border: 2px solid #e0e0e0;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            font-size: 0.8rem;
-            white-space: nowrap;
-        }
-
-        .filter-item:hover,
-        .filter-item.active {
-            background: var(--pink-gradient);
-            color: white;
-            border-color: var(--primary-color);
-            transform: translateY(-1px);
-        }
-        
-        /* ============================================
-           PRODUCTS GRID
-           ============================================ */
-        .products-section {
-            margin-bottom: 3rem;
-        }
-        
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--dark-color);
-            margin-bottom: 2rem;
-            text-align: center;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            right: 50%;
-            transform: translateX(50%);
-            width: 100px;
-            height: 4px;
-            background: var(--pink-gradient);
-            border-radius: 2px;
-        }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        
-        .product-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .product-image-container {
-            position: relative;
-            height: 300px;
-            overflow: hidden;
-            background: #f8f9fa;
-        }
-        
-        .product-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition-slow);
-        }
-        
-        .product-card:hover .product-image {
-            transform: scale(1.1);
-        }
-        
-        .product-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: var(--pink-gradient);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            z-index: 2;
-        }
-        
-        .product-actions {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            opacity: 0;
-            transform: translateX(20px);
-            transition: var(--transition);
-        }
-        
-        .product-card:hover .product-actions {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .action-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: white;
-            border: none;
-            color: var(--primary-color);
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .action-btn:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: scale(1.1);
-        }
-        
-        .product-info {
-            padding: 1.5rem;
-        }
-        
-        .product-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--dark-color);
-            margin-bottom: 0.5rem;
-        }
-        
-        .product-price {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary-color);
-        }
-        
-        .product-old-price {
-            text-decoration: line-through;
-            color: #999;
-            font-size: 1.1rem;
-            margin-left: 0.5rem;
-        }
-        
-        /* ============================================
-           PRODUCT DETAIL PAGE
-           ============================================ */
-        .product-detail-section {
-            padding: 2rem 0;
-        }
-        
-        .product-gallery {
-            position: sticky;
-            top: 160px;
-        }
-        
-        .main-product-image {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-            border-radius: 20px;
-            box-shadow: var(--shadow-lg);
-            margin-bottom: 1rem;
-        }
-        
-        .thumbnail-gallery {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-        
-        .thumbnail {
-            width: 100%;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 10px;
-            cursor: pointer;
-            border: 3px solid transparent;
-            transition: var(--transition);
-        }
-        
-        .thumbnail:hover,
-        .thumbnail.active {
-            border-color: var(--primary-color);
-            transform: scale(1.05);
-        }
-        
-        .product-detail-info {
-            background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .product-detail-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--dark-color);
-            margin-bottom: 1rem;
-        }
-        
-        .product-detail-price {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary-color);
-            margin-bottom: 2rem;
-        }
-        
-        .product-options {
-            margin: 2rem 0;
-        }
-        
-        .option-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--dark-color);
-        }
-        
-        .color-options {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-        }
-        
-        .color-option {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 3px solid transparent;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .color-option:hover,
-        .color-option.active {
-            border-color: var(--primary-color);
-            transform: scale(1.1);
-        }
-        
-        .size-options {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-        }
-        
-        .size-option {
-            padding: 0.8rem 1.5rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            background: white;
-        }
-        
-        .size-option:hover,
-        .size-option.active {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-        
-        .quantity-selector {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-        
-        .qty-btn {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: 2px solid var(--primary-color);
-            background: white;
-            color: var(--primary-color);
-            font-size: 1.3rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .qty-btn:hover {
-            background: var(--primary-color);
-            color: white;
-        }
-        
-        .qty-input {
-            width: 70px;
-            height: 45px;
-            text-align: center;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-        
-        .detail-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        .btn-add-cart {
-            flex: 1;
-            padding: 1.2rem;
-            background: var(--pink-gradient);
-            color: white;
-            border: none;
-            border-radius: 15px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .btn-add-cart:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .btn-whatsapp {
-            padding: 1.2rem 2rem;
-            background: #25D366;
-            color: white;
-            border: none;
-            border-radius: 15px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .btn-whatsapp:hover {
-            background: #128C7E;
-            transform: translateY(-3px);
-        }
-        
-        /* ============================================
-           ABOUT US PAGE
-           ============================================ */
-        .about-section {
-            background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: var(--shadow-md);
-            margin: 2rem 0;
-        }
-        
-        .about-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--dark-color);
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        
-        .about-content {
-            font-size: 1.1rem;
-            line-height: 2;
-            color: #555;
-            margin-bottom: 2rem;
-        }
-        
-        .contact-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .contact-card {
-            background: var(--pink-gradient);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-        
-        .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .contact-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .contact-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        
-        .contact-value {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-        
-        /* ============================================
-           FOOTER
-           ============================================ */
-        .footer {
-            background: var(--dark-color);
-            color: white;
-            padding: 3rem 0 1.5rem;
-            margin-top: 5rem;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .footer-section h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 0.5rem;
-        }
-        
-        .footer-links a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .footer-links a:hover {
-            color: var(--primary-color);
-            padding-right: 5px;
-        }
-        
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        /* ============================================
-           CART PAGE
-           ============================================ */
-        .cart-section {
-            padding: 2rem 0;
-        }
-        
-        .cart-items {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .cart-item {
-            display: flex;
-            gap: 1.5rem;
-            padding: 1.5rem;
-            border-bottom: 2px solid #f0f0f0;
-            align-items: center;
-        }
-        
-        .cart-item:last-child {
-            border-bottom: none;
-        }
-        
-        .cart-item-image {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 15px;
-        }
-        
-        .cart-item-details {
-            flex: 1;
-        }
-        
-        .cart-item-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        
-        .cart-item-price {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary-color);
-        }
-        
-        .cart-item-remove {
-            background: #dc3545;
-            color: white;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .cart-item-remove:hover {
-            background: #c82333;
-        }
-        
-        .cart-summary {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: var(--shadow-md);
-            position: sticky;
-            top: 160px;
-        }
-        
-        .cart-total {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--dark-color);
-            margin: 2rem 0;
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .cart-total-price {
-            color: var(--primary-color);
-        }
-        
-        .btn-checkout {
-            width: 100%;
-            padding: 1.2rem;
-            background: var(--success-color);
-            color: white;
-            border: none;
-            border-radius: 15px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .btn-checkout:hover {
-            background: #218838;
-            transform: translateY(-3px);
-        }
-        
-        .empty-cart {
-            text-align: center;
-            padding: 5rem 2rem;
-        }
-        
-        .empty-cart i {
-            font-size: 6rem;
-            color: #ddd;
-            margin-bottom: 2rem;
-        }
-        
-        /* ============================================
-           RESPONSIVE DESIGN
-           ============================================ */
-        @media (max-width: 991px) {
-            .mobile-menu-toggle {
-                display: block;
-            }
-            
-            .header-actions .search-bar {
-                display: none;
-            }
-            
-            .categories-nav {
-                display: none;
-            }
-            
-            .main-content {
-                margin-top: 80px;
-            }
-        }
-        
-        
-        @media (max-width: 768px) {
-            .brand-logo {
-                font-size: 1.3rem;
-            }
-            .brand-logo {
-                font-size: 1.1rem;
-            }
-            .header-icon-btn {
-                width: 36px;
-                height: 36px;
-                font-size: 0.9rem;
-            }
-            .swiper-slide {
-                height: 180px;
-            }
-            .ad-title {
-                font-size: 1.1rem;
-            }
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-                gap: 0.5rem;
-            }
-            .main-product-image {
-                height: 180px;
-                border-radius: 10px;
-            }
-            .product-detail-title {
-                font-size: 1.2rem;
-            }
-            .product-detail-price {
-                font-size: 1.2rem;
-            }
-            .product-detail-info {
-                padding: 1rem;
-                border-radius: 10px;
-            }
-            .product-gallery {
-                position: static;
-                margin-bottom: 1rem;
-            }
-            .cart-item {
-                flex-direction: column;
-                text-align: center;
-            }
-            .filters-container {
-                flex-wrap: nowrap !important;
-                overflow-x: auto;
-                gap: 0.5rem;
-            }
-            .filter-item {
-                min-width: 100px;
-                margin-bottom: 0 !important;
-            }
-            .filters-section {
-                max-width: 320px;
-                padding: 1rem;
-            }
-            .filters-container {
-                border: none !important;
-                box-shadow: none !important;
-                background: transparent !important;
-            }
-            .filter-item {
-                border: 2px solid #e0e0e0 !important;
-                box-shadow: none !important;
-                background: #f8f9fa !important;
-            }
-        }
-        
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid var(--primary-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* ============================================
-           UTILITIES
-           ============================================ */
-        .page-section {
-            display: none;
-        }
-        
-        .page-section.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .btn-back {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.8rem 1.5rem;
-            background: #6c757d;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-bottom: 2rem;
-        }
-        
-        .btn-back:hover {
-            background: #5a6268;
-            transform: translateX(5px);
-        }
-    </style>
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">
+            <i class="fas fa-gem"></i> LaVish
+        </div>
+        <div class="loading-spinner"></div>
+    </div>
 
-    <!-- Top Header Bar -->
-    <div class="top-header">
+    <!-- Popup Ad Overlay -->
+    <div class="popup-ad-overlay" id="popupAdOverlay" style="display: none;">
+        <div class="popup-ad">
+            <button class="popup-ad-close" onclick="closePopupAd()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="popup-ad-content" onclick="goToAdProduct()">
+                <div class="popup-ad-badge">
+                    🔥 عرض خاص
+                </div>
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800" alt="عرض خاص" class="popup-ad-image">
+                <div class="popup-ad-details">
+                    <h3 class="popup-ad-title">فستان سهرة فاخر</h3>
+                    <p class="popup-ad-description">تصميم عصري وأنيق - متوفر بألوان متعددة</p>
+                    <div class="popup-ad-price-container">
+                        <span class="popup-ad-old-price">250,000 د.ع</span>
+                        <span class="popup-ad-new-price">149,900 د.ع</span>
+                    </div>
+                    <button class="popup-ad-cta">
+                        <i class="fas fa-shopping-bag"></i>
+                        اطلب الآن واحصل على خصم 40%
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Header -->
+    <header class="top-header">
         <div class="container">
             <div class="top-header-content">
-                <a class="brand-logo" data-page="home">
-                    <i class="fas fa-crown"></i>
-                    <span>LaVish Center</span>
+                <a href="#" class="brand-logo" data-page="home">
+                    <i class="fas fa-gem"></i>
+                    <span>LaVish</span>
                 </a>
                 
                 <div class="header-actions">
                     <div class="search-bar">
-                        <input type="text" class="search-input" id="topSearchInput" placeholder="ابحث عن المنتجات...">
+                        <input type="text" class="search-input" id="topSearchInput" placeholder="ابحث عن منتج...">
                         <button class="search-btn" id="topSearchBtn">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
                     
-                    <button class="header-icon-btn" id="cartBtn">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="header-badge" id="cartBadge">0</span>
+                    <button class="header-icon-btn" id="favoritesBtn">
+                        <i class="fas fa-heart"></i>
+                        <span class="header-badge" id="favoritesCount">0</span>
                     </button>
                     
-                    <button class="header-icon-btn" id="notificationsBtn">
-                        <i class="fas fa-bell"></i>
-                        <span class="header-badge">3</span>
+                    <button class="header-icon-btn" id="cartBtn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="header-badge" id="cartCount">0</span>
                     </button>
                     
                     <button class="mobile-menu-toggle" id="mobileMenuToggle">
@@ -1309,1119 +105,377 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Categories Navigation -->
-    <div class="categories-nav">
-        <div class="container">
-            <div class="categories-container" id="categoriesContainer">
-                <div class="category-item active" data-page="home">
-                    <i class="fas fa-home category-icon"></i>
-                    <span class="category-name">الرئيسية</span>
-                </div>
-                <div class="category-item" data-page="all-categories">
-                    <i class="fas fa-th-large category-icon"></i>
-                    <span class="category-name">جميع الأقسام</span>
-                </div>
-                <div class="category-item" data-category="men">
-                    <i class="fas fa-male category-icon"></i>
-                    <span class="category-name">ملابس رجالي</span>
-                </div>
-                <div class="category-item" data-category="women">
-                    <i class="fas fa-female category-icon"></i>
-                    <span class="category-name">ملابس نسائي</span>
-                </div>
-                <div class="category-item" data-category="kids">
-                    <i class="fas fa-child category-icon"></i>
-                    <span class="category-name">أطفال</span>
-                </div>
-                <div class="category-item" data-category="cosmetics">
-                    <i class="fas fa-magic category-icon"></i>
-                    <span class="category-name">كوزمتك</span>
-                </div>
-                <div class="category-item" data-category="shoes">
-                    <i class="fas fa-shoe-prints category-icon"></i>
-                    <span class="category-name">أحذية</span>
-                </div>
-                <div class="category-item" data-category="suits">
-                    <i class="fas fa-user-tie category-icon"></i>
-                    <span class="category-name">بدلات رجالي</span>
-                </div>
-                <div class="category-item" data-category="baby">
-                    <i class="fas fa-baby category-icon"></i>
-                    <span class="category-name">ملابس بيبي</span>
-                </div>
-                <div class="category-item" data-page="about">
-                    <i class="fas fa-info-circle category-icon"></i>
-                    <span class="category-name">من نحن</span>
-                </div>
-            </div>
-        </div>
-    </div>
+    </header>
 
     <!-- Mobile Sidebar -->
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <div class="mobile-sidebar" id="mobileSidebar">
         <div class="sidebar-header">
+            <span class="sidebar-title">القائمة</span>
             <button class="sidebar-close" id="sidebarClose">
                 <i class="fas fa-times"></i>
             </button>
-            <h3>LaVish Center</h3>
-            <p>متجر الأزياء الراقية</p>
         </div>
         <div class="sidebar-menu">
-            <a class="sidebar-menu-item" data-page="home">
+            <div class="sidebar-item" data-page="home">
                 <i class="fas fa-home"></i>
                 <span>الرئيسية</span>
-            </a>
-            <a class="sidebar-menu-item" data-page="all-categories">
-                <i class="fas fa-th-large"></i>
-                <span>جميع الأقسام</span>
-            </a>
-            <a class="sidebar-menu-item" data-category="men">
-                <i class="fas fa-male"></i>
-                <span>ملابس رجالي</span>
-            </a>
-            <a class="sidebar-menu-item" data-category="women">
+            </div>
+            <div class="sidebar-item" data-category="women">
                 <i class="fas fa-female"></i>
-                <span>ملابس نسائي</span>
-            </a>
-            <a class="sidebar-menu-item" data-category="kids">
-                <i class="fas fa-child"></i>
-                <span>أطفال</span>
-            </a>
-            <a class="sidebar-menu-item" data-category="cosmetics">
-                <i class="fas fa-magic"></i>
-                <span>كوزمتك</span>
-            </a>
-            <a class="sidebar-menu-item" data-category="shoes">
+                <span>ملابس نسائية</span>
+            </div>
+            <div class="sidebar-item" data-category="men">
+                <i class="fas fa-male"></i>
+                <span>ملابس رجالية</span>
+            </div>
+            <div class="sidebar-item" data-category="accessories">
+                <i class="fas fa-shopping-bag"></i>
+                <span>إكسسوارات</span>
+            </div>
+            <div class="sidebar-item" data-category="shoes">
                 <i class="fas fa-shoe-prints"></i>
                 <span>أحذية</span>
-            </a>
-            <a class="sidebar-menu-item" data-category="suits">
-                <i class="fas fa-user-tie"></i>
-                <span>بدلات رجالي</span>
-            </a>
-            <a class="sidebar-menu-item" data-category="baby">
-                <i class="fas fa-baby"></i>
-                <span>ملابس بيبي</span>
-            </a>
-            <a class="sidebar-menu-item" data-page="about">
-                <i class="fas fa-info-circle"></i>
-                <span>من نحن</span>
-            </a>
-            <a class="sidebar-menu-item" data-page="cart">
+            </div>
+            <div class="sidebar-item" data-page="cart">
                 <i class="fas fa-shopping-cart"></i>
-                <span>سلة التسوق</span>
-            </a>
+                <span>السلة</span>
+            </div>
+            <div class="sidebar-item" data-page="favorites">
+                <i class="fas fa-heart"></i>
+                <span>المفضلة</span>
+            </div>
         </div>
     </div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Categories Navigation -->
+    <nav class="categories-nav">
+        <div class="container">
+            <div class="categories-list">
+                <div class="category-item active" data-category="all">
+                    <i class="fas fa-th"></i>
+                    <span>الكل</span>
+                </div>
+                <div class="category-item" data-category="women">
+                    <i class="fas fa-female"></i>
+                    <span>نسائي</span>
+                </div>
+                <div class="category-item" data-category="men">
+                    <i class="fas fa-male"></i>
+                    <span>رجالي</span>
+                </div>
+                <div class="category-item" data-category="accessories">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>إكسسوارات</span>
+                </div>
+                <div class="category-item" data-category="shoes">
+                    <i class="fas fa-shoe-prints"></i>
+                    <span>أحذية</span>
+                </div>
+                <div class="category-item" data-category="bags">
+                    <i class="fas fa-briefcase"></i>
+                    <span>حقائب</span>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <!-- Main Content -->
-    <div class="main-content">
-        <div class="container">
-            
-            <!-- HOME PAGE -->
-            <div id="homePage" class="page-section active">
-                <!-- Advertisements Slider -->
-                <div class="ads-section">
-                    <div class="swiper adsSwiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1200&h=400&fit=crop" alt="Ad 1" class="ad-image">
-                                <div class="ad-overlay">
-                                    <h2 class="ad-title">تخفيضات الموسم</h2>
-                                    <p class="ad-description">خصومات تصل إلى 50% على جميع المنتجات</p>
-                                    <button class="ad-btn">تسوق الآن</button>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=1200&h=400&fit=crop" alt="Ad 2" class="ad-image">
-                                <div class="ad-overlay">
-                                    <h2 class="ad-title">مجموعة الصيف الجديدة</h2>
-                                    <p class="ad-description">أحدث صيحات الموضة لصيف 2024</p>
-                                    <button class="ad-btn">اكتشف المزيد</button>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&h=400&fit=crop" alt="Ad 3" class="ad-image">
-                                <div class="ad-overlay">
-                                    <h2 class="ad-title">عروض خاصة</h2>
-                                    <p class="ad-description">شحن مجاني على جميع الطلبات</p>
-                                    <button class="ad-btn">ابدأ التسوق</button>
-                                </div>
+    <main class="main-content">
+        <!-- Home Page -->
+        <div class="page active" id="homePage">
+            <!-- Hero Slider -->
+            <section class="hero-section">
+                <div class="swiper hero-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200" alt="عرض 1">
+                            <div class="slide-overlay">
+                                <div class="slide-title">تشكيلة الربيع الجديدة</div>
+                                <div class="slide-subtitle">خصومات تصل إلى 50% على كل المنتجات</div>
                             </div>
                         </div>
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                        <div class="swiper-pagination"></div>
+                        <div class="swiper-slide">
+                            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200" alt="عرض 2">
+                            <div class="slide-overlay">
+                                <div class="slide-title">أحدث صيحات الموضة</div>
+                                <div class="slide-subtitle">تسوق الآن واحصل على شحن مجاني</div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1200" alt="عرض 3">
+                            <div class="slide-overlay">
+                                <div class="slide-title">عروض حصرية</div>
+                                <div class="slide-subtitle">منتجات فاخرة بأسعار لا تصدق</div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="swiper-pagination"></div>
                 </div>
+            </section>
 
-                <!-- Search Section -->
-                <div class="search-section">
-                    <div class="search-box-large">
-                        <input type="text" class="search-input-large" id="mainSearchInput" placeholder="ابحث في جميع المنتجات والأقسام...">
-                        <button class="search-btn-large" id="mainSearchBtn">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
+            <!-- Quick Stats -->
+            <section class="quick-stats">
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-box"></i>
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">منتج</span>
                 </div>
-
-                <!-- Filters Section -->
-                <div class="filters-section">
-                    <h3 class="filters-title">
-                        <i class="fas fa-filter"></i>
-                        تصفية حسب:
-                    </h3>
-                    <div class="filters-container">
-                        <div class="filter-item active" data-filter="all">الكل</div>
-                        <div class="filter-item" data-filter="new">جديد</div>
-                        <div class="filter-item" data-filter="sale">تخفيضات</div>
-                        <div class="filter-item" data-filter="popular">الأكثر مبيعاً</div>
-                        <div class="filter-item" data-filter="price-low">السعر: من الأقل</div>
-                        <div class="filter-item" data-filter="price-high">السعر: من الأعلى</div>
-                    </div>
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-users"></i>
+                    <span class="stat-number">10K+</span>
+                    <span class="stat-label">عميل</span>
                 </div>
-
-                <!-- Products Section -->
-                <div class="products-section">
-                    <h2 class="section-title">جميع المنتجات</h2>
-                    <div class="products-grid" id="productsGrid">
-                        <!-- Products will be loaded here -->
-                    </div>
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-star"></i>
+                    <span class="stat-number">4.9</span>
+                    <span class="stat-label">تقييم</span>
                 </div>
-            </div>
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fas fa-truck"></i>
+                    <span class="stat-number">24H</span>
+                    <span class="stat-label">توصيل</span>
+                </div>
+            </section>
 
-            <!-- ALL CATEGORIES PAGE -->
-            <div id="allCategoriesPage" class="page-section">
-                <button class="btn-back" onclick="showPage('home')">
+            <!-- Search Section (Mobile) -->
+            <section class="container d-md-none mb-4">
+                <div class="search-bar" style="display: block; width: 100%;">
+                    <input type="text" class="search-input" id="mainSearchInput" placeholder="ابحث عن منتج...">
+                    <button class="search-btn" id="mainSearchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Filters -->
+            <section class="filters-container">
+                <div class="filter-item active" data-filter="all">
+                    <i class="fas fa-th"></i>
+                    <span>الكل</span>
+                </div>
+                <div class="filter-item" data-filter="new">
+                    <i class="fas fa-sparkles"></i>
+                    <span>جديد</span>
+                </div>
+                <div class="filter-item" data-filter="sale">
+                    <i class="fas fa-tag"></i>
+                    <span>تخفيضات</span>
+                </div>
+                <div class="filter-item" data-filter="popular">
+                    <i class="fas fa-fire"></i>
+                    <span>الأكثر مبيعاً</span>
+                </div>
+                <div class="filter-item" data-filter="price-low">
+                    <i class="fas fa-sort-amount-down"></i>
+                    <span>الأرخص</span>
+                </div>
+                <div class="filter-item" data-filter="price-high">
+                    <i class="fas fa-sort-amount-up"></i>
+                    <span>الأغلى</span>
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section class="products-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-shopping-bag"></i>
+                        منتجاتنا
+                    </h2>
+                    <a href="#" class="section-link">
+                        عرض الكل
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+                
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be loaded here by JavaScript -->
+                </div>
+            </section>
+        </div>
+
+        <!-- Product Detail Page -->
+        <div class="page" id="productDetailPage">
+            <div class="product-detail-section">
+                <button class="back-btn" id="backToHomeDetail">
                     <i class="fas fa-arrow-right"></i>
-                    العودة
+                    <span>العودة</span>
                 </button>
-                <h2 class="section-title">جميع الأقسام</h2>
-                <div class="products-grid">
-                    <div class="product-card" data-category="men">
-                        <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?w=400&h=500&fit=crop" alt="ملابس رجالي" class="product-image">
+                
+                <div class="product-detail-content">
+                    <div class="product-gallery">
+                        <img src="" alt="Product" class="main-product-image" id="mainProductImage">
+                        <div class="product-thumbnails" id="productThumbnails">
+                            <!-- Thumbnails will be loaded here -->
                         </div>
-                        <div class="product-info">
-                            <h3 class="product-name">ملابس رجالي</h3>
-                        </div>
-                    </div>
-                    <div class="product-card" data-category="women">
-                        <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&h=500&fit=crop" alt="ملابس نسائي" class="product-image">
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">ملابس نسائي</h3>
-                        </div>
-                    </div>
-                    <div class="product-card" data-category="kids">
-                        <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?w=400&h=500&fit=crop" alt="أطفال" class="product-image">
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">ملابس أطفال</h3>
-                        </div>
-                    </div>
-                    <div class="product-card" data-category="cosmetics">
-                        <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=500&fit=crop" alt="كوزمتك" class="product-image">
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">كوزمتك وعطور</h3>
-                        </div>
-                    </div>
-                    <div class="product-card" data-category="shoes">
-                        <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=400&h=500&fit=crop" alt="أحذية" class="product-image">
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">أحذية</h3>
-                        </div>
-                    </div>
-                    <div class="product-card" data-category="suits">
-                        <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=500&fit=crop" alt="بدلات" class="product-image">
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">بدلات رجالي</h3>
-                        </div>
-                    </div>
-                    <div class="product-card" data-category="baby">
-                        <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=400&h=500&fit=crop" alt="بيبي" class="product-image">
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">ملابس بيبي</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CATEGORY PRODUCTS PAGE -->
-            <div id="categoryProductsPage" class="page-section">
-                <button class="btn-back" onclick="showPage('home')">
-                    <i class="fas fa-arrow-right"></i>
-                    العودة
-                </button>
-                <h2 class="section-title" id="categoryTitle">المنتجات</h2>
-                <div class="products-grid" id="categoryProductsGrid">
-                    <!-- Category products will be loaded here -->
-                </div>
-            </div>
-
-            <!-- PRODUCT DETAIL PAGE -->
-            <div id="productDetailPage" class="page-section">
-                <button class="btn-back" id="backToHomeDetail">
-                    <i class="fas fa-arrow-right"></i>
-                    العودة للرئيسية
-                </button>
-                <div class="product-detail-section">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="product-gallery">
-                                <img id="mainProductImage" src="" alt="" class="main-product-image">
-                                <div class="thumbnail-gallery" id="thumbnailGallery">
-                                    <!-- Thumbnails will be loaded here -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="product-detail-info">
-                                <h1 class="product-detail-title" id="detailProductName"></h1>
-                                <div class="product-detail-price" id="detailProductPrice"></div>
-                                
-                                <div class="product-options" id="colorOptions">
-                                    <h4 class="option-title">الألوان المتوفرة:</h4>
-                                    <div class="color-options" id="colorOptionsContainer"></div>
-                                </div>
-                                
-                                <div class="product-options" id="sizeOptions">
-                                    <h4 class="option-title">المقاسات المتوفرة:</h4>
-                                    <div class="size-options" id="sizeOptionsContainer"></div>
-                                </div>
-                                
-                                <div class="quantity-selector">
-                                    <h4 class="option-title">الكمية:</h4>
-                                    <button class="qty-btn" id="decreaseQty">-</button>
-                                    <input type="number" class="qty-input" id="productQty" value="1" min="1">
-                                    <button class="qty-btn" id="increaseQty">+</button>
-                                </div>
-                                
-                                <div class="detail-actions">
-                                    <button class="btn-add-cart" id="addToCartDetailBtn">
-                                        <i class="fas fa-shopping-cart ms-2"></i>
-                                        أضف إلى السلة
-                                    </button>
-                                    <button class="btn-whatsapp" id="whatsappDetailBtn">
-                                        <i class="fab fa-whatsapp"></i>
-                                    </button>
-                                </div>
-                                
-                                <div class="product-description mt-4" id="productDescription"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CART PAGE -->
-            <div id="cartPage" class="page-section">
-                <button class="btn-back" onclick="showPage('home')">
-                    <i class="fas fa-arrow-right"></i>
-                    العودة
-                </button>
-                <h2 class="section-title">سلة التسوق</h2>
-                <div class="cart-section">
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <div class="cart-items" id="cartItemsContainer">
-                                <!-- Cart items will be loaded here -->
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="cart-summary">
-                                <h3>ملخص الطلب</h3>
-                                <div class="cart-total">
-                                    <span>المجموع:</span>
-                                    <span class="cart-total-price" id="cartTotalPrice">0 د.ع</span>
-                                </div>
-                                <button class="btn-checkout" id="checkoutBtn">
-                                    <i class="fab fa-whatsapp ms-2"></i>
-                                    إتمام الطلب عبر واتساب
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ABOUT PAGE -->
-            <div id="aboutPage" class="page-section">
-                <button class="btn-back" onclick="showPage('home')">
-                    <i class="fas fa-arrow-right"></i>
-                    العودة
-                </button>
-                <div class="about-section">
-                    <h2 class="about-title">من نحن - LaVish Center</h2>
-                    <div class="about-content">
-                        <p>
-                            <strong>LaVish Center</strong> هو وجهتك الأولى للأزياء الراقية والملابس العصرية في العراق. 
-                            نحن متجر متخصص في توفير أفضل وأحدث صيحات الموضة العالمية بأسعار تنافسية وجودة عالية.
-                        </p>
-                        <p>
-                            تأسس متجرنا بهدف تقديم تجربة تسوق فريدة ومميزة لعملائنا الكرام، حيث نوفر مجموعة واسعة 
-                            من المنتجات التي تشمل الملابس الرجالية والنسائية وملابس الأطفال والبيبي، بالإضافة إلى 
-                            مستحضرات التجميل والعطور والأحذية والبدلات الرسمية.
-                        </p>
-                        <p>
-                            نفتخر بتقديم خدمة عملاء ممتازة، وشحن سريع، وضمان الجودة على جميع منتجاتنا. 
-                            فريقنا متاح دائماً للإجابة على استفساراتكم ومساعدتكم في اختيار المنتجات المناسبة.
-                        </p>
                     </div>
                     
-                    <div class="contact-info">
-                        <a href="tel:07813798636" class="contact-card">
-                            <i class="fas fa-phone contact-icon"></i>
-                            <h4 class="contact-title">اتصل بنا</h4>
-                            <p class="contact-value">07813798636</p>
-                        </a>
-                        <a href="https://wa.me/9647813798636" target="_blank" class="contact-card">
-                            <i class="fab fa-whatsapp contact-icon"></i>
-                            <h4 class="contact-title">واتساب</h4>
-                            <p class="contact-value">07813798636</p>
-                        </a>
-                        <div class="contact-card">
-                            <i class="fas fa-map-marker-alt contact-icon"></i>
-                            <h4 class="contact-title">الموقع</h4>
-                            <p class="contact-value">بغداد، العراق</p>
+                    <div class="product-detail-info">
+                        <h1 class="product-detail-title" id="productDetailTitle"></h1>
+                        
+                        <div class="product-detail-rating">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-text">(128 تقييم)</span>
                         </div>
-                        <div class="contact-card">
-                            <i class="fas fa-envelope contact-icon"></i>
-                            <h4 class="contact-title">البريد الإلكتروني</h4>
-                            <p class="contact-value">info@lavishcenter.com</p>
+                        
+                        <div class="product-detail-price" id="productDetailPrice"></div>
+                        
+                        <p class="product-detail-description" id="productDetailDescription"></p>
+                        
+                        <div class="product-options">
+                            <div class="option-group">
+                                <label class="option-label">اللون:</label>
+                                <div class="color-options" id="colorOptions">
+                                    <div class="color-option" style="background: #ff6b9d;" onclick="selectColor(this)"></div>
+                                    <div class="color-option" style="background: #667eea;" onclick="selectColor(this)"></div>
+                                    <div class="color-option" style="background: #000000;" onclick="selectColor(this)"></div>
+                                    <div class="color-option" style="background: #ffffff; border: 2px solid #ddd;" onclick="selectColor(this)"></div>
+                                    <div class="color-option" style="background: #ffd700;" onclick="selectColor(this)"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="option-group">
+                                <label class="option-label">المقاس:</label>
+                                <div class="size-options" id="sizeOptions">
+                                    <div class="size-option" onclick="selectSize(this)">S</div>
+                                    <div class="size-option" onclick="selectSize(this)">M</div>
+                                    <div class="size-option active" onclick="selectSize(this)">L</div>
+                                    <div class="size-option" onclick="selectSize(this)">XL</div>
+                                    <div class="size-option" onclick="selectSize(this)">XXL</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="quantity-selector">
+                            <button class="qty-btn" id="decreaseQty">-</button>
+                            <input type="number" class="qty-input" id="productQty" value="1" min="1">
+                            <button class="qty-btn" id="increaseQty">+</button>
+                        </div>
+                        
+                        <div class="product-actions">
+                            <button class="btn-primary" id="addToCartDetailBtn">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>أضف للسلة</span>
+                            </button>
+                            <button class="btn-primary btn-whatsapp" id="whatsappDetailBtn">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>واتساب</span>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-    </div>
+
+        <!-- Favorites Page -->
+        <div class="page" id="favoritesPage">
+            <div class="cart-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-heart"></i>
+                        المفضلة
+                    </h2>
+                </div>
+                
+                <div class="products-section">
+                    <div class="products-grid" id="favoritesGrid">
+                        <!-- Favorites will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart Page -->
+        <div class="page" id="cartPage">
+            <div class="cart-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-shopping-cart"></i>
+                        سلة التسوق
+                    </h2>
+                </div>
+                
+                <div class="cart-items" id="cartItems">
+                    <!-- Cart items will be loaded here -->
+                </div>
+                
+                <div class="cart-summary">
+                    <div class="cart-total">
+                        <span>الإجمالي:</span>
+                        <span class="cart-total-price" id="cartTotal">0 د.ع</span>
+                    </div>
+                    <button class="btn-checkout" id="checkoutBtn">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>إتمام الطلب عبر واتساب</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <!-- Footer -->
-    <div class="footer">
+    <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>LaVish Center</h3>
-                    <p>متجر الأزياء الراقية والملابس العصرية</p>
+                    <h3>عن LaVish Center</h3>
+                    <p>نقدم لكم أفضل وأحدث صيحات الموضة العالمية بأسعار منافسة وجودة عالية. نحن هنا لنجعل تجربة التسوق الخاصة بك مميزة وسهلة.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
                 </div>
+                
                 <div class="footer-section">
                     <h3>روابط سريعة</h3>
                     <ul class="footer-links">
-                        <li><a href="#" data-page="home">الرئيسية</a></li>
-                        <li><a href="#" data-page="all-categories">جميع الأقسام</a></li>
-                        <li><a href="#" data-page="about">من نحن</a></li>
-                        <li><a href="#" data-page="cart">سلة التسوق</a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> من نحن</a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> سياسة الخصوصية</a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> الشروط والأحكام</a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> اتصل بنا</a></li>
                     </ul>
                 </div>
+                
                 <div class="footer-section">
                     <h3>تواصل معنا</h3>
                     <ul class="footer-links">
-                        <li><i class="fas fa-phone"></i> 07813798636</li>
+                        <li><i class="fas fa-phone"></i> +964 770 123 4567</li>
                         <li><i class="fas fa-envelope"></i> info@lavishcenter.com</li>
                         <li><i class="fas fa-map-marker-alt"></i> بغداد، العراق</li>
                     </ul>
                 </div>
             </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2024 LaVish Center. جميع الحقوق محفوظة.</p>
-                <p>تم التطوير بواسطة Kraar Al-Saabri - Digital Creativity Company</p>
+                <p>&copy; 2025 LaVish Center. جميع الحقوق محفوظة.</p>
             </div>
         </div>
-    </div>
+    </footer>
 
-    <!-- Bootstrap JS -->
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top-btn" id="scrollTopBtn">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Install PWA Button -->
+    <button class="install-btn" id="installBtn" style="display: none;">
+        <i class="fas fa-download"></i>
+        <span>تثبيت التطبيق</span>
+    </button>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    
-    <!-- Products Data -->
-    <script>
-        // Products Database
-        const productsData = {
-            men: [
-                {
-                    id: 101,
-                    name: 'قميص رجالي كلاسيكي',
-                    price: 45000,
-                    oldPrice: 60000,
-                    images: [
-                        'https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?w=600&h=800&fit=crop',
-                        'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=600&h=800&fit=crop'
-                    ],
-                    colors: ['#FFFFFF', '#000000', '#4169E1'],
-                    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
-                    description: 'قميص رجالي كلاسيكي من أجود أنواع القطن، مناسب للمناسبات الرسمية والاستخدام اليومي.',
-                    category: 'men',
-                    badge: 'خصم 25%',
-                    filter: 'sale'
-                },
-                {
-                    id: 102,
-                    name: 'بنطلون جينز رجالي',
-                    price: 55000,
-                    images: [
-                        'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&h=800&fit=crop'
-                    ],
-                    colors: ['#000080', '#4682B4', '#000000'],
-                    sizes: ['30', '32', '34', '36', '38'],
-                    description: 'بنطلون جينز رجالي عصري بتصميم مريح ومتين.',
-                    category: 'men',
-                    badge: 'جديد',
-                    filter: 'new'
-                }
-            ],
-            women: [
-                {
-                    id: 201,
-                    name: 'فستان سهرة فاخر',
-                    price: 150000,
-                    oldPrice: 200000,
-                    images: [
-                        'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600&h=800&fit=crop',
-                        'https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=600&h=800&fit=crop'
-                    ],
-                    colors: ['#FF69B4', '#FFC0CB', '#000000'],
-                    sizes: ['S', 'M', 'L', 'XL'],
-                    description: 'فستان سهرة فاخر مصنوع من أجود الأقمشة.',
-                    category: 'women',
-                    badge: 'الأكثر مبيعاً',
-                    filter: 'popular'
-                },
-                {
-                    id: 202,
-                    name: 'بلوزة صيفية',
-                    price: 35000,
-                    images: [
-                        'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&h=800&fit=crop'
-                    ],
-                    colors: ['#FFFFFF', '#87CEEB', '#FFE4E1'],
-                    sizes: ['S', 'M', 'L'],
-                    description: 'بلوزة صيفية خفيفة ومريحة.',
-                    category: 'women',
-                    badge: 'جديد',
-                    filter: 'new'
-                }
-            ],
-            kids: [
-                {
-                    id: 301,
-                    name: 'طقم أطفال كامل',
-                    price: 65000,
-                    images: [
-                        'https://images.unsplash.com/photo-1558769132-cb1aea41f9ce?w=600&h=800&fit=crop'
-                    ],
-                    colors: ['#FF69B4', '#87CEEB', '#90EE90'],
-                    sizes: ['2-3 سنة', '4-5 سنة', '6-7 سنة'],
-                    description: 'طقم أطفال مريح وآمن.',
-                    category: 'kids',
-                    badge: 'عرض خاص',
-                    filter: 'sale'
-                }
-            ],
-            cosmetics: [
-                {
-                    id: 401,
-                    name: 'عطر فرنسي فاخر',
-                    price: 180000,
-                    images: [
-                        'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&h=800&fit=crop'
-                    ],
-                    colors: [],
-                    sizes: ['50ml', '100ml'],
-                    description: 'عطر فرنسي أصلي برائحة فاخرة.',
-                    category: 'cosmetics',
-                    badge: 'حصري',
-                    filter: 'new'
-                }
-            ],
-            shoes: [
-                {
-                    id: 501,
-                    name: 'حذاء رياضي',
-                    price: 85000,
-                    images: [
-                        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=800&fit=crop'
-                    ],
-                    colors: ['#FFFFFF', '#000000', '#FF0000'],
-                    sizes: ['39', '40', '41', '42', '43', '44'],
-                    description: 'حذاء رياضي مريح ومتين.',
-                    category: 'shoes',
-                    badge: 'جديد',
-                    filter: 'new'
-                }
-            ],
-            suits: [
-                {
-                    id: 601,
-                    name: 'بدلة رسمية رجالي',
-                    price: 250000,
-                    images: [
-                        'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&h=800&fit=crop'
-                    ],
-                    colors: ['#000000', '#000080', '#696969'],
-                    sizes: ['S', 'M', 'L', 'XL'],
-                    description: 'بدلة رسمية فاخرة.',
-                    category: 'suits',
-                    badge: 'حصري',
-                    filter: 'new'
-                }
-            ],
-            baby: [
-                {
-                    id: 701,
-                    name: 'طقم بيبي قطني',
-                    price: 45000,
-                    images: [
-                        'https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=600&h=800&fit=crop'
-                    ],
-                    colors: ['#FFC0CB', '#87CEEB', '#FFFFFF'],
-                    sizes: ['0-6 شهور', '6-12 شهر', '12-18 شهر'],
-                    description: 'طقم بيبي من القطن الناعم.',
-                    category: 'baby',
-                    badge: 'جديد',
-                    filter: 'new'
-                }
-            ]
-        };
-        
-        // Get all products
-        function getAllProducts() {
-            let allProducts = [];
-            for (let category in productsData) {
-                allProducts = allProducts.concat(productsData[category]);
-            }
-            return allProducts;
-        }
-        
-        // State
-        let currentPage = 'home';
-        let currentCategory = null;
-        let currentProduct = null;
-        let cart = JSON.parse(localStorage.getItem('lavish_cart')) || [];
-        let currentFilter = 'all';
-        
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeSwiper();
-            loadAllProducts();
-            updateCartBadge();
-            initializeEventListeners();
-        });
-        
-        // Initialize Swiper
-        function initializeSwiper() {
-            new Swiper('.adsSwiper', {
-                loop: true,
-                autoplay: {
-                    delay: 3000,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-            });
-        }
-        
-        // Load all products
-        function loadAllProducts() {
-            const container = document.getElementById('productsGrid');
-            const products = getAllProducts();
-            container.innerHTML = '';
-            
-            products.forEach(product => {
-                container.innerHTML += createProductCard(product);
-            });
-        }
-        
-        // Load category products
-        function loadCategoryProducts(category) {
-            const container = document.getElementById('categoryProductsGrid');
-            const products = productsData[category] || [];
-            container.innerHTML = '';
-            
-            const categoryTitles = {
-                men: 'ملابس رجالي',
-                women: 'ملابس نسائي',
-                kids: 'ملابس أطفال',
-                cosmetics: 'كوزمتك وعطور',
-                shoes: 'أحذية',
-                suits: 'بدلات رجالي',
-                baby: 'ملابس بيبي'
-            };
-            
-            document.getElementById('categoryTitle').textContent = categoryTitles[category] || 'المنتجات';
-            
-            products.forEach(product => {
-                container.innerHTML += createProductCard(product);
-            });
-        }
-        
-        // Create product card HTML
-        function createProductCard(product) {
-            return `
-                <div class="product-card" onclick="showProductDetail(${product.id})">
-                    <div class="product-image-container">
-                        <img src="${product.images[0]}" alt="${product.name}" class="product-image">
-                        ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
-                        <div class="product-actions">
-                            <button class="action-btn" onclick="event.stopPropagation(); addToCartQuick(${product.id})">
-                                <i class="fas fa-shopping-cart"></i>
-                            </button>
-                            <button class="action-btn" onclick="event.stopPropagation(); toggleFavorite(${product.id})">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <button class="action-btn" onclick="event.stopPropagation(); saveFavorite(${product.id})">
-                                <i class="far fa-bookmark"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">${product.name}</h3>
-                        <div class="product-price">
-                            ${product.oldPrice ? `<span class="product-old-price">${formatPrice(product.oldPrice)}</span>` : ''}
-                            ${formatPrice(product.price)}
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-        
-        // Show product detail
-        function showProductDetail(productId) {
-            const allProducts = getAllProducts();
-            currentProduct = allProducts.find(p => p.id === productId);
-            
-            if (!currentProduct) return;
-            
-            document.getElementById('detailProductName').textContent = currentProduct.name;
-            document.getElementById('detailProductPrice').textContent = formatPrice(currentProduct.price);
-            document.getElementById('productDescription').innerHTML = `<h4 class="option-title">وصف المنتج:</h4><p>${currentProduct.description}</p>`;
-            
-            // Main image
-            document.getElementById('mainProductImage').src = currentProduct.images[0];
-            
-            // Thumbnails
-            const thumbnailContainer = document.getElementById('thumbnailGallery');
-            thumbnailContainer.innerHTML = '';
-            currentProduct.images.forEach((img, index) => {
-                const thumb = document.createElement('img');
-                thumb.src = img;
-                thumb.className = 'thumbnail' + (index === 0 ? ' active' : '');
-                thumb.onclick = () => {
-                    document.getElementById('mainProductImage').src = img;
-                    document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-                    thumb.classList.add('active');
-                };
-                thumbnailContainer.appendChild(thumb);
-            });
-            
-            // Colors
-            const colorContainer = document.getElementById('colorOptionsContainer');
-            if (currentProduct.colors && currentProduct.colors.length > 0) {
-                document.getElementById('colorOptions').style.display = 'block';
-                colorContainer.innerHTML = '';
-                currentProduct.colors.forEach((color, index) => {
-                    const colorDiv = document.createElement('div');
-                    colorDiv.className = 'color-option' + (index === 0 ? ' active' : '');
-                    colorDiv.style.backgroundColor = color;
-                    colorDiv.onclick = function() {
-                        document.querySelectorAll('.color-option').forEach(c => c.classList.remove('active'));
-                        this.classList.add('active');
-                    };
-                    colorContainer.appendChild(colorDiv);
-                });
-            } else {
-                document.getElementById('colorOptions').style.display = 'none';
-            }
-            
-            // Sizes
-            const sizeContainer = document.getElementById('sizeOptionsContainer');
-            if (currentProduct.sizes && currentProduct.sizes.length > 0) {
-                document.getElementById('sizeOptions').style.display = 'block';
-                sizeContainer.innerHTML = '';
-                currentProduct.sizes.forEach((size, index) => {
-                    const sizeDiv = document.createElement('div');
-                    sizeDiv.className = 'size-option' + (index === 0 ? ' active' : '');
-                    sizeDiv.textContent = size;
-                    sizeDiv.onclick = function() {
-                        document.querySelectorAll('.size-option').forEach(s => s.classList.remove('active'));
-                        this.classList.add('active');
-                    };
-                    sizeContainer.appendChild(sizeDiv);
-                });
-            } else {
-                document.getElementById('sizeOptions').style.display = 'none';
-            }
-            
-            document.getElementById('productQty').value = 1;
-            showPage('productDetail');
-        }
-        
-        // Format price
-        function formatPrice(price) {
-            return new Intl.NumberFormat('ar-IQ').format(price) + ' د.ع';
-        }
-        
-        // Show page
-        function showPage(pageName) {
-            document.querySelectorAll('.page-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            const page = document.getElementById(pageName + 'Page');
-            if (page) {
-                page.classList.add('active');
-                currentPage = pageName;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-            
-            closeSidebar();
-        }
-        
-        // Update cart badge
-        function updateCartBadge() {
-            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartBadge').textContent = count;
-        }
-        
-        // Add to cart quick
-        function addToCartQuick(productId) {
-            const allProducts = getAllProducts();
-            const product = allProducts.find(p => p.id === productId);
-            if (product) {
-                addToCart(product, 1, '', '');
-            }
-        }
-        
-        // Add to cart
-        function addToCart(product, quantity, color, size) {
-            const existingItem = cart.find(item => 
-                item.id === product.id && item.color === color && item.size === size
-            );
-            
-            if (existingItem) {
-                existingItem.quantity += quantity;
-            } else {
-                cart.push({
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    image: product.images[0],
-                    quantity: quantity,
-                    color: color,
-                    size: size
-                });
-            }
-            
-            localStorage.setItem('lavish_cart', JSON.stringify(cart));
-            updateCartBadge();
-            showNotification('تم إضافة المنتج إلى السلة! 🛒', 'success');
-        }
-        
-        // Toggle favorite
-        function toggleFavorite(productId) {
-            showNotification('تم إضافة المنتج للمفضلة! ❤️', 'success');
-        }
-        
-        // Save favorite
-        function saveFavorite(productId) {
-            showNotification('تم حفظ المنتج! 📌', 'info');
-        }
-        
-        // Load cart
-        function loadCart() {
-            const container = document.getElementById('cartItemsContainer');
-            
-            if (cart.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-cart">
-                        <i class="fas fa-shopping-cart"></i>
-                        <h3>سلة التسوق فارغة</h3>
-                        <p>ابدأ بإضافة منتجات إلى سلتك</p>
-                    </div>
-                `;
-                document.getElementById('cartTotalPrice').textContent = '0 د.ع';
-                return;
-            }
-            
-            let html = '';
-            let total = 0;
-            
-            cart.forEach((item, index) => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-                
-                html += `
-                    <div class="cart-item">
-                        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-                        <div class="cart-item-details">
-                            <div class="cart-item-name">${item.name}</div>
-                            ${item.color ? `<div>اللون: <span style="background: ${item.color}; display: inline-block; width: 20px; height: 20px; border-radius: 50%;"></span></div>` : ''}
-                            ${item.size ? `<div>المقاس: ${item.size}</div>` : ''}
-                            <div>الكمية: ${item.quantity}</div>
-                            <div class="cart-item-price">${formatPrice(itemTotal)}</div>
-                        </div>
-                        <button class="cart-item-remove" onclick="removeFromCart(${index})">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-            document.getElementById('cartTotalPrice').textContent = formatPrice(total);
-        }
-        
-        // Remove from cart
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            localStorage.setItem('lavish_cart', JSON.stringify(cart));
-            updateCartBadge();
-            loadCart();
-            showNotification('تم إزالة المنتج', 'info');
-        }
-        
-        // Send to WhatsApp
-        function sendToWhatsApp(isCart = false) {
-            const phone = '9647813798636';
-            let message = '';
-            
-            if (isCart) {
-                if (cart.length === 0) {
-                    showNotification('السلة فارغة!', 'error');
-                    return;
-                }
-                
-                message = 'مرحباً! أريد إتمام طلبي:\n\n';
-                let total = 0;
-                
-                cart.forEach((item, index) => {
-                    const itemTotal = item.price * item.quantity;
-                    total += itemTotal;
-                    message += `${index + 1}. ${item.name}\n`;
-                    message += `   السعر: ${formatPrice(item.price)}\n`;
-                    if (item.color) message += `   اللون: ${item.color}\n`;
-                    if (item.size) message += `   المقاس: ${item.size}\n`;
-                    message += `   الكمية: ${item.quantity}\n`;
-                    message += `   المجموع: ${formatPrice(itemTotal)}\n\n`;
-                });
-                
-                message += `\nالمجموع الكلي: ${formatPrice(total)}`;
-            } else if (currentProduct) {
-                const qty = document.getElementById('productQty').value;
-                const color = document.querySelector('.color-option.active')?.style.backgroundColor || '';
-                const size = document.querySelector('.size-option.active')?.textContent || '';
-                
-                message = `مرحباً! أريد الاستفسار عن هذا المنتج:\n\n`;
-                message += `المنتج: ${currentProduct.name}\n`;
-                message += `السعر: ${formatPrice(currentProduct.price)}\n`;
-                if (color) message += `اللون: ${color}\n`;
-                if (size) message += `المقاس: ${size}\n`;
-                message += `الكمية: ${qty}`;
-            }
-            
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
-        }
-        
-        // Show notification
-        function showNotification(message, type = 'success') {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: ${type === 'success' ? 'var(--primary-color)' : type === 'error' ? '#dc3545' : '#ffd700'};
-                color: white;
-                padding: 1rem 2rem;
-                border-radius: 15px;
-                font-size: 1.1rem;
-                font-weight: 700;
-                z-index: 99999;
-                box-shadow: var(--shadow-lg);
-                animation: slideInFromRight 0.5s ease;
-            `;
-            notification.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}" style="margin-left: 0.5rem;"></i>${message}`;
-            document.body.appendChild(notification);
-            setTimeout(() => {
-                notification.remove();
-            }, 3500);
-        }
-        // تنبيه تلقائي عند إضافة منتج أو إعلان جديد
-        function notifyNewProduct(product) {
-            showNotification(`منتج جديد: ${product.name}`, 'info');
-        }
-        function notifyNewAd(adTitle) {
-            showNotification(`إعلان جديد: ${adTitle}`, 'info');
-        }
-        
-        // Sidebar functions
-        function openSidebar() {
-            document.getElementById('mobileSidebar').classList.add('active');
-            document.getElementById('sidebarOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeSidebar() {
-            document.getElementById('mobileSidebar').classList.remove('active');
-            document.getElementById('sidebarOverlay').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        
-        // Initialize event listeners
-        function initializeEventListeners() {
-            // Mobile menu toggle
-            document.getElementById('mobileMenuToggle').addEventListener('click', openSidebar);
-            document.getElementById('sidebarClose').addEventListener('click', closeSidebar);
-            document.getElementById('sidebarOverlay').addEventListener('click', closeSidebar);
-            
-            // Navigation
-            document.querySelectorAll('[data-page]').forEach(el => {
-                el.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const page = this.dataset.page;
-                    if (page === 'cart') loadCart();
-                    showPage(page);
-                });
-            });
-            
-            // Category navigation
-            document.querySelectorAll('[data-category]').forEach(el => {
-                el.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const category = this.dataset.category;
-                    currentCategory = category;
-                    loadCategoryProducts(category);
-                    showPage('categoryProducts');
-                });
-            });
-            
-            // Cart button
-            document.getElementById('cartBtn').addEventListener('click', () => {
-                loadCart();
-                showPage('cart');
-            });
-            
-            // Product detail actions
-            document.getElementById('addToCartDetailBtn').addEventListener('click', () => {
-                if (currentProduct) {
-                    const qty = parseInt(document.getElementById('productQty').value);
-                    const color = document.querySelector('.color-option.active')?.style.backgroundColor || '';
-                    const size = document.querySelector('.size-option.active')?.textContent || '';
-                    addToCart(currentProduct, qty, color, size);
-                }
-            });
-            
-            document.getElementById('whatsappDetailBtn').addEventListener('click', () => sendToWhatsApp(false));
-            
-            // Quantity controls
-            document.getElementById('decreaseQty').addEventListener('click', () => {
-                const input = document.getElementById('productQty');
-                if (input.value > 1) input.value = parseInt(input.value) - 1;
-            });
-            
-            document.getElementById('increaseQty').addEventListener('click', () => {
-                const input = document.getElementById('productQty');
-                input.value = parseInt(input.value) + 1;
-            });
-            
-            // Checkout
-            document.getElementById('checkoutBtn').addEventListener('click', () => sendToWhatsApp(true));
-            
-            // Search
-            document.getElementById('topSearchBtn').addEventListener('click', performSearch);
-            document.getElementById('mainSearchBtn').addEventListener('click', performSearch);
-            
-            document.getElementById('topSearchInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') performSearch();
-            });
-            
-            document.getElementById('mainSearchInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') performSearch();
-            });
-            
-            // Filters
-            document.querySelectorAll('.filter-item').forEach(filter => {
-                filter.addEventListener('click', function() {
-                    document.querySelectorAll('.filter-item').forEach(f => f.classList.remove('active'));
-                    this.classList.add('active');
-                    currentFilter = this.dataset.filter;
-                    filterProducts();
-                });
-            });
-            // زر العودة للرئيسية من تفاصيل المنتج
-            document.getElementById('backToHomeDetail').addEventListener('click', () => {
-                showPage('home');
-            });
-        }
-        
-        // Search function
-        function performSearch() {
-            const searchTerm = document.getElementById('topSearchInput').value || document.getElementById('mainSearchInput').value;
-            if (!searchTerm) return;
-            
-            const allProducts = getAllProducts();
-            const results = allProducts.filter(p => 
-                p.name.includes(searchTerm) || p.description.includes(searchTerm)
-            );
-            
-            const container = document.getElementById('productsGrid');
-            container.innerHTML = '';
-            
-            if (results.length === 0) {
-                container.innerHTML = '<div class="empty-cart"><h3>لم يتم العثور على نتائج</h3></div>';
-            } else {
-                results.forEach(product => {
-                    container.innerHTML += createProductCard(product);
-                });
-            }
-            
-            showPage('home');
-        }
-        
-        // Filter products
-        function filterProducts() {
-            const container = document.getElementById('productsGrid');
-            let products = getAllProducts();
-            
-            if (currentFilter !== 'all') {
-                products = products.filter(p => p.filter === currentFilter);
-            }
-            
-            if (currentFilter === 'price-low') {
-                products.sort((a, b) => a.price - b.price);
-            } else if (currentFilter === 'price-high') {
-                products.sort((a, b) => b.price - a.price);
-            }
-            
-            container.innerHTML = '';
-            products.forEach(product => {
-                container.innerHTML += createProductCard(product);
-            });
-        }
-        
-        console.log('%c🌟 Welcome to LaVish Center 🌟', 'font-size: 20px; font-weight: bold; color: #ff6b9d;');
-        console.log('%cDeveloped by Kraar Al-Saabri - Digital Creativity Company', 'font-size: 14px; color: #667eea;');
-    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
