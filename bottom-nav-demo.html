@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#ff6b9d">
+    <title>LaVish Center - Bottom Navigation Test</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #ff6b9d;
+            --secondary-color: #c44569;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .page-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .page-header h2 {
+            margin-bottom: 5px;
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-right: 4px solid var(--primary-color);
+        }
+
+        .cart-items {
+            margin-top: 20px;
+        }
+
+        .cart-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            transition: transform 0.2s;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .scroll-content {
+            height: 1500px;
+            background: linear-gradient(to bottom, #fff, #f0f0f0);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .scroll-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Bottom Navigation Styles */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            padding: 8px 0 max(8px, env(safe-area-inset-bottom));
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .bottom-nav.hide {
+            transform: translateY(100%);
+        }
+
+        .bottom-nav-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 8px;
+        }
+
+        .bottom-nav-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex: 1;
+            max-width: 80px;
+            min-width: 60px;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .bottom-nav-icon {
+            font-size: 22px;
+            margin-bottom: 4px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #9ca3af;
+        }
+
+        .bottom-nav-label {
+            font-size: 11px;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #6b7280;
+            white-space: nowrap;
+        }
+
+        .bottom-nav-item.active .bottom-nav-icon {
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .bottom-nav-item.active .bottom-nav-label {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .bottom-nav-item:active {
+            transform: scale(0.95);
+        }
+
+        .bottom-nav-badge {
+            position: absolute;
+            top: 2px;
+            right: 50%;
+            transform: translateX(50%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 5px;
+            border-radius: 10px;
+            min-width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            animation: badge-bounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .bottom-nav-item::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 0 0 3px 3px;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .bottom-nav-item.active::before {
+            transform: translateX(-50%) scaleX(1);
+        }
+
+        .bottom-nav-item::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 107, 157, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s, height 0.4s;
+        }
+
+        .bottom-nav-item:active::after {
+            width: 60px;
+            height: 60px;
+        }
+
+        @keyframes badge-bounce {
+            0% { transform: translateX(50%) scale(0); }
+            50% { transform: translateX(50%) scale(1.2); }
+            100% { transform: translateX(50%) scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1><i class="fas fa-gem"></i> LaVish Center</h1>
+        <p class="subtitle">اختبار شريط التنقل السفلي</p>
+
+        <!-- Home Page -->
+        <div class="page-content active" id="home">
+            <div class="page-header">
+                <h2><i class="fas fa-home"></i> الصفحة الرئيسية</h2>
+                <p>مرحباً بك في LaVish Center</p>
+            </div>
+            <div class="info-box">
+                <h3>✨ اختبر المميزات التالية:</h3>
+                <ul style="margin-right: 20px; margin-top: 10px;">
+                    <li>انقر على أي أيقونة في الأسفل للتنقل</li>
+                    <li>لاحظ تغيير اللون للعنصر النشط</li>
+                    <li>جرب الضغط على أيقونة السلة</li>
+                    <li>مرر لأسفل لاختبار إخفاء/إظهار الشريط</li>
+                </ul>
+            </div>
+            <div class="scroll-content">
+                <div class="scroll-section">
+                    <h3>قسم 1</h3>
+                    <p>مرر لأسفل لترى كيف يختفي شريط التنقل تلقائياً</p>
+                </div>
+                <div class="scroll-section">
+                    <h3>قسم 2</h3>
+                    <p>استمر في التمرير...</p>
+                </div>
+                <div class="scroll-section">
+                    <h3>قسم 3</h3>
+                    <p>مرر لأعلى لإظهار الشريط مرة أخرى</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Page -->
+        <div class="page-content" id="products">
+            <div class="page-header">
+                <h2><i class="fas fa-th-large"></i> المنتجات</h2>
+                <p>تصفح أحدث المنتجات</p>
+            </div>
+            <div class="info-box">
+                <h3>المنتجات المميزة</h3>
+                <p>هنا يمكنك عرض جميع المنتجات المتاحة</p>
+            </div>
+        </div>
+
+        <!-- Categories Page -->
+        <div class="page-content" id="categories">
+            <div class="page-header">
+                <h2><i class="fas fa-layer-group"></i> الفئات</h2>
+                <p>تصفح حسب الفئة</p>
+            </div>
+            <div class="info-box">
+                <h3>فئات المنتجات</h3>
+                <ul style="margin-right: 20px; margin-top: 10px;">
+                    <li>فساتين</li>
+                    <li>بلوزات</li>
+                    <li>بناطيل</li>
+                    <li>إكسسوارات</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Cart Page -->
+        <div class="page-content" id="cart">
+            <div class="page-header">
+                <h2><i class="fas fa-shopping-bag"></i> سلة التسوق</h2>
+                <p>المنتجات المضافة</p>
+            </div>
+            <div class="info-box">
+                <h3>عدد المنتجات: <span id="cartCountDisplay">0</span></h3>
+                <button class="btn" onclick="addItemToCart()">
+                    <i class="fas fa-plus"></i> إضافة منتج للسلة
+                </button>
+                <button class="btn" onclick="removeItemFromCart()" style="background: #dc3545; margin-right: 10px;">
+                    <i class="fas fa-minus"></i> حذف منتج
+                </button>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+        </div>
+
+        <!-- Account Page -->
+        <div class="page-content" id="account">
+            <div class="page-header">
+                <h2><i class="fas fa-user"></i> حسابي</h2>
+                <p>معلومات المستخدم</p>
+            </div>
+            <div class="info-box">
+                <h3>معلومات الحساب</h3>
+                <p><strong>الاسم:</strong> مستخدم تجريبي</p>
+                <p><strong>البريد:</strong> test@lavishcenter.com</p>
+                <p><strong>الهاتف:</strong> +964 781 379 8636</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav" id="bottomNav">
+        <div class="bottom-nav-container">
+            <button class="bottom-nav-item active" data-page="home" aria-label="الرئيسية">
+                <i class="bottom-nav-icon fas fa-home"></i>
+                <span class="bottom-nav-label">الرئيسية</span>
+            </button>
+            
+            <button class="bottom-nav-item" data-page="products" aria-label="المنتجات">
+                <i class="bottom-nav-icon fas fa-th-large"></i>
+                <span class="bottom-nav-label">المنتجات</span>
+            </button>
+            
+            <button class="bottom-nav-item" data-page="categories" aria-label="الفئات">
+                <i class="bottom-nav-icon fas fa-layer-group"></i>
+                <span class="bottom-nav-label">الفئات</span>
+            </button>
+            
+            <button class="bottom-nav-item" data-page="cart" aria-label="السلة">
+                <i class="bottom-nav-icon fas fa-shopping-bag"></i>
+                <span class="bottom-nav-label">السلة</span>
+                <span class="bottom-nav-badge" id="cartBadge">0</span>
+            </button>
+            
+            <button class="bottom-nav-item" data-page="account" aria-label="الحساب">
+                <i class="bottom-nav-icon fas fa-user"></i>
+                <span class="bottom-nav-label">حسابي</span>
+            </button>
+        </div>
+    </nav>
+
+    <script>
+        // Cart management
+        let cartCount = 0;
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            const display = document.getElementById('cartCountDisplay');
+            
+            badge.textContent = cartCount;
+            if (display) display.textContent = cartCount;
+            
+            if (cartCount > 0) {
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function addItemToCart() {
+            cartCount++;
+            updateCartBadge();
+            updateCartItems();
+            
+            // Haptic feedback
+            if (navigator.vibrate) {
+                navigator.vibrate(10);
+            }
+        }
+
+        function removeItemFromCart() {
+            if (cartCount > 0) {
+                cartCount--;
+                updateCartBadge();
+                updateCartItems();
+            }
+        }
+
+        function updateCartItems() {
+            const container = document.getElementById('cartItems');
+            container.innerHTML = '';
+            
+            for (let i = 1; i <= cartCount; i++) {
+                container.innerHTML += `
+                    <div class="cart-item">
+                        <span>منتج ${i}</span>
+                        <span>50,000 د.ع</span>
+                    </div>
+                `;
+            }
+        }
+
+        // Navigation
+        const navItems = document.querySelectorAll('.bottom-nav-item');
+        const pages = document.querySelectorAll('.page-content');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const page = this.getAttribute('data-page');
+                
+                // Update active states
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show page
+                pages.forEach(p => p.classList.remove('active'));
+                document.getElementById(page).classList.add('active');
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Haptic feedback
+                if (navigator.vibrate) {
+                    navigator.vibrate(10);
+                }
+            });
+        });
+
+        // Hide/show on scroll
+        let lastScrollTop = 0;
+        const bottomNav = document.getElementById('bottomNav');
+
+        window.addEventListener('scroll', () => {
+            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+                bottomNav.classList.add('hide');
+            } else {
+                bottomNav.classList.remove('hide');
+            }
+            
+            lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+        });
+
+        // Initialize
+        updateCartBadge();
+    </script>
+</body>
+</html>
