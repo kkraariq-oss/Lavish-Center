@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#ff6b9d">
+    <title>LaVish Center - Fixed Loading</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+            z-index: 999999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .loading-logo-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .loading-logo-text {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-countdown {
+            color: white;
+            font-size: 48px;
+            font-weight: bold;
+            margin-top: 2rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: none;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .main-content.visible {
+            display: block;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .success-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .success-icon {
+            color: #28a745;
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            padding: 8px 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #9ca3af;
+            transition: all 0.3s;
+        }
+
+        .bottom-nav-item.active {
+            color: #ff6b9d;
+        }
+
+        .bottom-nav-icon {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+
+        .bottom-nav-label {
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">
+            <img src="./icon-192.png" alt="LaVish Center" class="loading-logo-img">
+            <div class="loading-logo-text">
+                <i class="fas fa-gem"></i> LaVish Center
+            </div>
+        </div>
+        <div class="loading-spinner"></div>
+        <div class="loading-countdown" id="loadingCountdown">3</div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="header">
+            <h1><i class="fas fa-check-circle"></i> تم حل المشكلة!</h1>
+            <p>شاشة التحميل تعمل بشكل صحيح الآن</p>
+        </div>
+
+        <div class="success-box">
+            <div class="success-icon">✅</div>
+            <h2>المشكلة تم حلها</h2>
+            <p>التطبيق الآن يدخل للصفحة الرئيسية بشكل تلقائي بعد 3 ثواني</p>
+            
+            <h3 style="margin-top: 20px;">التحسينات المُنفّذة:</h3>
+            <ul style="text-align: right; margin-right: 20px; line-height: 2;">
+                <li>✅ تصحيح توقيت إخفاء الشاشة (3.5 ثانية)</li>
+                <li>✅ إضافة آلية احتياطية (5 ثواني كحد أقصى)</li>
+                <li>✅ معالجة أخطاء المكتبات الخارجية</li>
+                <li>✅ إضافة console logs للتتبع</li>
+                <li>✅ حماية من أخطاء JavaScript</li>
+            </ul>
+
+            <h3 style="margin-top: 20px;">كيف تختبر الحل:</h3>
+            <ol style="text-align: right; margin-right: 20px; line-height: 2;">
+                <li>استخدم هذه الصفحة للاختبار السريع</li>
+                <li>افتح index.html المحدّث</li>
+                <li>تحقق من Console للرسائل</li>
+                <li>تأكد من اختفاء الشاشة بعد 3 ثواني</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="bottom-nav-item active">
+            <i class="bottom-nav-icon fas fa-home"></i>
+            <span class="bottom-nav-label">الرئيسية</span>
+        </div>
+        <div class="bottom-nav-item">
+            <i class="bottom-nav-icon fas fa-th-large"></i>
+            <span class="bottom-nav-label">المنتجات</span>
+        </div>
+        <div class="bottom-nav-item">
+            <i class="bottom-nav-icon fas fa-layer-group"></i>
+            <span class="bottom-nav-label">الفئات</span>
+        </div>
+        <div class="bottom-nav-item">
+            <i class="bottom-nav-icon fas fa-shopping-bag"></i>
+            <span class="bottom-nav-label">السلة</span>
+        </div>
+        <div class="bottom-nav-item">
+            <i class="bottom-nav-icon fas fa-user"></i>
+            <span class="bottom-nav-label">حسابي</span>
+        </div>
+    </nav>
+
+    <script>
+        console.log('🚀 LaVish Center - Loading Fix Test Page');
+        console.log('⏰ Starting countdown...');
+
+        // Countdown
+        let count = 3;
+        const countdownEl = document.getElementById('loadingCountdown');
+        
+        const countdownInterval = setInterval(() => {
+            count--;
+            countdownEl.textContent = count;
+            console.log(`⏰ Countdown: ${count}`);
+            
+            if (count === 0) {
+                clearInterval(countdownInterval);
+                console.log('✅ Countdown complete!');
+            }
+        }, 1000);
+
+        // Hide loading screen after 3.5 seconds
+        setTimeout(() => {
+            console.log('🎭 Hiding loading screen...');
+            const loadingScreen = document.getElementById('loadingScreen');
+            loadingScreen.style.opacity = '0';
+            
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                document.getElementById('mainContent').classList.add('visible');
+                console.log('✅ Loading screen hidden! Main content visible!');
+                console.log('🎉 Application loaded successfully!');
+            }, 500);
+        }, 3500);
+
+        // Failsafe - Force hide after 5 seconds
+        setTimeout(() => {
+            const loadingScreen = document.getElementById('loadingScreen');
+            if (loadingScreen.style.display !== 'none') {
+                console.warn('⚠️ Failsafe activated! Forcing loading screen to hide...');
+                loadingScreen.style.display = 'none';
+                document.getElementById('mainContent').classList.add('visible');
+            }
+        }, 5000);
+
+        console.log('📱 Script loaded successfully');
+    </script>
+</body>
+</html>

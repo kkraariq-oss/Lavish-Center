@@ -496,49 +496,98 @@ let deferredPrompt;
 // ============================================
 // INITIALIZATION
 // ============================================
+
+// Force hide loading screen as failsafe (in case of JS errors)
+window.addEventListener('load', function() {
+    setTimeout(() => {
+        const loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen && loadingScreen.style.display !== 'none') {
+            console.log('Failsafe: Forcing loading screen to hide');
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }
+    }, 5000); // Absolute maximum wait time
+});
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Hide loading screen
+    console.log('DOM Content Loaded - Starting initialization');
+    
+    // Hide loading screen after countdown (3 seconds + 0.5s fade)
     setTimeout(() => {
-        document.getElementById('loadingScreen').style.opacity = '0';
-        setTimeout(() => {
-            document.getElementById('loadingScreen').style.display = 'none';
-        }, 500);
-    }, 1500);
+        const loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen) {
+            console.log('Hiding loading screen');
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                console.log('Loading screen hidden');
+            }, 500);
+        }
+    }, 3500);
 
-    // Show popup ad after 3 seconds
+    // Show popup ad after loading screen disappears
     setTimeout(() => {
-        showPopupAd();
-    }, 3000);
+        try {
+            showPopupAd();
+        } catch(e) {
+            console.log('Popup ad error (non-critical):', e);
+        }
+    }, 4000);
 
-    // Initialize AOS
-    AOS.init({
-        duration: 800,
-        easing: 'ease-in-out',
-        once: true
-    });
+    // Initialize AOS (Animation On Scroll)
+    try {
+        if (typeof AOS !== 'undefined') {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+            console.log('AOS initialized successfully');
+        } else {
+            console.log('AOS library not loaded');
+        }
+    } catch(e) {
+        console.log('AOS initialization error (non-critical):', e);
+    }
 
     // Initialize Swiper
-    new Swiper('.hero-swiper', {
-        loop: true,
-        autoplay: {
-            delay: 4000,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        effect: 'fade',
-        speed: 1000
-    });
+    try {
+        if (typeof Swiper !== 'undefined') {
+            new Swiper('.hero-swiper', {
+                loop: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                effect: 'fade',
+                speed: 1000
+            });
+            console.log('Swiper initialized successfully');
+        } else {
+            console.log('Swiper library not loaded');
+        }
+    } catch(e) {
+        console.log('Swiper initialization error (non-critical):', e);
+    }
 
     // Load initial products
-    loadProducts();
-    updateCartCount();
-    updateFavoritesCount();
-    initializeEventListeners();
-    initializeScrollToTop();
-    initializePWA();
+    try {
+        loadProducts();
+        updateCartCount();
+        updateFavoritesCount();
+        initializeEventListeners();
+        initializeScrollToTop();
+        initializePWA();
+        console.log('Core functions initialized successfully');
+    } catch(e) {
+        console.error('Critical initialization error:', e);
+    }
 });
 
 // ============================================
