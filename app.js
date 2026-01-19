@@ -496,98 +496,49 @@ let deferredPrompt;
 // ============================================
 // INITIALIZATION
 // ============================================
-
-// Force hide loading screen as failsafe (in case of JS errors)
-window.addEventListener('load', function() {
-    setTimeout(() => {
-        const loadingScreen = document.getElementById('loadingScreen');
-        if (loadingScreen && loadingScreen.style.display !== 'none') {
-            console.log('Failsafe: Forcing loading screen to hide');
-            loadingScreen.style.opacity = '0';
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-            }, 500);
-        }
-    }, 5000); // Absolute maximum wait time
-});
-
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM Content Loaded - Starting initialization');
-    
-    // Hide loading screen after countdown (3 seconds + 0.5s fade)
+    // Hide loading screen
     setTimeout(() => {
-        const loadingScreen = document.getElementById('loadingScreen');
-        if (loadingScreen) {
-            console.log('Hiding loading screen');
-            loadingScreen.style.opacity = '0';
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-                console.log('Loading screen hidden');
-            }, 500);
-        }
-    }, 3500);
+        document.getElementById('loadingScreen').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('loadingScreen').style.display = 'none';
+        }, 500);
+    }, 1500);
 
-    // Show popup ad after loading screen disappears
+    // Show popup ad after 3 seconds
     setTimeout(() => {
-        try {
-            showPopupAd();
-        } catch(e) {
-            console.log('Popup ad error (non-critical):', e);
-        }
-    }, 4000);
+        showPopupAd();
+    }, 3000);
 
-    // Initialize AOS (Animation On Scroll)
-    try {
-        if (typeof AOS !== 'undefined') {
-            AOS.init({
-                duration: 800,
-                easing: 'ease-in-out',
-                once: true
-            });
-            console.log('AOS initialized successfully');
-        } else {
-            console.log('AOS library not loaded');
-        }
-    } catch(e) {
-        console.log('AOS initialization error (non-critical):', e);
-    }
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+    });
 
     // Initialize Swiper
-    try {
-        if (typeof Swiper !== 'undefined') {
-            new Swiper('.hero-swiper', {
-                loop: true,
-                autoplay: {
-                    delay: 4000,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                effect: 'fade',
-                speed: 1000
-            });
-            console.log('Swiper initialized successfully');
-        } else {
-            console.log('Swiper library not loaded');
-        }
-    } catch(e) {
-        console.log('Swiper initialization error (non-critical):', e);
-    }
+    new Swiper('.hero-swiper', {
+        loop: true,
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        effect: 'fade',
+        speed: 1000
+    });
 
     // Load initial products
-    try {
-        loadProducts();
-        updateCartCount();
-        updateFavoritesCount();
-        initializeEventListeners();
-        initializeScrollToTop();
-        initializePWA();
-        console.log('Core functions initialized successfully');
-    } catch(e) {
-        console.error('Critical initialization error:', e);
-    }
+    loadProducts();
+    updateCartCount();
+    updateFavoritesCount();
+    initializeEventListeners();
+    initializeScrollToTop();
+    initializePWA();
 });
 
 // ============================================
@@ -1280,188 +1231,4 @@ function initializeScrollToTop() {
             }
         }, 1000);
     }
-}
-
-// ============================================
-// BOTTOM NAVIGATION BAR
-// ============================================
-function initializeBottomNav() {
-    const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
-    const bottomNav = document.getElementById('bottomNav');
-    const bottomCartBadge = document.getElementById('bottomCartBadge');
-    
-    let lastScrollTop = 0;
-    let isScrolling = false;
-    
-    // Handle navigation item clicks
-    bottomNavItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Remove active class from all items
-            bottomNavItems.forEach(nav => nav.classList.remove('active'));
-            
-            // Add active class to clicked item
-            this.classList.add('active');
-            
-            // Get the page to navigate to
-            const page = this.getAttribute('data-page');
-            
-            // Navigate to the page
-            handleBottomNavigation(page);
-            
-            // Add haptic feedback (if supported)
-            if (navigator.vibrate) {
-                navigator.vibrate(10);
-            }
-        });
-    });
-    
-    // Handle scroll behavior - hide/show bottom nav
-    window.addEventListener('scroll', () => {
-        if (isScrolling) return;
-        
-        isScrolling = true;
-        
-        setTimeout(() => {
-            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            // Hide bottom nav when scrolling down, show when scrolling up
-            if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
-                // Scrolling down
-                bottomNav.classList.add('hide');
-            } else {
-                // Scrolling up
-                bottomNav.classList.remove('hide');
-            }
-            
-            lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
-            isScrolling = false;
-        }, 100);
-    });
-    
-    // Update cart badge when cart changes
-    function updateBottomCartBadge() {
-        const cartCount = cart.length;
-        if (bottomCartBadge) {
-            bottomCartBadge.textContent = cartCount;
-            bottomCartBadge.setAttribute('data-count', cartCount);
-            
-            if (cartCount > 0) {
-                bottomCartBadge.style.display = 'flex';
-            } else {
-                bottomCartBadge.style.display = 'none';
-            }
-        }
-    }
-    
-    // Initial badge update
-    updateBottomCartBadge();
-    
-    // Watch for cart changes
-    const originalAddToCart = addToCart;
-    addToCart = function(product) {
-        originalAddToCart(product);
-        updateBottomCartBadge();
-    };
-    
-    const originalRemoveFromCart = removeFromCart;
-    removeFromCart = function(productId) {
-        originalRemoveFromCart(productId);
-        updateBottomCartBadge();
-    };
-    
-    const originalClearCart = clearCart;
-    clearCart = function() {
-        originalClearCart();
-        updateBottomCartBadge();
-    };
-}
-
-// ============================================
-// HANDLE BOTTOM NAVIGATION
-// ============================================
-function handleBottomNavigation(page) {
-    // Smooth scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    switch(page) {
-        case 'home':
-            showPage('homePage');
-            break;
-            
-        case 'products':
-            showPage('homePage');
-            // Scroll to products section after a brief delay
-            setTimeout(() => {
-                const productsSection = document.querySelector('.products-section');
-                if (productsSection) {
-                    productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }, 300);
-            break;
-            
-        case 'categories':
-            showPage('homePage');
-            // Scroll to categories section
-            setTimeout(() => {
-                const categoriesSection = document.querySelector('.categories-section');
-                if (categoriesSection) {
-                    categoriesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }, 300);
-            break;
-            
-        case 'cart':
-            showPage('cartPage');
-            break;
-            
-        case 'account':
-            showPage('aboutPage');
-            break;
-            
-        default:
-            showPage('homePage');
-    }
-}
-
-// ============================================
-// SYNC BOTTOM NAV WITH PAGE CHANGES
-// ============================================
-function syncBottomNavWithPage(pageId) {
-    const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
-    
-    // Remove active from all
-    bottomNavItems.forEach(item => item.classList.remove('active'));
-    
-    // Determine which nav item should be active
-    let activeNav = null;
-    
-    if (pageId === 'homePage') {
-        activeNav = document.querySelector('.bottom-nav-item[data-page="home"]');
-    } else if (pageId === 'cartPage') {
-        activeNav = document.querySelector('.bottom-nav-item[data-page="cart"]');
-    } else if (pageId === 'aboutPage') {
-        activeNav = document.querySelector('.bottom-nav-item[data-page="account"]');
-    }
-    
-    if (activeNav) {
-        activeNav.classList.add('active');
-    }
-}
-
-// ============================================
-// OVERRIDE SHOWPAGE TO SYNC WITH BOTTOM NAV
-// ============================================
-const originalShowPageFunc = showPage;
-showPage = function(pageId) {
-    originalShowPageFunc(pageId);
-    syncBottomNavWithPage(pageId);
-};
-
-// Initialize bottom navigation when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeBottomNav);
-} else {
-    initializeBottomNav();
 }
