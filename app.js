@@ -1232,3 +1232,446 @@ function initializeScrollToTop() {
         }, 1000);
     }
 }
+
+// ============================================
+// BOTTOM NAVIGATION FUNCTIONALITY
+// ============================================
+
+/**
+ * Bottom Navigation Manager
+ * Handles navigation between pages and active states
+ */
+class BottomNavigation {
+    constructor() {
+        this.navItems = document.querySelectorAll('.nav-item');
+        this.pages = document.querySelectorAll('.page');
+        this.currentPage = 'home';
+        this.init();
+    }
+
+    init() {
+        // Set up navigation click handlers
+        this.navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                const page = item.getAttribute('data-page');
+                
+                // Handle cart button separately (it might have special behavior)
+                if (item.id === 'navCartBtn') {
+                    this.navigateToCart();
+                    return;
+                }
+                
+                if (page) {
+                    this.navigateTo(page);
+                }
+            });
+        });
+
+        // Sync with existing navigation system
+        this.syncWithExistingNavigation();
+        
+        // Update cart count badge
+        this.updateCartCount();
+        
+        // Hide/show nav on scroll (optional)
+        this.setupScrollBehavior();
+    }
+
+    /**
+     * Navigate to a specific page
+     */
+    navigateTo(pageName) {
+        if (pageName === this.currentPage) return;
+
+        // Update active state
+        this.updateActiveState(pageName);
+        
+        // Show the target page
+        this.showPage(pageName);
+        
+        // Store current page
+        this.currentPage = pageName;
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // Add to browser history
+        if (history.pushState) {
+            history.pushState({ page: pageName }, '', `#${pageName}`);
+        }
+    }
+
+    /**
+     * Update active state of navigation items
+     */
+    updateActiveState(pageName) {
+        this.navItems.forEach(item => {
+            const itemPage = item.getAttribute('data-page');
+            if (itemPage === pageName) {
+                item.classList.add('active');
+                // Add ripple effect
+                this.addRippleEffect(item);
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
+
+    /**
+     * Show the target page and hide others
+     */
+    showPage(pageName) {
+        this.pages.forEach(page => {
+            if (page.id === `${pageName}Page`) {
+                page.classList.add('active');
+                page.style.display = 'block';
+            } else {
+                page.classList.remove('active');
+                page.style.display = 'none';
+            }
+        });
+    }
+
+    /**
+     * Handle cart navigation
+     */
+    navigateToCart() {
+        this.navigateTo('cart');
+        // Special cart page handling if needed
+        if (typeof showCartModal === 'function') {
+            showCartModal();
+        }
+    }
+
+    /**
+     * Update cart count badge
+     */
+    updateCartCount() {
+        const cartBadge = document.getElementById('navCartCount');
+        const cartBtn = document.getElementById('navCartBtn');
+        
+        if (cartBadge && cartBtn) {
+            // Get cart count from localStorage or global variable
+            const cartCount = this.getCartCount();
+            
+            if (cartCount > 0) {
+                cartBadge.textContent = cartCount > 99 ? '99+' : cartCount;
+                cartBadge.style.display = 'flex';
+            } else {
+                cartBadge.style.display = 'none';
+            }
+        }
+    }
+
+    /**
+     * Get current cart count
+     */
+    getCartCount() {
+        try {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            return cart.reduce((total, item) => total + (item.quantity || 1), 0);
+        } catch (error) {
+            return 0;
+        }
+    }
+
+    /**
+     * Sync with existing navigation system
+     */
+    syncWithExistingNavigation() {
+        // Listen for navigation events from other parts of the app
+        document.addEventListener('navigate', (e) => {
+            if (e.detail && e.detail.page) {
+                this.navigateTo(e.detail.page);
+            }
+        });
+
+        // Sync with existing page navigation links
+        const allNavLinks = document.querySelectorAll('[data-page]');
+        allNavLinks.forEach(link => {
+            if (!link.classList.contains('nav-item')) {
+                link.addEventListener('click', (e) => {
+                    const page = link.getAttribute('data-page');
+                    if (page) {
+                        this.navigateTo(page);
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * Add ripple effect on tap
+     */
+    addRippleEffect(element) {
+        element.classList.add('ripple');
+        setTimeout(() => {
+            element.classList.remove('ripple');
+        }, 400);
+    }
+
+    /**
+     * Setup scroll behavior (hide/show nav on scroll)
+     */
+    setupScrollBehavior() {
+        let lastScrollTop = 0;
+        let ticking = false;
+        const bottomNav = document.getElementById('bottomNav');
+
+        // Uncomment this if you want to hide nav on scroll down
+        /*
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    if (scrollTop > lastScrollTop && scrollTop > 100) {
+                        // Scrolling down - hide nav
+                        bottomNav.classList.add('hidden');
+                    } else {
+                        // Scrolling up - show nav
+                        bottomNav.classList.remove('hidden');
+                    }
+                    
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+                    ticking = false;
+                });
+                
+                ticking = true;
+            }
+        });
+        */
+    }
+
+    /**
+     * Handle browser back/forward buttons
+     */
+    setupHistoryNavigation() {
+        window.addEventListener('popstate', (e) => {
+            if (e.state && e.state.page) {
+                this.navigateTo(e.state.page);
+            }
+        });
+    }
+}
+
+// Initialize Bottom Navigation when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    const bottomNav = new BottomNavigation();
+    
+    // Make it globally accessible
+    window.bottomNav = bottomNav;
+    
+    // Update cart count when cart changes
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'cart') {
+            bottomNav.updateCartCount();
+        }
+    });
+    
+    // Also update when cart is modified in the same tab
+    document.addEventListener('cartUpdated', () => {
+        bottomNav.updateCartCount();
+    });
+});
+
+/**
+ * Helper function to update cart count from anywhere in the app
+ */
+function updateNavCartCount() {
+    if (window.bottomNav) {
+        window.bottomNav.updateCartCount();
+    }
+}
+
+/**
+ * Helper function to navigate from anywhere in the app
+ */
+function navigateToPage(pageName) {
+    if (window.bottomNav) {
+        window.bottomNav.navigateTo(pageName);
+    }
+}
+
+// Export for use in other scripts
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { BottomNavigation, updateNavCartCount, navigateToPage };
+}
+
+
+// ============================================
+// CATEGORIES PAGE FUNCTIONALITY
+// ============================================
+
+/**
+ * Initialize Categories Page
+ */
+function initCategoriesPage() {
+    const categoryCards = document.querySelectorAll('.category-card');
+    
+    categoryCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const category = this.getAttribute('data-category');
+            
+            // Navigate to products page with category filter
+            if (window.bottomNav) {
+                window.bottomNav.navigateTo('products');
+                
+                // Apply category filter after a short delay
+                setTimeout(() => {
+                    filterProductsByCategory(category);
+                }, 100);
+            }
+        });
+    });
+}
+
+/**
+ * Filter products by category
+ */
+function filterProductsByCategory(category) {
+    const allProductsGrid = document.getElementById('allProductsGrid');
+    
+    if (allProductsGrid) {
+        // Clear existing products
+        allProductsGrid.innerHTML = '';
+        
+        // Get products for this category
+        const categoryProducts = productsDatabase[category] || [];
+        
+        // Render products
+        categoryProducts.forEach((product, index) => {
+            const productCard = createProductCard(product, index);
+            allProductsGrid.appendChild(productCard);
+        });
+    }
+}
+
+/**
+ * Initialize Products Page
+ */
+function initProductsPage() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const allProductsGrid = document.getElementById('allProductsGrid');
+    
+    // Load all products initially
+    loadAllProducts();
+    
+    // Set up filter buttons
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Update active state
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Get filter type
+            const filter = this.getAttribute('data-filter');
+            
+            // Apply filter
+            filterProducts(filter);
+        });
+    });
+}
+
+/**
+ * Load all products
+ */
+function loadAllProducts() {
+    const allProductsGrid = document.getElementById('allProductsGrid');
+    
+    if (!allProductsGrid) return;
+    
+    // Clear grid
+    allProductsGrid.innerHTML = '';
+    
+    // Combine all products
+    const allProducts = [
+        ...productsDatabase.women,
+        ...productsDatabase.men
+    ];
+    
+    // Render products
+    allProducts.forEach((product, index) => {
+        const productCard = createProductCard(product, index);
+        allProductsGrid.appendChild(productCard);
+    });
+}
+
+/**
+ * Filter products based on filter type
+ */
+function filterProducts(filterType) {
+    const allProductsGrid = document.getElementById('allProductsGrid');
+    
+    if (!allProductsGrid) return;
+    
+    // Clear grid
+    allProductsGrid.innerHTML = '';
+    
+    // Combine all products
+    const allProducts = [
+        ...productsDatabase.women,
+        ...productsDatabase.men
+    ];
+    
+    // Filter products
+    let filteredProducts = allProducts;
+    
+    if (filterType !== 'all') {
+        filteredProducts = allProducts.filter(product => product.filter === filterType);
+    }
+    
+    // Render filtered products
+    filteredProducts.forEach((product, index) => {
+        const productCard = createProductCard(product, index);
+        allProductsGrid.appendChild(productCard);
+    });
+}
+
+/**
+ * Initialize Account Page
+ */
+function initAccountPage() {
+    const menuItems = document.querySelectorAll('.account-menu .menu-item');
+    
+    menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const text = this.querySelector('span').textContent;
+            
+            // Handle different menu items
+            if (text.includes('طلباتي')) {
+                alert('صفحة الطلبات قيد التطوير');
+            } else if (text.includes('المفضلة')) {
+                if (window.bottomNav) {
+                    window.bottomNav.navigateTo('favorites');
+                }
+            } else if (text.includes('الإشعارات')) {
+                if (window.bottomNav) {
+                    window.bottomNav.navigateTo('notifications');
+                }
+            } else if (text.includes('عن LaVish')) {
+                if (window.bottomNav) {
+                    window.bottomNav.navigateTo('about');
+                }
+            } else {
+                alert('هذه الميزة قيد التطوير');
+            }
+        });
+    });
+    
+    // Login button
+    const loginBtn = document.querySelector('.btn-login');
+    if (loginBtn) {
+        loginBtn.addEventListener('click', function() {
+            alert('نظام تسجيل الدخول قيد التطوير');
+        });
+    }
+}
+
+// Initialize all pages when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    initCategoriesPage();
+    initProductsPage();
+    initAccountPage();
+});
+

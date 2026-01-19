@@ -17,11 +17,29 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="./icon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="./icon-512.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./icon-512.png">
     
-    <!-- Apple Touch Icons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="./icon-192.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="./icon-192.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="./icon-144.png">
+    <!-- Apple Touch Icons for iPhone/iPad -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="./apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="./apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="./apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="./apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="./apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="./apple-touch-icon-57x57.png">
+    
+    <!-- Apple Splash Screens -->
+    <link rel="apple-touch-startup-image" href="./splash-2048x2732.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="./splash-1668x2388.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="./splash-1536x2048.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="./splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="./splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="./splash-828x1792.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="./splash-1242x2208.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="./splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="./splash-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
     
     <!-- Android Icons -->
     <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
@@ -44,468 +62,6 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    
-    <style>
-        /* Additional Page Styles */
-        .welcome-banner {
-            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-            margin-bottom: 20px;
-        }
-        
-        .welcome-banner h1 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        
-        .welcome-banner p {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-        
-        .page-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 20px 0;
-            color: var(--dark-color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .page-title i {
-            color: var(--primary-color);
-        }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 15px;
-            padding: 0 15px 20px;
-        }
-        
-        @media (min-width: 768px) {
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-                gap: 20px;
-            }
-        }
-        
-        .product-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-        }
-        
-        .product-image-container {
-            position: relative;
-            padding-top: 133%;
-            overflow: hidden;
-        }
-        
-        .product-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .product-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--primary-color);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-        
-        .product-badge.new {
-            background: #28a745;
-        }
-        
-        .product-badge.hot {
-            background: #ff6b9d;
-        }
-        
-        .product-discount {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #dc3545;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-        
-        .btn-wishlist {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            background: white;
-            border: none;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-wishlist:hover {
-            transform: scale(1.1);
-            color: #dc3545;
-        }
-        
-        .product-details {
-            padding: 12px;
-        }
-        
-        .product-name {
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--dark-color);
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        
-        .product-rating {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-bottom: 8px;
-            font-size: 0.75rem;
-            color: #ffd700;
-        }
-        
-        .product-reviews {
-            color: #999;
-        }
-        
-        .product-price-container {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-        
-        .product-price {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-        
-        .product-old-price {
-            font-size: 0.8rem;
-            color: #999;
-            text-decoration: line-through;
-        }
-        
-        .btn-add-cart {
-            width: 100%;
-            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
-            color: white;
-            border: none;
-            padding: 8px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-        
-        .btn-add-cart:hover {
-            transform: scale(1.02);
-        }
-        
-        .btn-add-cart:active {
-            transform: scale(0.98);
-        }
-        
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            padding: 15px;
-        }
-        
-        .category-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px 20px;
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        
-        .category-card:hover {
-            transform: translateY(-4px);
-        }
-        
-        .category-card i {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-        
-        .category-card h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-        
-        .category-card:nth-child(2) {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-        
-        .category-card:nth-child(3) {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-        }
-        
-        .category-card:nth-child(4) {
-            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
-        }
-        
-        .cart-items {
-            padding: 15px;
-        }
-        
-        .empty-cart {
-            text-align: center;
-            padding: 60px 20px;
-            color: #999;
-        }
-        
-        .empty-cart i {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            color: #ddd;
-        }
-        
-        .empty-cart p {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        
-        .cart-item {
-            display: flex;
-            gap: 15px;
-            background: white;
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        
-        .cart-item img {
-            width: 80px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-        
-        .cart-item-details {
-            flex: 1;
-        }
-        
-        .cart-item-details h4 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        
-        .cart-item-price {
-            color: var(--primary-color);
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .quantity-controls button {
-            width: 30px;
-            height: 30px;
-            border: 1px solid #ddd;
-            background: white;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        
-        .btn-remove {
-            background: #dc3545;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        
-        .cart-summary {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-        
-        .summary-row.total {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            padding-top: 12px;
-            border-top: 2px solid #f0f0f0;
-        }
-        
-        .btn-checkout {
-            width: 100%;
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-        
-        .account-menu {
-            padding: 15px;
-        }
-        
-        .account-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: white;
-            padding: 18px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-        
-        .account-item:hover {
-            transform: translateX(5px);
-        }
-        
-        .account-item i {
-            font-size: 1.3rem;
-            color: var(--primary-color);
-            width: 30px;
-            text-align: center;
-        }
-        
-        .account-item span {
-            font-weight: 500;
-            font-size: 1rem;
-        }
-        
-        .hero-section {
-            margin: 20px 15px;
-        }
-        
-        .hero-swiper {
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        
-        .hero-swiper .swiper-slide {
-            position: relative;
-            height: 200px;
-        }
-        
-        .hero-swiper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.4);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-        
-        .hero-overlay h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-        
-        .hero-overlay p {
-            font-size: 1rem;
-        }
-        
-        .products-section {
-            margin: 30px 0;
-        }
-        
-        .section-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin: 0 15px 20px;
-            color: var(--dark-color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .section-title i {
-            color: var(--primary-color);
-        }
-    </style>
 </head>
 <body>
     <!-- Loading Screen -->
@@ -517,108 +73,370 @@
             </div>
         </div>
         <div class="loading-spinner"></div>
+        <div class="loading-countdown" id="loadingCountdown">3</div>
+    </div>
+
+    <!-- Popup Ad Overlay -->
+    <div class="popup-ad-overlay" id="popupAdOverlay" style="display: none;">
+        <div class="popup-ad">
+            <button class="popup-ad-close" onclick="closePopupAd()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="popup-ad-content" onclick="goToAdProduct()">
+                <div class="popup-ad-badge">
+                    🔥 عرض خاص
+                </div>
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800" alt="عرض خاص" class="popup-ad-image">
+                <div class="popup-ad-details">
+                    <h3 class="popup-ad-title">فستان سهرة فاخر</h3>
+                    <p class="popup-ad-description">تصميم عصري وأنيق - متوفر بألوان متعددة</p>
+                    <div class="popup-ad-price-container">
+                        <span class="popup-ad-old-price">250,000 د.ع</span>
+                        <span class="popup-ad-new-price">149,900 د.ع</span>
+                    </div>
+                    <button class="popup-ad-cta">
+                        <i class="fas fa-shopping-bag"></i>
+                        اطلب الآن واحصل على خصم 40%
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Top Header -->
     <header class="top-header">
         <div class="container">
             <div class="top-header-content">
-                <a href="#" class="brand-logo" onclick="navigateToPage('home'); return false;">
+                <a href="#" class="brand-logo" data-page="home">
                     <i class="fas fa-gem"></i>
                     <span>LaVish</span>
                 </a>
                 
                 <div class="header-actions">
+                    <div class="search-bar">
+                        <input type="text" class="search-input" id="topSearchInput" placeholder="ابحث عن منتج...">
+                        <button class="search-btn" id="topSearchBtn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    
                     <button class="header-icon-btn" id="notificationsBtn">
                         <i class="fas fa-bell"></i>
-                        <span class="header-badge" id="notificationsCount">0</span>
+                        <span class="header-badge" id="notificationsCount">2</span>
                     </button>
                     
-                    <button class="header-icon-btn" id="cartBtn" onclick="navigateToPage('cart')">
+                    <button class="header-icon-btn" id="favoritesBtn">
+                        <i class="fas fa-heart"></i>
+                        <span class="header-badge" id="favoritesCount">0</span>
+                    </button>
+                    
+                    <button class="header-icon-btn" id="cartBtn">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="header-badge" id="cartCount">0</span>
+                    </button>
+                    
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
                     </button>
                 </div>
             </div>
         </div>
     </header>
 
+    <!-- Mobile Sidebar -->
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="sidebar-header">
+            <span class="sidebar-title">القائمة</span>
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="sidebar-menu">
+            <div class="sidebar-item" data-page="home">
+                <i class="fas fa-home"></i>
+                <span>الرئيسية</span>
+            </div>
+            <div class="sidebar-item" data-page="about">
+                <i class="fas fa-info-circle"></i>
+                <span>من نحن</span>
+            </div>
+            <div class="sidebar-item" data-category="women">
+                <i class="fas fa-female"></i>
+                <span>ملابس نسائية</span>
+            </div>
+            <div class="sidebar-item" data-category="men">
+                <i class="fas fa-male"></i>
+                <span>ملابس رجالية</span>
+            </div>
+            <div class="sidebar-item" data-category="accessories">
+                <i class="fas fa-shopping-bag"></i>
+                <span>إكسسوارات</span>
+            </div>
+            <div class="sidebar-item" data-category="shoes">
+                <i class="fas fa-shoe-prints"></i>
+                <span>أحذية</span>
+            </div>
+            <div class="sidebar-item" data-category="bags">
+                <i class="fas fa-briefcase"></i>
+                <span>حقائب</span>
+            </div>
+            <div class="sidebar-item" data-category="silver">
+                <i class="fas fa-ring"></i>
+                <span>فضة</span>
+            </div>
+            <div class="sidebar-item" data-category="gifts">
+                <i class="fas fa-gift"></i>
+                <span>هدايا</span>
+            </div>
+            <div class="sidebar-item" data-category="perfumes">
+                <i class="fas fa-spray-can"></i>
+                <span>عطور</span>
+            </div>
+            <div class="sidebar-item" data-page="cart">
+                <i class="fas fa-shopping-cart"></i>
+                <span>السلة</span>
+            </div>
+            <div class="sidebar-item" data-page="favorites">
+                <i class="fas fa-heart"></i>
+                <span>المفضلة</span>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Categories Navigation -->
+    <nav class="categories-nav">
+        <div class="container">
+            <div class="categories-list">
+                <div class="category-item active" data-category="all">
+                    <i class="fas fa-th"></i>
+                    <span>الكل</span>
+                </div>
+                <div class="category-item" data-page="about">
+                    <i class="fas fa-info-circle"></i>
+                    <span>من نحن</span>
+                </div>
+                <div class="category-item" data-category="women">
+                    <i class="fas fa-female"></i>
+                    <span>نسائي</span>
+                </div>
+                <div class="category-item" data-category="men">
+                    <i class="fas fa-male"></i>
+                    <span>رجالي</span>
+                </div>
+                <div class="category-item" data-category="accessories">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>إكسسوارات</span>
+                </div>
+                <div class="category-item" data-category="shoes">
+                    <i class="fas fa-shoe-prints"></i>
+                    <span>أحذية</span>
+                </div>
+                <div class="category-item" data-category="bags">
+                    <i class="fas fa-briefcase"></i>
+                    <span>حقائب</span>
+                </div>
+                <div class="category-item" data-category="silver">
+                    <i class="fas fa-ring"></i>
+                    <span>فضة</span>
+                </div>
+                <div class="category-item" data-category="gifts">
+                    <i class="fas fa-gift"></i>
+                    <span>هدايا</span>
+                </div>
+                <div class="category-item" data-category="perfumes">
+                    <i class="fas fa-spray-can"></i>
+                    <span>عطور</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
     <!-- Main Content -->
     <main class="main-content">
         <!-- Home Page -->
         <div class="page active" id="homePage">
-            <div class="welcome-banner">
-                <h1>مرحباً بك في LaVish Center</h1>
-                <p>أفضل الأزياء التركية الأصلية</p>
-            </div>
-            
-            <div class="container">
-                <!-- Hero Slider -->
-                <div class="hero-section">
-                    <div class="swiper hero-swiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1200" alt="Fashion 1">
-                                <div class="hero-overlay">
-                                    <h2>تشكيلة حصرية</h2>
-                                    <p>خصم يصل إلى 40%</p>
+            <!-- Hero Slider -->
+            <section class="hero-section">
+                <div class="swiper hero-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200" alt="عرض 1">
+                            <div class="slide-overlay">
+                                <div class="slide-title">تشكيلة الربيع الجديدة</div>
+                                <div class="slide-subtitle">خصومات تصل إلى 50% على كل المنتجات</div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200" alt="عرض 2">
+                            <div class="slide-overlay">
+                                <div class="slide-title">أحدث صيحات الموضة</div>
+                                <div class="slide-subtitle">تسوق الآن واحصل على شحن مجاني</div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1200" alt="عرض 3">
+                            <div class="slide-overlay">
+                                <div class="slide-title">عروض حصرية</div>
+                                <div class="slide-subtitle">منتجات فاخرة بأسعار لا تصدق</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </section>
+
+           
+
+            <!-- Search Section (Mobile) -->
+            <section class="container d-md-none mb-4">
+                <div class="search-bar" style="display: block; width: 100%;">
+                    <input type="text" class="search-input" id="mainSearchInput" placeholder="ابحث عن منتج...">
+                    <button class="search-btn" id="mainSearchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Filters -->
+            <section class="filters-container">
+                <div class="filter-item active" data-filter="all">
+                    <i class="fas fa-th"></i>
+                    <span>الكل</span>
+                </div>
+                <div class="filter-item" data-filter="new">
+                    <i class="fas fa-sparkles"></i>
+                    <span>جديد</span>
+                </div>
+                <div class="filter-item" data-filter="sale">
+                    <i class="fas fa-tag"></i>
+                    <span>تخفيضات</span>
+                </div>
+                <div class="filter-item" data-filter="popular">
+                    <i class="fas fa-fire"></i>
+                    <span>الأكثر مبيعاً</span>
+                </div>
+                <div class="filter-item" data-filter="price-low">
+                    <i class="fas fa-sort-amount-down"></i>
+                    <span>الأرخص</span>
+                </div>
+                <div class="filter-item" data-filter="price-high">
+                    <i class="fas fa-sort-amount-up"></i>
+                    <span>الأغلى</span>
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section class="products-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-shopping-bag"></i>
+                        منتجاتنا
+                    </h2>
+                    <a href="#" class="section-link">
+                        عرض الكل
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+                
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be loaded here by JavaScript -->
+                </div>
+            </section>
+        </div>
+
+        <!-- Product Detail Page -->
+        <div class="page" id="productDetailPage">
+            <div class="product-detail-section">
+                <button class="back-btn" id="backToHomeDetail">
+                    <i class="fas fa-arrow-right"></i>
+                    <span>العودة</span>
+                </button>
+                
+                <div class="product-detail-content">
+                    <div class="product-gallery">
+                        <img src="" alt="Product" class="main-product-image" id="mainProductImage">
+                        <div class="product-thumbnails" id="productThumbnails">
+                            <!-- Thumbnails will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div class="product-detail-info">
+                        <h1 class="product-detail-title" id="productDetailTitle"></h1>
+                        
+                        <div class="product-detail-rating">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-text">(128 تقييم)</span>
+                        </div>
+                        
+                        <div class="product-detail-price" id="productDetailPrice"></div>
+                        
+                        <p class="product-detail-description" id="productDetailDescription"></p>
+                        
+                        <div class="product-options">
+                            <div class="option-group">
+                                <label class="option-label">اللون:</label>
+                                <div class="color-options" id="colorOptions">
+                                    <div class="color-option" style="background: #ff6b9d;" onclick="selectColor(this)"></div>
+                                    <div class="color-option" style="background: #667eea;" onclick="selectColor(this)"></div>
+                                    <div class="color-option" style="background: #000000;" onclick="selectColor(this)"></div>
+                                    <div class="color-option" style="background: #ffffff; border: 2px solid #ddd;" onclick="selectColor(this)"></div>
+                                    <div class="color-option" style="background: #ffd700;" onclick="selectColor(this)"></div>
                                 </div>
                             </div>
-                            <div class="swiper-slide">
-                                <img src="https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?w=1200" alt="Fashion 2">
-                                <div class="hero-overlay">
-                                    <h2>أحدث الموديلات</h2>
-                                    <p>موضة 2025</p>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <img src="https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=1200" alt="Fashion 3">
-                                <div class="hero-overlay">
-                                    <h2>جودة عالية</h2>
-                                    <p>أفضل الأسعار</p>
+                            
+                            <div class="option-group">
+                                <label class="option-label">المقاس:</label>
+                                <div class="size-options" id="sizeOptions">
+                                    <div class="size-option" onclick="selectSize(this)">S</div>
+                                    <div class="size-option" onclick="selectSize(this)">M</div>
+                                    <div class="size-option active" onclick="selectSize(this)">L</div>
+                                    <div class="size-option" onclick="selectSize(this)">XL</div>
+                                    <div class="size-option" onclick="selectSize(this)">XXL</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="swiper-pagination"></div>
+                        
+                        <div class="quantity-selector">
+                            <button class="qty-btn" id="decreaseQty">-</button>
+                            <input type="number" class="qty-input" id="productQty" value="1" min="1">
+                            <button class="qty-btn" id="increaseQty">+</button>
+                        </div>
+                        
+                        <div class="product-actions">
+                            <button class="btn-primary" id="addToCartDetailBtn">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>أضف للسلة</span>
+                            </button>
+                            <button class="btn-primary btn-whatsapp" id="whatsappDetailBtn">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>واتساب</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Featured Products -->
-                <section class="products-section">
-                    <h2 class="section-title"><i class="fas fa-star"></i> منتجات مميزة</h2>
-                    <div class="products-grid" id="homeProductsGrid"></div>
-                </section>
             </div>
         </div>
 
-        <!-- Products Page -->
-        <div class="page" id="productsPage">
-            <div class="container">
-                <h2 class="page-title"><i class="fas fa-shopping-bag"></i> جميع المنتجات</h2>
-                <div class="products-grid" id="allProductsGrid"></div>
-            </div>
-        </div>
-
-        <!-- Categories Page -->
-        <div class="page" id="categoriesPage">
-            <div class="container">
-                <h2 class="page-title"><i class="fas fa-layer-group"></i> الأقسام</h2>
-                <div class="categories-grid">
-                    <div class="category-card" data-category="women">
-                        <i class="fas fa-female"></i>
-                        <h3>أزياء نسائية</h3>
-                    </div>
-                    <div class="category-card" data-category="men">
-                        <i class="fas fa-male"></i>
-                        <h3>أزياء رجالية</h3>
-                    </div>
-                    <div class="category-card" data-category="kids">
-                        <i class="fas fa-child"></i>
-                        <h3>أزياء أطفال</h3>
-                    </div>
-                    <div class="category-card" data-category="accessories">
-                        <i class="fas fa-hat-cowboy"></i>
-                        <h3>إكسسوارات</h3>
+        <!-- Favorites Page -->
+        <div class="page" id="favoritesPage">
+            <div class="cart-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-heart"></i>
+                        المفضلة
+                    </h2>
+                </div>
+                
+                <div class="products-section">
+                    <div class="products-grid" id="favoritesGrid">
+                        <!-- Favorites will be loaded here -->
                     </div>
                 </div>
             </div>
@@ -626,152 +444,503 @@
 
         <!-- Cart Page -->
         <div class="page" id="cartPage">
-            <div class="container">
-                <h2 class="page-title"><i class="fas fa-shopping-cart"></i> سلة التسوق</h2>
-                <div id="cartItems" class="cart-items">
-                    <div class="empty-cart">
+            <div class="cart-section">
+                <div class="section-header">
+                    <h2 class="section-title">
                         <i class="fas fa-shopping-cart"></i>
-                        <p>سلة التسوق فارغة</p>
-                        <button class="btn-primary" onclick="navigateToPage('products')">ابدأ التسوق</button>
+                        سلة التسوق
+                    </h2>
+                </div>
+                
+                <div class="cart-items" id="cartItems">
+                    <!-- Cart items will be loaded here -->
+                </div>
+                
+                <div class="cart-summary">
+                    <div class="cart-total">
+                        <span>الإجمالي:</span>
+                        <span class="cart-total-price" id="cartTotal">0 د.ع</span>
+                    </div>
+                    <button class="btn-checkout" id="checkoutBtn">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>إتمام الطلب عبر واتساب</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Page -->
+        <div class="page" id="aboutPage">
+            <div class="about-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-info-circle"></i>
+                        من نحن
+                    </h2>
+                </div>
+                
+                <div class="about-content">
+                    <div class="about-intro" data-aos="fade-up">
+                        <div class="about-logo">
+                            <img src="./icon-192.png" alt="LaVish Center">
+                        </div>
+                        <h3>LaVish Center - مركز الأناقة والفخامة</h3>
+                        <p>متجر LaVish Center، أحد استثمارات <strong>جوهرة سما بابل للاستثمار</strong> الرائدة في العراق. نفخر بكوننا جزءاً من مجموعة ناجحة من الاستثمارات المتنوعة التي تخدم المجتمع العراقي.</p>
+                    </div>
+
+                    <div class="about-features" data-aos="fade-up" data-aos-delay="100">
+                        <h3><i class="fas fa-star"></i> لماذا LaVish Center؟</h3>
+                        <div class="features-grid">
+                            <div class="feature-item">
+                                <i class="fas fa-flag"></i>
+                                <h4>منتجات تركية أصلية</h4>
+                                <p>نستورد مباشرة من المصانع التركية الأصلية، ضمان الجودة والأصالة</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-tshirt"></i>
+                                <h4>قطن تركي فاخر</h4>
+                                <p>جميع منتجاتنا من أجود أنواع القطن التركي الذي يتميز بالنعومة والمتانة</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-tags"></i>
+                                <h4>ماركات عالمية حديثة</h4>
+                                <p>نواكب أحدث صيحات الموضة العالمية بأسعار تنافسية</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-gem"></i>
+                                <h4>تشكيلة متنوعة</h4>
+                                <p>ملابس نسائية ورجالية، إكسسوارات، أحذية، فضة، هدايا وعطور</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-company" data-aos="fade-up" data-aos-delay="200">
+                        <h3><i class="fas fa-building"></i> جوهرة سما بابل للاستثمار</h3>
+                        <p>شركة رائدة في مجال الاستثمارات المتنوعة في العراق، تضم مجموعة واسعة من المشاريع الناجحة:</p>
+                        
+                        <div class="investments-grid">
+                            <div class="investment-item">
+                                <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400" alt="العقارات">
+                                <div class="investment-overlay">
+                                    <i class="fas fa-home"></i>
+                                    <h4>الاستثمار العقاري</h4>
+                                    <p>مشاريع سكنية وتجارية راقية</p>
+                                </div>
+                            </div>
+                            
+                            <div class="investment-item">
+                                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=400" alt="السيارات">
+                                <div class="investment-overlay">
+                                    <i class="fas fa-car"></i>
+                                    <h4>بيع السيارات بالتقسيط</h4>
+                                    <p>أحدث الموديلات بأسهل الشروط</p>
+                                </div>
+                            </div>
+                            
+                            <div class="investment-item">
+                                <img src="https://images.unsplash.com/photo-1610375461246-83df859d849d?w=400" alt="الذهب">
+                                <div class="investment-overlay">
+                                    <i class="fas fa-coins"></i>
+                                    <h4>استثمارات الذهب</h4>
+                                    <p>تجارة وتوريد المعادن الثمينة</p>
+                                </div>
+                            </div>
+                            
+                            <div class="investment-item">
+                                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400" alt="المصانع">
+                                <div class="investment-overlay">
+                                    <i class="fas fa-industry"></i>
+                                    <h4>المصانع والإنتاج</h4>
+                                    <p>معامل الكرتون والمياه وغيرها</p>
+                                </div>
+                            </div>
+                            
+                            <div class="investment-item">
+                                <img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?w=400" alt="التجزئة">
+                                <div class="investment-overlay">
+                                    <i class="fas fa-store"></i>
+                                    <h4>محلات التجزئة</h4>
+                                    <p>سلسلة متاجر في مختلف المحافظات</p>
+                                </div>
+                            </div>
+                            
+                            <div class="investment-item">
+                                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400" alt="التقنية">
+                                <div class="investment-overlay">
+                                    <i class="fas fa-laptop-code"></i>
+                                    <h4>التقنية والابتكار</h4>
+                                    <p>حلول رقمية متطورة</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-contact" data-aos="fade-up" data-aos-delay="300">
+                        <h3><i class="fas fa-map-marker-alt"></i> موقعنا</h3>
+                        <div class="contact-info">
+                            <p><i class="fas fa-location-dot"></i> بابل - الهاشمية، شارع حي الديوانية، مقابل محطة وقود صرح بابل</p>
+                            <p><i class="fas fa-phone"></i> <a href="tel:+9647813798636">+964 781 379 8636</a></p>
+                            <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/9647813798636">+964 781 379 8636</a></p>
+                            <a href="https://maps.app.goo.gl/VoYaRGjXjhUQGCJa9" target="_blank" class="btn-map">
+                                <i class="fas fa-map"></i> عرض على الخريطة
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div id="cartSummary" class="cart-summary" style="display: none;">
-                    <div class="summary-row">
-                        <span>المجموع الفرعي:</span>
-                        <span id="cartSubtotal">0 د.ع</span>
+            </div>
+        </div>
+
+        <!-- Notifications Page -->
+        <div class="page" id="notificationsPage">
+            <div class="notifications-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-bell"></i>
+                        الإشعارات
+                    </h2>
+                </div>
+                
+                <div class="notifications-list" id="notificationsList">
+                    <div class="notification-item unread" data-aos="fade-up">
+                        <div class="notification-icon new">
+                            <i class="fas fa-sparkles"></i>
+                        </div>
+                        <div class="notification-content">
+                            <h4>منتجات جديدة وصلت!</h4>
+                            <p>تشكيلة حصرية من الأزياء التركية الأصلية متوفرة الآن</p>
+                            <span class="notification-time">منذ ساعتين</span>
+                        </div>
                     </div>
-                    <div class="summary-row">
-                        <span>التوصيل:</span>
-                        <span id="cartShipping">5,000 د.ع</span>
+                    
+                    <div class="notification-item unread" data-aos="fade-up" data-aos-delay="100">
+                        <div class="notification-icon sale">
+                            <i class="fas fa-percent"></i>
+                        </div>
+                        <div class="notification-content">
+                            <h4>خصم 40% على الفساتين!</h4>
+                            <p>عرض لفترة محدودة - لا تفوت الفرصة</p>
+                            <span class="notification-time">منذ 5 ساعات</span>
+                        </div>
                     </div>
-                    <div class="summary-row total">
-                        <span>المجموع الكلي:</span>
-                        <span id="cartTotal">0 د.ع</span>
+                    
+                    <div class="notification-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="notification-icon info">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="notification-content">
+                            <h4>توصيل مجاني</h4>
+                            <p>للطلبات فوق 100,000 د.ع داخل بابل</p>
+                            <span class="notification-time">أمس</span>
+                        </div>
                     </div>
-                    <button class="btn-checkout">إتمام الطلب <i class="fas fa-arrow-left"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Page -->
+        <div class="page" id="productsPage">
+            <div class="products-page-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-th-large"></i>
+                        جميع المنتجات
+                    </h2>
+                </div>
+                
+                <!-- Filter Buttons -->
+                <div class="filter-buttons" style="margin-bottom: 20px;">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-th"></i> الكل
+                    </button>
+                    <button class="filter-btn" data-filter="sale">
+                        <i class="fas fa-fire"></i> التخفيضات
+                    </button>
+                    <button class="filter-btn" data-filter="new">
+                        <i class="fas fa-star"></i> جديد
+                    </button>
+                    <button class="filter-btn" data-filter="popular">
+                        <i class="fas fa-heart"></i> الأكثر مبيعاً
+                    </button>
+                </div>
+
+                <div class="products-grid" id="allProductsGrid">
+                    <!-- Products will be loaded here by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Page -->
+        <div class="page" id="categoriesPage">
+            <div class="categories-page-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-layer-group"></i>
+                        الأقسام
+                    </h2>
+                    <p class="section-subtitle">اختر القسم المناسب لك</p>
+                </div>
+
+                <div class="categories-grid">
+                    <div class="category-card" data-category="women" data-aos="fade-up">
+                        <div class="category-image">
+                            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800" alt="ملابس نسائية">
+                            <div class="category-overlay">
+                                <i class="fas fa-female"></i>
+                            </div>
+                        </div>
+                        <div class="category-info">
+                            <h3>ملابس نسائية</h3>
+                            <p>أحدث صيحات الموضة</p>
+                            <span class="category-count">250+ منتج</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" data-category="men" data-aos="fade-up" data-aos-delay="100">
+                        <div class="category-image">
+                            <img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?w=800" alt="ملابس رجالية">
+                            <div class="category-overlay">
+                                <i class="fas fa-male"></i>
+                            </div>
+                        </div>
+                        <div class="category-info">
+                            <h3>ملابس رجالية</h3>
+                            <p>أناقة وفخامة</p>
+                            <span class="category-count">180+ منتج</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" data-category="kids" data-aos="fade-up" data-aos-delay="200">
+                        <div class="category-image">
+                            <img src="https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?w=800" alt="ملابس أطفال">
+                            <div class="category-overlay">
+                                <i class="fas fa-child"></i>
+                            </div>
+                        </div>
+                        <div class="category-info">
+                            <h3>ملابس أطفال</h3>
+                            <p>راحة وجودة</p>
+                            <span class="category-count">120+ منتج</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" data-category="accessories" data-aos="fade-up" data-aos-delay="300">
+                        <div class="category-image">
+                            <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=800" alt="إكسسوارات">
+                            <div class="category-overlay">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                        </div>
+                        <div class="category-info">
+                            <h3>إكسسوارات</h3>
+                            <p>لمسة نهائية مميزة</p>
+                            <span class="category-count">90+ منتج</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" data-category="shoes" data-aos="fade-up" data-aos-delay="400">
+                        <div class="category-image">
+                            <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800" alt="أحذية">
+                            <div class="category-overlay">
+                                <i class="fas fa-shoe-prints"></i>
+                            </div>
+                        </div>
+                        <div class="category-info">
+                            <h3>أحذية</h3>
+                            <p>أناقة الخطوة</p>
+                            <span class="category-count">150+ منتج</span>
+                        </div>
+                    </div>
+
+                    <div class="category-card" data-category="bags" data-aos="fade-up" data-aos-delay="500">
+                        <div class="category-image">
+                            <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800" alt="حقائب">
+                            <div class="category-overlay">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                        </div>
+                        <div class="category-info">
+                            <h3>حقائب</h3>
+                            <p>عملية وأنيقة</p>
+                            <span class="category-count">80+ منتج</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Account Page -->
         <div class="page" id="accountPage">
-            <div class="container">
-                <h2 class="page-title"><i class="fas fa-user"></i> حسابي</h2>
+            <div class="account-page-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-user"></i>
+                        حسابي
+                    </h2>
+                </div>
+
+                <!-- User Profile Card -->
+                <div class="account-profile-card" data-aos="fade-up">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h3>مرحباً بك</h3>
+                        <p>قم بتسجيل الدخول للاستمتاع بجميع المزايا</p>
+                    </div>
+                    <button class="btn-login">
+                        <i class="fas fa-sign-in-alt"></i>
+                        تسجيل الدخول
+                    </button>
+                </div>
+
+                <!-- Account Menu -->
                 <div class="account-menu">
-                    <div class="account-item">
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
                         <i class="fas fa-box"></i>
                         <span>طلباتي</span>
+                        <i class="fas fa-chevron-left"></i>
                     </div>
-                    <div class="account-item">
+
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="150">
                         <i class="fas fa-heart"></i>
                         <span>المفضلة</span>
+                        <i class="fas fa-chevron-left"></i>
                     </div>
-                    <div class="account-item">
+
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="200">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>العناوين</span>
+                        <span>عناويني</span>
+                        <i class="fas fa-chevron-left"></i>
                     </div>
-                    <div class="account-item">
+
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="250">
+                        <i class="fas fa-bell"></i>
+                        <span>الإشعارات</span>
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="300">
                         <i class="fas fa-cog"></i>
                         <span>الإعدادات</span>
+                        <i class="fas fa-chevron-left"></i>
                     </div>
-                    <div class="account-item">
-                        <i class="fas fa-phone"></i>
-                        <span>اتصل بنا</span>
+
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="350">
+                        <i class="fas fa-headset"></i>
+                        <span>الدعم الفني</span>
+                        <i class="fas fa-chevron-left"></i>
                     </div>
-                    <div class="account-item">
+
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="400">
                         <i class="fas fa-info-circle"></i>
                         <span>عن LaVish Center</span>
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                </div>
+
+                <!-- Social Links -->
+                <div class="account-social" data-aos="fade-up" data-aos-delay="450">
+                    <h3>تابعنا على</h3>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/lavishcenter" target="_blank" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/lavishcenter?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/9647813798636" target="_blank" class="social-link">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>عن LaVish Center</h3>
+                    <p>متجر LaVish Center، أحد استثمارات جوهرة سما بابل للاستثمار. نقدم لكم أفضل وأحدث صيحات الموضة التركية الأصلية بأسعار منافسة وجودة عالية.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/jawhraht" target="_blank" class="social-link social-jewel" title="جوهرة سما بابل">
+                            <i class="fas fa-gem"></i>
+                        </a>
+                        <a href="https://www.facebook.com/lavishcenter" target="_blank" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/lavishcenter?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/9647813798636" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" data-page="about"><i class="fas fa-angle-left"></i> من نحن</a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> سياسة الخصوصية</a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> الشروط والأحكام</a></li>
+                        <li><a href="#"><i class="fas fa-angle-left"></i> اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>تواصل معنا</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> <a href="tel:+9647813798636">+964 781 379 8636</a></li>
+                        <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/9647813798636" target="_blank">+964 781 379 8636</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection#93fafdf5fcd3fff2e5fae0fbf0f6fde7f6e1bdf0fcfe"><span class="__cf_email__" data-cfemail="3f565159507f535e49564c575c5a514b5a4d115c5052">[email&#160;protected]</span></a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> <a href="https://maps.app.goo.gl/VoYaRGjXjhUQGCJa9" target="_blank">بابل - الهاشمية، شارع حي الديوانية، مقابل محطة وقود صرح بابل</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 LaVish Center - أحد استثمارات جوهرة سما بابل للاستثمار. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top-btn" id="scrollTopBtn">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Install PWA Button -->
+    <button class="install-btn" id="installBtn" style="display: none;">
+        <i class="fas fa-download"></i>
+        <span>تثبيت التطبيق</span>
+    </button>
+
+    <!-- Scripts -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="app.js"></script>
+    
     <!-- Bottom Navigation Bar -->
     <nav class="bottom-nav" id="bottomNav">
         <button class="nav-item active" data-page="home">
             <i class="nav-icon fas fa-home"></i>
             <span class="nav-label">الرئيسية</span>
         </button>
-        
         <button class="nav-item" data-page="products">
-            <i class="nav-icon fas fa-shopping-bag"></i>
+            <i class="nav-icon fas fa-th-large"></i>
             <span class="nav-label">المنتجات</span>
         </button>
-        
         <button class="nav-item" data-page="categories">
             <i class="nav-icon fas fa-layer-group"></i>
             <span class="nav-label">الأقسام</span>
         </button>
-        
-        <button class="nav-item" data-page="cart">
+        <button class="nav-item" id="navCartBtn">
             <i class="nav-icon fas fa-shopping-cart"></i>
+            <span class="nav-badge" id="navCartCount">0</span>
             <span class="nav-label">السلة</span>
-            <span class="nav-badge" id="navCartBadge">0</span>
         </button>
-        
         <button class="nav-item" data-page="account">
             <i class="nav-icon fas fa-user"></i>
-            <span class="nav-label">حسابي</span>
+            <span class="nav-label">الحساب</span>
         </button>
     </nav>
-
-    <!-- Scroll to Top Button -->
-    <button class="scroll-top-btn" id="scrollTopBtn" style="display: none;">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="app.js"></script>
-    <script src="bottom-nav.js"></script>
-    
-    <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 50
-        });
-        
-        // Hide loading screen
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                const loadingScreen = document.getElementById('loadingScreen');
-                if (loadingScreen) {
-                    loadingScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        loadingScreen.style.display = 'none';
-                    }, 500);
-                }
-            }, 1000);
-        });
-        
-        // Scroll to top button
-        const scrollTopBtn = document.getElementById('scrollTopBtn');
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-                scrollTopBtn.style.display = 'flex';
-            } else {
-                scrollTopBtn.style.display = 'none';
-            }
-        });
-        
-        scrollTopBtn.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        // Register Service Worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('Service Worker registered'))
-                .catch(err => console.log('Service Worker registration failed'));
-        }
-    </script>
 </body>
 </html>

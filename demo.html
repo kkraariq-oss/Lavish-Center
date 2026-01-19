@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#ff6b9d">
+    <title>LaVish Center - Bottom Navigation Demo</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Tajawal:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #ff6b9d;
+            --secondary-color: #c44569;
+            --dark-color: #1a1a2e;
+            --danger-color: #dc3545;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 70px;
+        }
+
+        .demo-header {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .demo-header h1 {
+            color: var(--primary-color);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .demo-header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .demo-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .demo-page {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .demo-page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .demo-page h2 {
+            color: var(--primary-color);
+            font-size: 28px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .demo-page p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .demo-feature {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-right: 4px solid var(--primary-color);
+        }
+
+        .demo-feature strong {
+            color: var(--dark-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .demo-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .demo-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 157, 0.3);
+        }
+
+        /* Bottom Navigation Styles */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            height: 70px;
+            background: #ffffff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 12px;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            flex: 1;
+            height: 100%;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px 4px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .nav-icon {
+            font-size: 22px;
+            color: #9e9e9e;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: #9e9e9e;
+            white-space: nowrap;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-item.active .nav-icon {
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .nav-item.active .nav-label {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .nav-badge {
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-12px);
+            min-width: 18px;
+            height: 18px;
+            background: var(--danger-color);
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5px;
+            box-shadow: 0 2px 6px rgba(220, 53, 69, 0.4);
+        }
+
+        .cart-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 360px) {
+            .nav-label {
+                font-size: 10px;
+            }
+            .nav-icon {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="demo-header">
+        <h1><i class="fas fa-gem"></i> LaVish Center</h1>
+        <p>تجربة التنقل السفلي - Bottom Navigation Demo</p>
+    </div>
+
+    <!-- Content -->
+    <div class="demo-content">
+        <!-- Home Page -->
+        <div class="demo-page active" id="home">
+            <h2><i class="fas fa-home"></i> الصفحة الرئيسية</h2>
+            <p>مرحباً بك في LaVish Center! هذه نسخة تجريبية لشريط التنقل السفلي.</p>
+            
+            <div class="demo-feature">
+                <strong>✨ التصميم العصري</strong>
+                شريط تنقل احترافي بتصميم نظيف وعصري يناسب تطبيقات التجارة الإلكترونية
+            </div>
+            
+            <div class="demo-feature">
+                <strong>📱 متوافق مع الأجهزة المحمولة</strong>
+                محسّن للاستخدام على الهواتف الذكية والأجهزة اللوحية
+            </div>
+            
+            <div class="demo-feature">
+                <strong>🔄 دعم RTL كامل</strong>
+                يدعم اللغة العربية والكتابة من اليمين إلى اليسار بشكل كامل
+            </div>
+
+            <div class="demo-buttons">
+                <button class="demo-btn" onclick="testNavigation()">
+                    <i class="fas fa-play"></i> اختبر التنقل
+                </button>
+                <button class="demo-btn" onclick="addToCart()">
+                    <i class="fas fa-plus"></i> أضف إلى السلة
+                </button>
+            </div>
+        </div>
+
+        <!-- Products Page -->
+        <div class="demo-page" id="products">
+            <h2><i class="fas fa-th-large"></i> المنتجات</h2>
+            <p>اكتشف أحدث تشكيلة من الأزياء التركية الأصلية</p>
+            
+            <div class="demo-feature">
+                <strong>👗 ملابس نسائية</strong>
+                أحدث صيحات الموضة بأسعار منافسة
+            </div>
+            
+            <div class="demo-feature">
+                <strong>👔 ملابس رجالية</strong>
+                أناقة وفخامة في كل قطعة
+            </div>
+            
+            <div class="demo-feature">
+                <strong>👶 ملابس أطفال</strong>
+                راحة وجودة لأطفالك
+            </div>
+
+            <div class="demo-buttons">
+                <button class="demo-btn">عرض المنتجات</button>
+                <button class="demo-btn">التخفيضات</button>
+            </div>
+        </div>
+
+        <!-- Categories Page -->
+        <div class="demo-page" id="categories">
+            <h2><i class="fas fa-layer-group"></i> الأقسام</h2>
+            <p>تصفح المنتجات حسب الفئة</p>
+            
+            <div class="demo-feature">
+                <strong>🎨 6 أقسام رئيسية</strong>
+                ملابس، إكسسوارات، أحذية، حقائب، وأكثر
+            </div>
+            
+            <div class="demo-feature">
+                <strong>🔍 سهولة البحث</strong>
+                ابحث عن المنتج المناسب في ثوانٍ
+            </div>
+            
+            <div class="demo-feature">
+                <strong>⚡ تصفح سريع</strong>
+                تصميم بطاقات سريع الاستجابة
+            </div>
+        </div>
+
+        <!-- Cart Page -->
+        <div class="demo-page" id="cart">
+            <h2><i class="fas fa-shopping-cart"></i> السلة</h2>
+            <p>مشترياتك في مكان واحد</p>
+            
+            <div class="demo-feature">
+                <strong>🛒 عداد ديناميكي</strong>
+                يتم تحديث عدد المنتجات تلقائياً في شارة السلة
+            </div>
+            
+            <div class="demo-feature">
+                <strong>💾 حفظ تلقائي</strong>
+                تُحفظ مشترياتك حتى بعد إغلاق المتصفح
+            </div>
+            
+            <div class="demo-feature">
+                <strong>✨ تأثيرات متحركة</strong>
+                رسوم متحركة سلسة عند إضافة المنتجات
+            </div>
+
+            <div class="cart-controls">
+                <button class="demo-btn" onclick="addToCart()">
+                    <i class="fas fa-plus"></i> أضف منتج
+                </button>
+                <button class="demo-btn" onclick="removeFromCart()">
+                    <i class="fas fa-minus"></i> احذف منتج
+                </button>
+                <button class="demo-btn" onclick="clearCart()">
+                    <i class="fas fa-trash"></i> إفراغ السلة
+                </button>
+            </div>
+        </div>
+
+        <!-- Account Page -->
+        <div class="demo-page" id="account">
+            <h2><i class="fas fa-user"></i> حسابي</h2>
+            <p>إدارة حسابك وإعداداتك</p>
+            
+            <div class="demo-feature">
+                <strong>👤 ملف شخصي</strong>
+                معلوماتك الشخصية وتفضيلاتك
+            </div>
+            
+            <div class="demo-feature">
+                <strong>📦 طلباتي</strong>
+                تتبع طلباتك ومشترياتك السابقة
+            </div>
+            
+            <div class="demo-feature">
+                <strong>❤️ المفضلة</strong>
+                احفظ منتجاتك المفضلة
+            </div>
+            
+            <div class="demo-feature">
+                <strong>⚙️ الإعدادات</strong>
+                تخصيص تجربة التسوق الخاصة بك
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav" id="bottomNav">
+        <button class="nav-item active" data-page="home">
+            <i class="nav-icon fas fa-home"></i>
+            <span class="nav-label">الرئيسية</span>
+        </button>
+        <button class="nav-item" data-page="products">
+            <i class="nav-icon fas fa-th-large"></i>
+            <span class="nav-label">المنتجات</span>
+        </button>
+        <button class="nav-item" data-page="categories">
+            <i class="nav-icon fas fa-layer-group"></i>
+            <span class="nav-label">الأقسام</span>
+        </button>
+        <button class="nav-item" data-page="cart">
+            <i class="nav-icon fas fa-shopping-cart"></i>
+            <span class="nav-badge" id="cartCount">0</span>
+            <span class="nav-label">السلة</span>
+        </button>
+        <button class="nav-item" data-page="account">
+            <i class="nav-icon fas fa-user"></i>
+            <span class="nav-label">الحساب</span>
+        </button>
+    </nav>
+
+    <script>
+        // Cart state
+        let cartItems = 0;
+
+        // Initialize navigation
+        document.addEventListener('DOMContentLoaded', () => {
+            const navItems = document.querySelectorAll('.nav-item');
+            const pages = document.querySelectorAll('.demo-page');
+
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const pageName = this.getAttribute('data-page');
+                    
+                    // Update active state
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show page
+                    pages.forEach(page => {
+                        page.classList.remove('active');
+                        if (page.id === pageName) {
+                            page.classList.add('active');
+                        }
+                    });
+                    
+                    // Scroll to top
+                    document.querySelector('.demo-content').scrollTop = 0;
+                });
+            });
+
+            // Load cart count from localStorage
+            const savedCart = localStorage.getItem('demo_cart_count');
+            if (savedCart) {
+                cartItems = parseInt(savedCart);
+                updateCartBadge();
+            }
+        });
+
+        // Cart functions
+        function updateCartBadge() {
+            const badge = document.getElementById('cartCount');
+            if (cartItems > 0) {
+                badge.textContent = cartItems > 99 ? '99+' : cartItems;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+            localStorage.setItem('demo_cart_count', cartItems);
+        }
+
+        function addToCart() {
+            cartItems++;
+            updateCartBadge();
+            
+            // Show notification
+            alert('✅ تمت الإضافة إلى السلة!');
+        }
+
+        function removeFromCart() {
+            if (cartItems > 0) {
+                cartItems--;
+                updateCartBadge();
+                alert('🗑️ تم حذف المنتج من السلة');
+            } else {
+                alert('⚠️ السلة فارغة');
+            }
+        }
+
+        function clearCart() {
+            if (cartItems > 0) {
+                cartItems = 0;
+                updateCartBadge();
+                alert('🗑️ تم إفراغ السلة');
+            } else {
+                alert('⚠️ السلة فارغة بالفعل');
+            }
+        }
+
+        function testNavigation() {
+            alert('🎉 شريط التنقل يعمل بشكل ممتاز!\n\nجرب النقر على الأيقونات في الأسفل للتنقل بين الصفحات');
+        }
+    </script>
+</body>
+</html>
