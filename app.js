@@ -1,4 +1,20 @@
 // ============================================
+// LAVISH CENTER - COMPLETE APPLICATION
+// تطبيق متكامل مع جميع الوظائف
+// ============================================
+
+// ============================================
+// GLOBAL STATE MANAGEMENT
+// ============================================
+const AppState = {
+    cart: [],
+    favorites: [],
+    currentPage: 'home',
+    currentFilter: 'all',
+    currentCategory: 'all'
+};
+
+// ============================================
 // PRODUCTS DATABASE
 // ============================================
 const productsDatabase = {
@@ -148,1181 +164,242 @@ const productsDatabase = {
             oldPrice: 380000,
             image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800',
             category: 'men',
-            badge: 'hot',
+            badge: 'sale',
             rating: 4.9,
             reviews: 203,
-            description: 'بدلة رجالية راقية بتصميم احترافي، مثالية للمناسبات الرسمية.',
+            description: 'بدلة رجالية فاخرة من أفضل الأقمشة، مثالية للمناسبات الرسمية.',
             discount: '-25%',
-            filter: 'popular'
-        }
-    ],
-    accessories: [
-        {
-            id: 12,
-            name: 'ساعة يد فاخرة',
-            price: 125000,
-            oldPrice: 180000,
-            image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800',
-            category: 'accessories',
-            badge: 'sale',
-            rating: 4.8,
-            reviews: 156,
-            description: 'ساعة يد أنيقة بتصميم عصري، مقاومة للماء.',
-            discount: '-31%',
             filter: 'sale'
         },
         {
-            id: 13,
-            name: 'نظارة شمسية',
-            price: 38000,
+            id: 12,
+            name: 'حذاء رجالي كلاسيكي',
+            price: 95000,
             oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800',
-            category: 'accessories',
+            image: 'https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=800',
+            category: 'men',
             badge: 'new',
-            rating: 4.5,
+            rating: 4.6,
             reviews: 89,
-            description: 'نظارة شمسية عصرية، حماية 100% من الأشعة فوق البنفسجية.',
+            description: 'حذاء رجالي كلاسيكي بتصميم أنيق ومريح.',
+            filter: 'new'
+        }
+    ],
+    kids: [
+        {
+            id: 13,
+            name: 'فستان أطفال وردي',
+            price: 35000,
+            oldPrice: null,
+            image: 'https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=800',
+            category: 'kids',
+            badge: 'new',
+            rating: 4.7,
+            reviews: 45,
+            description: 'فستان أطفال جميل ومريح، مناسب للمناسبات.',
             filter: 'new'
         },
         {
             id: 14,
-            name: 'حزام جلد طبيعي',
+            name: 'طقم أطفال رياضي',
             price: 42000,
-            oldPrice: 60000,
-            image: 'https://images.unsplash.com/photo-1624222247344-550fb60583aa?w=800',
-            category: 'accessories',
-            badge: 'hot',
-            rating: 4.7,
-            reviews: 124,
-            description: 'حزام من الجلد الطبيعي، تصميم كلاسيكي.',
-            discount: '-30%',
-            filter: 'popular'
-        },
-        {
-            id: 15,
-            name: 'محفظة جلدية',
-            price: 55000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=800',
-            category: 'accessories',
-            badge: 'new',
-            rating: 4.6,
-            reviews: 97,
-            description: 'محفظة أنيقة من الجلد الطبيعي، متعددة الجيوب.',
-            filter: 'new'
-        },
-        {
-            id: 16,
-            name: 'سوار معدني',
-            price: 32000,
-            oldPrice: 45000,
-            image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800',
-            category: 'accessories',
-            badge: 'sale',
-            rating: 4.4,
-            reviews: 76,
-            description: 'سوار معدني بتصميم عصري، مطلي بالذهب.',
-            discount: '-29%',
-            filter: 'sale'
-        }
-    ],
-    shoes: [
-        {
-            id: 17,
-            name: 'حذاء رياضي نايك',
-            price: 95000,
-            oldPrice: 125000,
-            image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800',
-            category: 'shoes',
-            badge: 'hot',
-            rating: 4.9,
-            reviews: 245,
-            description: 'حذاء رياضي عالي الجودة، راحة قصوى ومتانة.',
-            discount: '-24%',
-            filter: 'popular'
-        },
-        {
-            id: 18,
-            name: 'حذاء كلاسيكي رجالي',
-            price: 78000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=800',
-            category: 'shoes',
-            badge: 'new',
-            rating: 4.6,
-            reviews: 118,
-            description: 'حذاء كلاسيكي أنيق للمناسبات الرسمية.',
-            filter: 'new'
-        },
-        {
-            id: 19,
-            name: 'صندل نسائي صيفي',
-            price: 48000,
-            oldPrice: 65000,
-            image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800',
-            category: 'shoes',
-            badge: 'sale',
-            rating: 4.5,
-            reviews: 92,
-            description: 'صندل صيفي مريح وأنيق، مناسب للأجواء الحارة.',
-            discount: '-26%',
-            filter: 'sale'
-        },
-        {
-            id: 20,
-            name: 'حذاء كاجوال',
-            price: 62000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=800',
-            category: 'shoes',
-            badge: 'hot',
-            rating: 4.7,
-            reviews: 156,
-            description: 'حذاء كاجوال عملي ومريح للاستخدام اليومي.',
-            filter: 'popular'
-        }
-    ],
-    bags: [
-        {
-            id: 21,
-            name: 'حقيبة يد نسائية',
-            price: 85000,
-            oldPrice: 115000,
-            image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800',
-            category: 'bags',
-            badge: 'sale',
-            rating: 4.8,
-            reviews: 134,
-            description: 'حقيبة يد أنيقة من الجلد الطبيعي، تصميم عصري.',
-            discount: '-26%',
-            filter: 'sale'
-        },
-        {
-            id: 22,
-            name: 'حقيبة ظهر رياضية',
-            price: 52000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800',
-            category: 'bags',
-            badge: 'new',
-            rating: 4.6,
-            reviews: 108,
-            description: 'حقيبة ظهر عملية ومريحة، مناسبة للرياضة والسفر.',
-            filter: 'new'
-        },
-        {
-            id: 23,
-            name: 'حقيبة كروس بودي',
-            price: 68000,
-            oldPrice: 90000,
-            image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800',
-            category: 'bags',
-            badge: 'hot',
-            rating: 4.7,
-            reviews: 142,
-            description: 'حقيبة كروس بودي صغيرة وأنيقة، مثالية للنزهات.',
-            discount: '-24%',
-            filter: 'popular'
-        },
-        {
-            id: 24,
-            name: 'حقيبة سفر كبيرة',
-            price: 125000,
-            oldPrice: 165000,
-            image: 'https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?w=800',
-            category: 'bags',
-            badge: 'sale',
-            rating: 4.9,
-            reviews: 198,
-            description: 'حقيبة سفر واسعة ومتينة، مناسبة للرحلات الطويلة.',
-            discount: '-24%',
-            filter: 'sale'
-        },
-        {
-            id: 25,
-            name: 'شنطة لابتوب',
-            price: 72000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800',
-            category: 'bags',
-            badge: 'new',
-            rating: 4.5,
-            reviews: 87,
-            description: 'شنطة لابتوب عملية بتصميم احترافي، حماية ممتازة.',
-            filter: 'new'
-        }
-    ],
-    silver: [
-        {
-            id: 26,
-            name: 'سلسلة فضة إيطالية',
-            price: 120000,
-            oldPrice: 165000,
-            image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800',
-            category: 'silver',
-            badge: 'hot',
-            rating: 4.9,
-            reviews: 215,
-            description: 'سلسلة فضة إيطالية عيار 925، تصميم فاخر وأنيق.',
-            discount: '-27%',
-            filter: 'popular'
-        },
-        {
-            id: 27,
-            name: 'خاتم فضة بحجر كريم',
-            price: 85000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800',
-            category: 'silver',
-            badge: 'new',
-            rating: 4.7,
-            reviews: 143,
-            description: 'خاتم فضة عيار 925 مرصع بحجر كريم أصلي.',
-            filter: 'new'
-        },
-        {
-            id: 28,
-            name: 'أقراط فضة',
-            price: 65000,
-            oldPrice: 90000,
-            image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800',
-            category: 'silver',
-            badge: 'sale',
-            rating: 4.8,
-            reviews: 167,
-            description: 'أقراط فضة ناعمة، مثالية للإطلالات اليومية.',
-            discount: '-28%',
-            filter: 'sale'
-        }
-    ],
-    gifts: [
-        {
-            id: 29,
-            name: 'طقم هدايا فاخر',
-            price: 125000,
-            oldPrice: 175000,
-            image: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=800',
-            category: 'gifts',
-            badge: 'hot',
-            rating: 4.9,
-            reviews: 198,
-            description: 'طقم هدايا فاخر يحتوي على عدة قطع أنيقة، مثالي للمناسبات.',
-            discount: '-29%',
-            filter: 'popular'
-        },
-        {
-            id: 30,
-            name: 'صندوق هدايا مخملي',
-            price: 45000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=800',
-            category: 'gifts',
-            badge: 'new',
-            rating: 4.6,
-            reviews: 112,
-            description: 'صندوق هدايا مخملي فاخر بتصميم راقي.',
-            filter: 'new'
-        },
-        {
-            id: 31,
-            name: 'باقة ورد صناعي',
-            price: 38000,
             oldPrice: 55000,
-            image: 'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=800',
-            category: 'gifts',
+            image: 'https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?w=800',
+            category: 'kids',
             badge: 'sale',
-            rating: 4.5,
-            reviews: 89,
-            description: 'باقة ورد صناعي بألوان جذابة، تدوم طويلاً.',
-            discount: '-31%',
-            filter: 'sale'
-        }
-    ],
-    perfumes: [
-        {
-            id: 32,
-            name: 'عطر فرنسي فاخر',
-            price: 185000,
-            oldPrice: 250000,
-            image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=800',
-            category: 'perfumes',
-            badge: 'hot',
-            rating: 5.0,
-            reviews: 287,
-            description: 'عطر فرنسي أصلي برائحة ساحرة تدوم طويلاً.',
-            discount: '-26%',
-            filter: 'popular'
-        },
-        {
-            id: 33,
-            name: 'عطر نسائي زهري',
-            price: 145000,
-            oldPrice: null,
-            image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=800',
-            category: 'perfumes',
-            badge: 'new',
             rating: 4.8,
-            reviews: 176,
-            description: 'عطر نسائي بروائح زهرية منعشة، مثالي للصيف.',
-            filter: 'new'
-        },
-        {
-            id: 34,
-            name: 'عطر رجالي كلاسيكي',
-            price: 165000,
-            oldPrice: 220000,
-            image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=800',
-            category: 'perfumes',
-            badge: 'sale',
-            rating: 4.9,
-            reviews: 234,
-            description: 'عطر رجالي بتركيبة كلاسيكية وأنيقة.',
-            discount: '-25%',
+            reviews: 67,
+            description: 'طقم رياضي عملي ومريح للأطفال.',
+            discount: '-24%',
             filter: 'sale'
         }
     ]
 };
 
 // ============================================
-// GLOBAL VARIABLES
+// CART MANAGEMENT
 // ============================================
-let cart = JSON.parse(localStorage.getItem('lavishCart')) || [];
-let favorites = JSON.parse(localStorage.getItem('lavishFavorites')) || [];
-let currentProduct = null;
-let currentCategory = 'all';
-let currentFilter = 'all';
-let deferredPrompt;
-
-// ============================================
-// INITIALIZATION
-// ============================================
-document.addEventListener('DOMContentLoaded', function() {
-    // Hide loading screen
-    setTimeout(() => {
-        document.getElementById('loadingScreen').style.opacity = '0';
-        setTimeout(() => {
-            document.getElementById('loadingScreen').style.display = 'none';
-        }, 500);
-    }, 1500);
-
-    // Show popup ad after 3 seconds
-    setTimeout(() => {
-        showPopupAd();
-    }, 3000);
-
-    // Initialize AOS
-    AOS.init({
-        duration: 800,
-        easing: 'ease-in-out',
-        once: true
-    });
-
-    // Initialize Swiper
-    new Swiper('.hero-swiper', {
-        loop: true,
-        autoplay: {
-            delay: 4000,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        effect: 'fade',
-        speed: 1000
-    });
-
-    // Load initial products
-    loadProducts();
-    updateCartCount();
-    updateFavoritesCount();
-    initializeEventListeners();
-    initializeScrollToTop();
-    initializePWA();
-});
-
-// ============================================
-// PWA INSTALLATION
-// ============================================
-function initializePWA() {
-    // Register service worker
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js')
-            .then(registration => {
-                console.log('Service Worker registered:', registration);
-            })
-            .catch(error => {
-                console.log('Service Worker registration failed:', error);
-            });
+class CartManager {
+    constructor() {
+        this.loadCart();
     }
 
-    // Handle install prompt
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        
-        const installBtn = document.getElementById('installBtn');
-        installBtn.style.display = 'flex';
-        
-        installBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                
-                if (outcome === 'accepted') {
-                    showNotification('تم تثبيت التطبيق بنجاح!', 'success');
-                }
-                
-                deferredPrompt = null;
-                installBtn.style.display = 'none';
-            }
-        });
-    });
-}
-
-// ============================================
-// POPUP AD FUNCTIONS
-// ============================================
-function showPopupAd() {
-    const overlay = document.getElementById('popupAdOverlay');
-    overlay.style.display = 'flex';
-    setTimeout(() => {
-        overlay.style.opacity = '1';
-    }, 10);
-}
-
-function closePopupAd() {
-    const overlay = document.getElementById('popupAdOverlay');
-    overlay.style.opacity = '0';
-    setTimeout(() => {
-        overlay.style.display = 'none';
-    }, 300);
-}
-
-function goToAdProduct() {
-    closePopupAd();
-    const product = getAllProducts().find(p => p.id === 1);
-    if (product) {
-        openProductDetail(product);
-    }
-}
-
-// ============================================
-// PRODUCT FUNCTIONS
-// ============================================
-function getAllProducts() {
-    return [
-        ...productsDatabase.women,
-        ...productsDatabase.men,
-        ...productsDatabase.accessories,
-        ...productsDatabase.shoes,
-        ...productsDatabase.bags
-    ];
-}
-
-function loadProducts(category = 'all') {
-    const container = document.getElementById('productsGrid');
-    container.innerHTML = '';
-    
-    let products = [];
-    
-    if (category === 'all') {
-        products = getAllProducts();
-    } else {
-        products = productsDatabase[category] || [];
-    }
-    
-    products.forEach((product, index) => {
-        const delay = (index % 10) * 100;
-        container.innerHTML += createProductCard(product, delay);
-    });
-    
-    AOS.refresh();
-}
-
-function createProductCard(product, delay = 0) {
-    const isFavorite = favorites.some(f => f.id === product.id);
-    
-    return `
-        <div class="product-card" data-aos="fade-up" data-aos-delay="${delay}">
-            ${product.badge ? `<div class="product-badge ${product.badge}">${product.badge === 'sale' ? '🔥 تخفيض' : product.badge === 'new' ? '✨ جديد' : '🌟 الأكثر مبيعاً'}</div>` : ''}
-            ${product.discount ? `<div class="product-discount">${product.discount}</div>` : ''}
-            <button class="product-favorite ${isFavorite ? 'active' : ''}" onclick="toggleFavorite(${product.id}, event)">
-                <i class="fas fa-heart"></i>
-            </button>
-            <div class="product-image-container" onclick='openProductDetail(${JSON.stringify(product).replace(/'/g, "&apos;")})'>
-                <img src="${product.image}" alt="${product.name}" class="product-image" loading="lazy">
-                <button class="quick-view-btn">
-                    <i class="fas fa-eye"></i> معاينة سريعة
-                </button>
-            </div>
-            <div class="product-info">
-                <h3 class="product-name">${product.name}</h3>
-                <div class="product-rating">
-                    <div class="product-stars">
-                        ${generateStars(product.rating)}
-                    </div>
-                    <span class="product-reviews">(${product.reviews})</span>
-                </div>
-                <div class="product-price-container">
-                    <span class="product-price">${formatPrice(product.price)}</span>
-                    ${product.oldPrice ? `<span class="product-old-price">${formatPrice(product.oldPrice)}</span>` : ''}
-                </div>
-                <button class="add-to-cart-btn" onclick='addToCart(${JSON.stringify(product).replace(/'/g, "&apos;")}, 1, "", "", event)'>
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>أضف للسلة</span>
-                </button>
-            </div>
-        </div>
-    `;
-}
-
-function generateStars(rating) {
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 >= 0.5;
-    let stars = '';
-    
-    for (let i = 0; i < fullStars; i++) {
-        stars += '<i class="fas fa-star"></i>';
-    }
-    
-    if (hasHalfStar) {
-        stars += '<i class="fas fa-star-half-alt"></i>';
-    }
-    
-    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-    for (let i = 0; i < emptyStars; i++) {
-        stars += '<i class="far fa-star"></i>';
-    }
-    
-    return stars;
-}
-
-function formatPrice(price) {
-    return new Intl.NumberFormat('ar-IQ', {
-        style: 'currency',
-        currency: 'IQD',
-        minimumFractionDigits: 0
-    }).format(price).replace('IQD', 'د.ع');
-}
-
-function openProductDetail(product) {
-    currentProduct = product;
-    
-    document.getElementById('productDetailTitle').textContent = product.name;
-    document.getElementById('productDetailPrice').textContent = formatPrice(product.price);
-    document.getElementById('productDetailDescription').textContent = product.description;
-    document.getElementById('mainProductImage').src = product.image;
-    
-    // Load thumbnails
-    const thumbnails = document.getElementById('productThumbnails');
-    thumbnails.innerHTML = '';
-    for (let i = 0; i < 4; i++) {
-        thumbnails.innerHTML += `
-            <img src="${product.image}" alt="thumbnail" class="thumbnail ${i === 0 ? 'active' : ''}" onclick="changeMainImage('${product.image}', this)">
-        `;
-    }
-    
-    showPage('productDetail');
-}
-
-function changeMainImage(src, element) {
-    document.getElementById('mainProductImage').src = src;
-    document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-    element.classList.add('active');
-}
-
-function selectColor(element) {
-    document.querySelectorAll('.color-option').forEach(c => c.classList.remove('active'));
-    element.classList.add('active');
-}
-
-function selectSize(element) {
-    document.querySelectorAll('.size-option').forEach(s => s.classList.remove('active'));
-    element.classList.add('active');
-}
-
-// ============================================
-// CART FUNCTIONS
-// ============================================
-function addToCart(product, quantity = 1, color = '', size = '', event) {
-    if (event) {
-        event.stopPropagation();
-    }
-    
-    const cartItem = {
-        ...product,
-        quantity: quantity,
-        color: color,
-        size: size,
-        cartId: Date.now()
-    };
-    
-    cart.push(cartItem);
-    localStorage.setItem('lavishCart', JSON.stringify(cart));
-    updateCartCount();
-    showNotification('تم إضافة المنتج إلى السلة بنجاح', 'success');
-}
-
-function updateCartCount() {
-    const count = cart.length;
-    document.getElementById('cartCount').textContent = count;
-    if (count > 0) {
-        document.getElementById('cartCount').style.display = 'flex';
-    } else {
-        document.getElementById('cartCount').style.display = 'none';
-    }
-}
-
-function loadCart() {
-    const container = document.getElementById('cartItems');
-    
-    if (cart.length === 0) {
-        container.innerHTML = `
-            <div class="empty-cart">
-                <i class="fas fa-shopping-cart"></i>
-                <h3>السلة فارغة!</h3>
-                <p>ابدأ بإضافة منتجات إلى سلتك</p>
-            </div>
-        `;
-        document.getElementById('cartTotal').textContent = '0 د.ع';
-        return;
-    }
-    
-    container.innerHTML = '';
-    let total = 0;
-    
-    cart.forEach(item => {
-        const itemTotal = item.price * item.quantity;
-        total += itemTotal;
-        
-        container.innerHTML += `
-            <div class="cart-item">
-                <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-                <div class="cart-item-details">
-                    <div class="cart-item-name">${item.name}</div>
-                    <div class="cart-item-price">${formatPrice(item.price)}</div>
-                    <div class="cart-item-quantity">الكمية: ${item.quantity}</div>
-                    ${item.color ? `<div class="cart-item-quantity">اللون: ${item.color}</div>` : ''}
-                    ${item.size ? `<div class="cart-item-quantity">المقاس: ${item.size}</div>` : ''}
-                </div>
-                <button class="cart-item-remove" onclick="removeFromCart(${item.cartId})">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-        `;
-    });
-    
-    document.getElementById('cartTotal').textContent = formatPrice(total);
-}
-
-function removeFromCart(cartId) {
-    cart = cart.filter(item => item.cartId !== cartId);
-    localStorage.setItem('lavishCart', JSON.stringify(cart));
-    updateCartCount();
-    loadCart();
-    showNotification('تم حذف المنتج من السلة', 'success');
-}
-
-// ============================================
-// FAVORITES FUNCTIONS (FIXED)
-// ============================================
-function toggleFavorite(productId, event) {
-    if (event) {
-        event.stopPropagation();
-    }
-    
-    const product = getAllProducts().find(p => p.id === productId);
-    if (!product) return;
-    
-    const index = favorites.findIndex(f => f.id === productId);
-    
-    if (index > -1) {
-        favorites.splice(index, 1);
-        showNotification('تم إزالة المنتج من المفضلة', 'success');
-    } else {
-        favorites.push(product);
-        showNotification('تم إضافة المنتج إلى المفضلة', 'success');
-    }
-    
-    localStorage.setItem('lavishFavorites', JSON.stringify(favorites));
-    updateFavoritesCount();
-    
-    // Refresh current page
-    if (document.getElementById('favoritesPage').classList.contains('active')) {
-        loadFavorites();
-    } else {
-        loadProducts(currentCategory);
-    }
-}
-
-function updateFavoritesCount() {
-    const count = favorites.length;
-    document.getElementById('favoritesCount').textContent = count;
-    if (count > 0) {
-        document.getElementById('favoritesCount').style.display = 'flex';
-    } else {
-        document.getElementById('favoritesCount').style.display = 'none';
-    }
-}
-
-function loadFavorites() {
-    const container = document.getElementById('favoritesGrid');
-    
-    if (favorites.length === 0) {
-        container.innerHTML = `
-            <div class="empty-cart" style="grid-column: 1 / -1;">
-                <i class="fas fa-heart"></i>
-                <h3>لا توجد منتجات مفضلة!</h3>
-                <p>ابدأ بإضافة منتجات إلى المفضلة</p>
-            </div>
-        `;
-        return;
-    }
-    
-    container.innerHTML = '';
-    favorites.forEach((product, index) => {
-        container.innerHTML += createProductCard(product, index * 100);
-    });
-    
-    AOS.refresh();
-}
-
-// ============================================
-// WHATSAPP FUNCTIONS
-// ============================================
-function sendToWhatsApp(isCart = false) {
-    const phone = '9647813798636'; // رقم الواتساب
-    let message = '';
-    
-    if (isCart) {
-        if (cart.length === 0) {
-            showNotification('السلة فارغة!', 'error');
-            return;
+    loadCart() {
+        try {
+            const savedCart = localStorage.getItem('lavish_cart');
+            AppState.cart = savedCart ? JSON.parse(savedCart) : [];
+        } catch (error) {
+            console.error('Error loading cart:', error);
+            AppState.cart = [];
         }
-        
-        message = 'مرحباً! أريد إتمام طلبي:\n\n';
-        let total = 0;
-        
-        cart.forEach((item, index) => {
-            const itemTotal = item.price * item.quantity;
-            total += itemTotal;
-            message += `${index + 1}. ${item.name}\n`;
-            message += `   السعر: ${formatPrice(item.price)}\n`;
-            if (item.color) message += `   اللون: ${item.color}\n`;
-            if (item.size) message += `   المقاس: ${item.size}\n`;
-            message += `   الكمية: ${item.quantity}\n`;
-            message += `   المجموع: ${formatPrice(itemTotal)}\n\n`;
-        });
-        
-        message += `\nالمجموع الكلي: ${formatPrice(total)}`;
-    } else if (currentProduct) {
-        const qty = document.getElementById('productQty').value;
-        const color = document.querySelector('.color-option.active')?.style.backgroundColor || '';
-        const size = document.querySelector('.size-option.active')?.textContent || '';
-        
-        message = `مرحباً! أريد الاستفسار عن هذا المنتج:\n\n`;
-        message += `المنتج: ${currentProduct.name}\n`;
-        message += `السعر: ${formatPrice(currentProduct.price)}\n`;
-        if (color) message += `اللون: ${color}\n`;
-        if (size) message += `المقاس: ${size}\n`;
-        message += `الكمية: ${qty}`;
     }
-    
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
-}
 
-// ============================================
-// NOTIFICATION
-// ============================================
-function showNotification(message, type = 'success') {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.innerHTML = `
-        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
-        <span>${message}</span>
-    `;
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.style.opacity = '0';
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
-}
-
-// ============================================
-// PAGE NAVIGATION
-// ============================================
-function showPage(page) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(page + 'Page').classList.add('active');
-    
-    closeSidebar();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// ============================================
-// EVENT LISTENERS
-// ============================================
-function initializeEventListeners() {
-    // Mobile menu
-    document.getElementById('mobileMenuToggle').addEventListener('click', openSidebar);
-    document.getElementById('sidebarClose').addEventListener('click', closeSidebar);
-    document.getElementById('sidebarOverlay').addEventListener('click', closeSidebar);
-    
-    // Navigation
-    document.querySelectorAll('[data-page]').forEach(el => {
-        el.addEventListener('click', function(e) {
-            e.preventDefault();
-            const page = this.dataset.page;
-            
-            if (page === 'cart') {
-                loadCart();
-            } else if (page === 'favorites') {
-                loadFavorites();
-            }
-            
-            showPage(page);
-        });
-    });
-    
-    // Categories
-    document.querySelectorAll('[data-category]').forEach(el => {
-        el.addEventListener('click', function(e) {
-            e.preventDefault();
-            const category = this.dataset.category;
-            currentCategory = category;
-            
-            document.querySelectorAll('.category-item').forEach(c => c.classList.remove('active'));
-            if (this.classList.contains('category-item')) {
-                this.classList.add('active');
-            }
-            
-            if (category === 'all') {
-                loadProducts();
-            } else {
-                loadProducts(category);
-            }
-            
-            showPage('home');
-        });
-    });
-    
-    // Cart and Favorites buttons
-    document.getElementById('cartBtn').addEventListener('click', () => {
-        loadCart();
-        showPage('cart');
-    });
-    
-    document.getElementById('favoritesBtn').addEventListener('click', () => {
-        loadFavorites();
-        showPage('favorites');
-    });
-    
-    // Product detail actions
-    document.getElementById('addToCartDetailBtn').addEventListener('click', () => {
-        if (currentProduct) {
-            const qty = parseInt(document.getElementById('productQty').value);
-            const color = document.querySelector('.color-option.active')?.style.backgroundColor || '';
-            const size = document.querySelector('.size-option.active')?.textContent || '';
-            addToCart(currentProduct, qty, color, size);
+    saveCart() {
+        try {
+            localStorage.setItem('lavish_cart', JSON.stringify(AppState.cart));
+            this.updateAllCartBadges();
+            this.triggerCartUpdate();
+        } catch (error) {
+            console.error('Error saving cart:', error);
         }
-    });
-    
-    document.getElementById('whatsappDetailBtn').addEventListener('click', () => sendToWhatsApp(false));
-    
-    // Quantity controls
-    document.getElementById('decreaseQty').addEventListener('click', () => {
-        const input = document.getElementById('productQty');
-        if (input.value > 1) input.value = parseInt(input.value) - 1;
-    });
-    
-    document.getElementById('increaseQty').addEventListener('click', () => {
-        const input = document.getElementById('productQty');
-        input.value = parseInt(input.value) + 1;
-    });
-    
-    // Checkout
-    document.getElementById('checkoutBtn').addEventListener('click', () => sendToWhatsApp(true));
-    
-    // Search
-    const topSearchBtn = document.getElementById('topSearchBtn');
-    const mainSearchBtn = document.getElementById('mainSearchBtn');
-    
-    if (topSearchBtn) topSearchBtn.addEventListener('click', performSearch);
-    if (mainSearchBtn) mainSearchBtn.addEventListener('click', performSearch);
-    
-    const topSearchInput = document.getElementById('topSearchInput');
-    const mainSearchInput = document.getElementById('mainSearchInput');
-    
-    if (topSearchInput) {
-        topSearchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') performSearch();
-        });
     }
-    
-    if (mainSearchInput) {
-        mainSearchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') performSearch();
-        });
-    }
-    
-    // Filters
-    document.querySelectorAll('.filter-item').forEach(filter => {
-        filter.addEventListener('click', function() {
-            document.querySelectorAll('.filter-item').forEach(f => f.classList.remove('active'));
-            this.classList.add('active');
-            currentFilter = this.dataset.filter;
-            filterProducts();
-        });
-    });
-    
-    // Back button
-    document.getElementById('backToHomeDetail').addEventListener('click', () => {
-        showPage('home');
-    });
-}
 
-// ============================================
-// SEARCH
-// ============================================
-function performSearch() {
-    const searchTerm = (document.getElementById('topSearchInput')?.value || document.getElementById('mainSearchInput')?.value || '').trim().toLowerCase();
-    
-    if (!searchTerm) {
-        showNotification('الرجاء إدخال كلمة بحث', 'error');
-        return;
-    }
-    
-    const allProducts = getAllProducts();
-    const results = allProducts.filter(p => 
-        p.name.toLowerCase().includes(searchTerm) || 
-        p.description.toLowerCase().includes(searchTerm) ||
-        p.category.toLowerCase().includes(searchTerm)
-    );
-    
-    const container = document.getElementById('productsGrid');
-    container.innerHTML = '';
-    
-    if (results.length === 0) {
-        container.innerHTML = `
-            <div class="empty-cart" style="grid-column: 1 / -1;">
-                <i class="fas fa-search"></i>
-                <h3>لم يتم العثور على نتائج</h3>
-                <p>حاول استخدام كلمات مختلفة</p>
-            </div>
-        `;
-    } else {
-        results.forEach((product, index) => {
-            container.innerHTML += createProductCard(product, index * 100);
-        });
-    }
-    
-    showPage('home');
-    AOS.refresh();
-}
-
-// ============================================
-// FILTER PRODUCTS
-// ============================================
-function filterProducts() {
-    const container = document.getElementById('productsGrid');
-    let products = getAllProducts();
-    
-    if (currentFilter !== 'all') {
-        products = products.filter(p => p.filter === currentFilter);
-    }
-    
-    if (currentFilter === 'price-low') {
-        products.sort((a, b) => a.price - b.price);
-    } else if (currentFilter === 'price-high') {
-        products.sort((a, b) => b.price - a.price);
-    }
-    
-    container.innerHTML = '';
-    products.forEach((product, index) => {
-        container.innerHTML += createProductCard(product, index * 50);
-    });
-    
-    AOS.refresh();
-}
-
-// ============================================
-// SIDEBAR
-// ============================================
-function openSidebar() {
-    document.getElementById('mobileSidebar').classList.add('active');
-    document.getElementById('sidebarOverlay').classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeSidebar() {
-    document.getElementById('mobileSidebar').classList.remove('active');
-    document.getElementById('sidebarOverlay').classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-// ============================================
-// SCROLL TO TOP
-// ============================================
-function initializeScrollToTop() {
-    const scrollBtn = document.getElementById('scrollTopBtn');
-    
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            scrollBtn.classList.add('visible');
+    addToCart(product) {
+        const existingItem = AppState.cart.find(item => item.id === product.id);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
         } else {
-            scrollBtn.classList.remove('visible');
+            AppState.cart.push({
+                ...product,
+                quantity: 1
+            });
         }
-    });
-    
-    scrollBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    
-    // ============================================
-    // NOTIFICATIONS
-    // ============================================
-    const notificationsBtn = document.getElementById('notificationsBtn');
-    if (notificationsBtn) {
-        notificationsBtn.addEventListener('click', () => {
-            showPage('notificationsPage');
-            updateNotificationsCount(0);
-        });
-    }
-    
-    function updateNotificationsCount(count) {
-        const badge = document.getElementById('notificationsCount');
-        if (badge) {
-            badge.textContent = count;
-            badge.style.display = count > 0 ? 'flex' : 'none';
-        }
-    }
-    
-    // ============================================
-    // ENHANCED PAGE NAVIGATION WITH SCROLL
-    // ============================================
-    const originalShowPage = showPage;
-    showPage = function(pageId) {
-        originalShowPage(pageId);
         
-        // إذا كان الانتقال إلى الصفحة الرئيسية، قم بالتمرير إلى المنتجات
-        if (pageId === 'homePage') {
-            setTimeout(() => {
-                const productsSection = document.querySelector('.products-section');
-                if (productsSection) {
-                    productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }, 100);
-        }
-    };
-    
-    // ============================================
-    // LOADING COUNTDOWN
-    // ============================================
-    const countdown = document.getElementById('loadingCountdown');
-    if (countdown) {
-        let count = 3;
-        const countdownInterval = setInterval(() => {
-            count--;
-            countdown.textContent = count;
-            if (count === 0) {
-                clearInterval(countdownInterval);
+        this.saveCart();
+        this.showNotification('✅ تمت الإضافة إلى السلة', 'success');
+        return true;
+    }
+
+    removeFromCart(productId) {
+        AppState.cart = AppState.cart.filter(item => item.id !== productId);
+        this.saveCart();
+        this.showNotification('🗑️ تم حذف المنتج من السلة', 'info');
+    }
+
+    updateQuantity(productId, quantity) {
+        const item = AppState.cart.find(item => item.id === productId);
+        if (item) {
+            if (quantity <= 0) {
+                this.removeFromCart(productId);
+            } else {
+                item.quantity = quantity;
+                this.saveCart();
             }
-        }, 1000);
+        }
+    }
+
+    clearCart() {
+        AppState.cart = [];
+        this.saveCart();
+        this.showNotification('🗑️ تم إفراغ السلة', 'info');
+    }
+
+    getCartCount() {
+        return AppState.cart.reduce((total, item) => total + item.quantity, 0);
+    }
+
+    getCartTotal() {
+        return AppState.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    }
+
+    updateAllCartBadges() {
+        const count = this.getCartCount();
+        
+        // Update bottom nav badge
+        const navBadge = document.getElementById('navCartCount');
+        if (navBadge) {
+            if (count > 0) {
+                navBadge.textContent = count > 99 ? '99+' : count;
+                navBadge.style.display = 'flex';
+            } else {
+                navBadge.style.display = 'none';
+            }
+        }
+
+        // Update header badge
+        const headerBadge = document.getElementById('cartCount');
+        if (headerBadge) {
+            headerBadge.textContent = count;
+        }
+    }
+
+    triggerCartUpdate() {
+        document.dispatchEvent(new CustomEvent('cartUpdated', {
+            detail: {
+                count: this.getCartCount(),
+                total: this.getCartTotal()
+            }
+        }));
+    }
+
+    showNotification(message, type = 'success') {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `cart-notification ${type}`;
+        notification.textContent = message;
+        notification.style.cssText = `
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: ${type === 'success' ? '#28a745' : '#17a2b8'};
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+            animation: slideInRight 0.3s ease;
+            font-weight: 600;
+        `;
+
+        document.body.appendChild(notification);
+
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.style.animation = 'slideOutRight 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
     }
 }
 
-// ============================================
-// BOTTOM NAVIGATION FUNCTIONALITY
-// ============================================
+// Initialize cart manager
+const cartManager = new CartManager();
 
-/**
- * Bottom Navigation Manager
- * Handles navigation between pages and active states
- */
+// ============================================
+// BOTTOM NAVIGATION
+// ============================================
 class BottomNavigation {
     constructor() {
         this.navItems = document.querySelectorAll('.nav-item');
         this.pages = document.querySelectorAll('.page');
-        this.currentPage = 'home';
         this.init();
     }
 
     init() {
-        // Set up navigation click handlers
         this.navItems.forEach(item => {
             item.addEventListener('click', (e) => {
+                e.preventDefault();
                 const page = item.getAttribute('data-page');
                 
-                // Handle cart button separately (it might have special behavior)
                 if (item.id === 'navCartBtn') {
-                    this.navigateToCart();
-                    return;
-                }
-                
-                if (page) {
+                    this.navigateTo('cart');
+                } else if (page) {
                     this.navigateTo(page);
                 }
             });
         });
 
-        // Sync with existing navigation system
-        this.syncWithExistingNavigation();
-        
-        // Update cart count badge
-        this.updateCartCount();
-        
-        // Hide/show nav on scroll (optional)
-        this.setupScrollBehavior();
+        // Sync with existing navigation
+        this.syncExistingNavigation();
     }
 
-    /**
-     * Navigate to a specific page
-     */
     navigateTo(pageName) {
-        if (pageName === this.currentPage) return;
+        AppState.currentPage = pageName;
 
-        // Update active state
-        this.updateActiveState(pageName);
-        
-        // Show the target page
-        this.showPage(pageName);
-        
-        // Store current page
-        this.currentPage = pageName;
-        
-        // Scroll to top
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        
-        // Add to browser history
-        if (history.pushState) {
-            history.pushState({ page: pageName }, '', `#${pageName}`);
-        }
-    }
-
-    /**
-     * Update active state of navigation items
-     */
-    updateActiveState(pageName) {
+        // Update nav active states
         this.navItems.forEach(item => {
             const itemPage = item.getAttribute('data-page');
             if (itemPage === pageName) {
                 item.classList.add('active');
-                // Add ripple effect
-                this.addRippleEffect(item);
             } else {
                 item.classList.remove('active');
             }
         });
-    }
 
-    /**
-     * Show the target page and hide others
-     */
-    showPage(pageName) {
+        // Show page
         this.pages.forEach(page => {
-            if (page.id === `${pageName}Page`) {
+            const pageId = page.id.replace('Page', '').toLowerCase();
+            if (pageId === pageName.toLowerCase()) {
                 page.classList.add('active');
                 page.style.display = 'block';
             } else {
@@ -1330,348 +407,846 @@ class BottomNavigation {
                 page.style.display = 'none';
             }
         });
+
+        // Render page content
+        this.renderPageContent(pageName);
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    /**
-     * Handle cart navigation
-     */
-    navigateToCart() {
-        this.navigateTo('cart');
-        // Special cart page handling if needed
-        if (typeof showCartModal === 'function') {
-            showCartModal();
+    renderPageContent(pageName) {
+        switch(pageName) {
+            case 'home':
+                renderHomeProducts();
+                break;
+            case 'products':
+                renderAllProducts();
+                break;
+            case 'categories':
+                setupCategories();
+                break;
+            case 'cart':
+                renderCart();
+                break;
+            case 'account':
+                setupAccount();
+                break;
         }
     }
 
-    /**
-     * Update cart count badge
-     */
-    updateCartCount() {
-        const cartBadge = document.getElementById('navCartCount');
-        const cartBtn = document.getElementById('navCartBtn');
-        
-        if (cartBadge && cartBtn) {
-            // Get cart count from localStorage or global variable
-            const cartCount = this.getCartCount();
-            
-            if (cartCount > 0) {
-                cartBadge.textContent = cartCount > 99 ? '99+' : cartCount;
-                cartBadge.style.display = 'flex';
-            } else {
-                cartBadge.style.display = 'none';
-            }
-        }
-    }
-
-    /**
-     * Get current cart count
-     */
-    getCartCount() {
-        try {
-            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            return cart.reduce((total, item) => total + (item.quantity || 1), 0);
-        } catch (error) {
-            return 0;
-        }
-    }
-
-    /**
-     * Sync with existing navigation system
-     */
-    syncWithExistingNavigation() {
-        // Listen for navigation events from other parts of the app
-        document.addEventListener('navigate', (e) => {
-            if (e.detail && e.detail.page) {
-                this.navigateTo(e.detail.page);
-            }
-        });
-
-        // Sync with existing page navigation links
-        const allNavLinks = document.querySelectorAll('[data-page]');
-        allNavLinks.forEach(link => {
+    syncExistingNavigation() {
+        // Sync with all data-page links
+        document.querySelectorAll('[data-page]').forEach(link => {
             if (!link.classList.contains('nav-item')) {
                 link.addEventListener('click', (e) => {
+                    e.preventDefault();
                     const page = link.getAttribute('data-page');
-                    if (page) {
-                        this.navigateTo(page);
-                    }
+                    if (page) this.navigateTo(page);
                 });
             }
         });
     }
-
-    /**
-     * Add ripple effect on tap
-     */
-    addRippleEffect(element) {
-        element.classList.add('ripple');
-        setTimeout(() => {
-            element.classList.remove('ripple');
-        }, 400);
-    }
-
-    /**
-     * Setup scroll behavior (hide/show nav on scroll)
-     */
-    setupScrollBehavior() {
-        let lastScrollTop = 0;
-        let ticking = false;
-        const bottomNav = document.getElementById('bottomNav');
-
-        // Uncomment this if you want to hide nav on scroll down
-        /*
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    
-                    if (scrollTop > lastScrollTop && scrollTop > 100) {
-                        // Scrolling down - hide nav
-                        bottomNav.classList.add('hidden');
-                    } else {
-                        // Scrolling up - show nav
-                        bottomNav.classList.remove('hidden');
-                    }
-                    
-                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-                    ticking = false;
-                });
-                
-                ticking = true;
-            }
-        });
-        */
-    }
-
-    /**
-     * Handle browser back/forward buttons
-     */
-    setupHistoryNavigation() {
-        window.addEventListener('popstate', (e) => {
-            if (e.state && e.state.page) {
-                this.navigateTo(e.state.page);
-            }
-        });
-    }
 }
-
-// Initialize Bottom Navigation when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    const bottomNav = new BottomNavigation();
-    
-    // Make it globally accessible
-    window.bottomNav = bottomNav;
-    
-    // Update cart count when cart changes
-    window.addEventListener('storage', (e) => {
-        if (e.key === 'cart') {
-            bottomNav.updateCartCount();
-        }
-    });
-    
-    // Also update when cart is modified in the same tab
-    document.addEventListener('cartUpdated', () => {
-        bottomNav.updateCartCount();
-    });
-});
-
-/**
- * Helper function to update cart count from anywhere in the app
- */
-function updateNavCartCount() {
-    if (window.bottomNav) {
-        window.bottomNav.updateCartCount();
-    }
-}
-
-/**
- * Helper function to navigate from anywhere in the app
- */
-function navigateToPage(pageName) {
-    if (window.bottomNav) {
-        window.bottomNav.navigateTo(pageName);
-    }
-}
-
-// Export for use in other scripts
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { BottomNavigation, updateNavCartCount, navigateToPage };
-}
-
 
 // ============================================
-// CATEGORIES PAGE FUNCTIONALITY
+// PRODUCT RENDERING
 // ============================================
+function createProductCard(product) {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.setAttribute('data-aos', 'fade-up');
+    
+    // Badge HTML
+    const badgeHTML = product.badge ? `
+        <span class="product-badge ${product.badge}">
+            ${product.badge === 'sale' ? '🔥 تخفيض' : 
+              product.badge === 'new' ? '⭐ جديد' : 
+              '🔥 الأكثر مبيعاً'}
+        </span>
+    ` : '';
 
-/**
- * Initialize Categories Page
- */
-function initCategoriesPage() {
+    // Discount HTML
+    const discountHTML = product.discount ? `
+        <span class="product-discount">${product.discount}</span>
+    ` : '';
+
+    // Old price HTML
+    const oldPriceHTML = product.oldPrice ? `
+        <span class="old-price">${formatPrice(product.oldPrice)}</span>
+    ` : '';
+
+    card.innerHTML = `
+        ${badgeHTML}
+        ${discountHTML}
+        <div class="product-image">
+            <img src="${product.image}" alt="${product.name}" loading="lazy">
+            <div class="product-overlay">
+                <button class="btn-quick-view" onclick="showProductDetail(${product.id})">
+                    <i class="fas fa-eye"></i> عرض سريع
+                </button>
+                <button class="btn-favorite" onclick="toggleFavorite(${product.id})">
+                    <i class="far fa-heart"></i>
+                </button>
+            </div>
+        </div>
+        <div class="product-info">
+            <h3 class="product-name">${product.name}</h3>
+            <div class="product-rating">
+                <div class="stars">
+                    ${generateStars(product.rating)}
+                </div>
+                <span class="reviews">(${product.reviews})</span>
+            </div>
+            <div class="product-price">
+                <span class="price">${formatPrice(product.price)}</span>
+                ${oldPriceHTML}
+            </div>
+            <button class="btn-add-to-cart" onclick="addToCartClick(${product.id})">
+                <i class="fas fa-shopping-cart"></i>
+                أضف للسلة
+            </button>
+        </div>
+    `;
+
+    return card;
+}
+
+function generateStars(rating) {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    let starsHTML = '';
+
+    for (let i = 0; i < fullStars; i++) {
+        starsHTML += '<i class="fas fa-star"></i>';
+    }
+    if (hasHalfStar) {
+        starsHTML += '<i class="fas fa-star-half-alt"></i>';
+    }
+    const emptyStars = 5 - Math.ceil(rating);
+    for (let i = 0; i < emptyStars; i++) {
+        starsHTML += '<i class="far fa-star"></i>';
+    }
+
+    return starsHTML;
+}
+
+function formatPrice(price) {
+    return price.toLocaleString('ar-IQ') + ' د.ع';
+}
+
+// ============================================
+// HOME PAGE PRODUCTS
+// ============================================
+function renderHomeProducts() {
+    const productsGrid = document.getElementById('productsGrid');
+    if (!productsGrid) return;
+
+    productsGrid.innerHTML = '';
+
+    // Show mix of products from all categories
+    const allProducts = [...productsDatabase.women, ...productsDatabase.men];
+    const featuredProducts = allProducts.slice(0, 6);
+
+    featuredProducts.forEach(product => {
+        productsGrid.appendChild(createProductCard(product));
+    });
+}
+
+// ============================================
+// ALL PRODUCTS PAGE
+// ============================================
+function renderAllProducts(filter = 'all') {
+    const productsGrid = document.getElementById('allProductsGrid');
+    if (!productsGrid) return;
+
+    productsGrid.innerHTML = '';
+
+    // Get all products
+    const allProducts = [
+        ...productsDatabase.women,
+        ...productsDatabase.men,
+        ...productsDatabase.kids
+    ];
+
+    // Apply filter
+    let filteredProducts = allProducts;
+    if (filter !== 'all') {
+        filteredProducts = allProducts.filter(p => p.filter === filter);
+    }
+
+    // Render products
+    if (filteredProducts.length === 0) {
+        productsGrid.innerHTML = `
+            <div class="no-products">
+                <i class="fas fa-search"></i>
+                <p>لا توجد منتجات في هذا القسم</p>
+            </div>
+        `;
+    } else {
+        filteredProducts.forEach(product => {
+            productsGrid.appendChild(createProductCard(product));
+        });
+    }
+}
+
+// ============================================
+// CATEGORIES PAGE
+// ============================================
+function setupCategories() {
     const categoryCards = document.querySelectorAll('.category-card');
     
     categoryCards.forEach(card => {
-        card.addEventListener('click', function() {
+        // Remove old listeners
+        const newCard = card.cloneNode(true);
+        card.parentNode.replaceChild(newCard, card);
+        
+        // Add new listener
+        newCard.addEventListener('click', function() {
             const category = this.getAttribute('data-category');
-            
-            // Navigate to products page with category filter
-            if (window.bottomNav) {
-                window.bottomNav.navigateTo('products');
-                
-                // Apply category filter after a short delay
-                setTimeout(() => {
-                    filterProductsByCategory(category);
-                }, 100);
-            }
+            filterByCategory(category);
         });
     });
 }
 
-/**
- * Filter products by category
- */
-function filterProductsByCategory(category) {
-    const allProductsGrid = document.getElementById('allProductsGrid');
-    
-    if (allProductsGrid) {
-        // Clear existing products
-        allProductsGrid.innerHTML = '';
-        
-        // Get products for this category
-        const categoryProducts = productsDatabase[category] || [];
-        
-        // Render products
-        categoryProducts.forEach((product, index) => {
-            const productCard = createProductCard(product, index);
-            allProductsGrid.appendChild(productCard);
+function filterByCategory(category) {
+    // Navigate to products page
+    if (window.bottomNav) {
+        window.bottomNav.navigateTo('products');
+    }
+
+    // Apply category filter after short delay
+    setTimeout(() => {
+        const productsGrid = document.getElementById('allProductsGrid');
+        if (!productsGrid) return;
+
+        productsGrid.innerHTML = '';
+
+        let products = [];
+        if (category === 'all') {
+            products = [...productsDatabase.women, ...productsDatabase.men, ...productsDatabase.kids];
+        } else if (productsDatabase[category]) {
+            products = productsDatabase[category];
+        }
+
+        products.forEach(product => {
+            productsGrid.appendChild(createProductCard(product));
         });
+    }, 100);
+}
+
+// ============================================
+// CART PAGE
+// ============================================
+function renderCart() {
+    const cartPage = document.getElementById('cartPage');
+    if (!cartPage) return;
+
+    const cartItemsContainer = cartPage.querySelector('.cart-items');
+    const cartSummary = cartPage.querySelector('.cart-summary');
+
+    if (!cartItemsContainer) return;
+
+    if (AppState.cart.length === 0) {
+        cartItemsContainer.innerHTML = `
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>السلة فارغة</h3>
+                <p>لم تقم بإضافة أي منتجات بعد</p>
+                <button class="btn-primary" onclick="window.bottomNav.navigateTo('products')">
+                    تصفح المنتجات
+                </button>
+            </div>
+        `;
+        if (cartSummary) cartSummary.style.display = 'none';
+    } else {
+        // Render cart items
+        let itemsHTML = '';
+        AppState.cart.forEach(item => {
+            itemsHTML += `
+                <div class="cart-item" data-id="${item.id}">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                    <div class="cart-item-details">
+                        <h4>${item.name}</h4>
+                        <p class="cart-item-price">${formatPrice(item.price)}</p>
+                        <div class="quantity-controls">
+                            <button onclick="updateCartQuantity(${item.id}, ${item.quantity - 1})">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <span>${item.quantity}</span>
+                            <button onclick="updateCartQuantity(${item.id}, ${item.quantity + 1})">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="cart-item-total">
+                        <p class="item-total">${formatPrice(item.price * item.quantity)}</p>
+                        <button class="btn-remove" onclick="removeFromCartClick(${item.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+
+        cartItemsContainer.innerHTML = itemsHTML;
+
+        // Update summary
+        if (cartSummary) {
+            const total = cartManager.getCartTotal();
+            const deliveryFee = total >= 100000 ? 0 : 5000;
+            const finalTotal = total + deliveryFee;
+
+            cartSummary.style.display = 'block';
+            cartSummary.innerHTML = `
+                <h3>ملخص الطلب</h3>
+                <div class="summary-row">
+                    <span>المجموع الفرعي:</span>
+                    <span>${formatPrice(total)}</span>
+                </div>
+                <div class="summary-row">
+                    <span>رسوم التوصيل:</span>
+                    <span>${deliveryFee === 0 ? 'مجاني' : formatPrice(deliveryFee)}</span>
+                </div>
+                <div class="summary-row total">
+                    <span>المجموع النهائي:</span>
+                    <span>${formatPrice(finalTotal)}</span>
+                </div>
+                <button class="btn-checkout" onclick="checkout()">
+                    <i class="fas fa-check"></i>
+                    إتمام الطلب
+                </button>
+                <button class="btn-clear-cart" onclick="clearCartClick()">
+                    <i class="fas fa-trash"></i>
+                    إفراغ السلة
+                </button>
+            `;
+        }
     }
 }
 
-/**
- * Initialize Products Page
- */
-function initProductsPage() {
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const allProductsGrid = document.getElementById('allProductsGrid');
-    
-    // Load all products initially
-    loadAllProducts();
-    
-    // Set up filter buttons
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            // Update active state
-            filterBtns.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Get filter type
-            const filter = this.getAttribute('data-filter');
-            
-            // Apply filter
-            filterProducts(filter);
-        });
-    });
-}
-
-/**
- * Load all products
- */
-function loadAllProducts() {
-    const allProductsGrid = document.getElementById('allProductsGrid');
-    
-    if (!allProductsGrid) return;
-    
-    // Clear grid
-    allProductsGrid.innerHTML = '';
-    
-    // Combine all products
-    const allProducts = [
-        ...productsDatabase.women,
-        ...productsDatabase.men
-    ];
-    
-    // Render products
-    allProducts.forEach((product, index) => {
-        const productCard = createProductCard(product, index);
-        allProductsGrid.appendChild(productCard);
-    });
-}
-
-/**
- * Filter products based on filter type
- */
-function filterProducts(filterType) {
-    const allProductsGrid = document.getElementById('allProductsGrid');
-    
-    if (!allProductsGrid) return;
-    
-    // Clear grid
-    allProductsGrid.innerHTML = '';
-    
-    // Combine all products
-    const allProducts = [
-        ...productsDatabase.women,
-        ...productsDatabase.men
-    ];
-    
-    // Filter products
-    let filteredProducts = allProducts;
-    
-    if (filterType !== 'all') {
-        filteredProducts = allProducts.filter(product => product.filter === filterType);
-    }
-    
-    // Render filtered products
-    filteredProducts.forEach((product, index) => {
-        const productCard = createProductCard(product, index);
-        allProductsGrid.appendChild(productCard);
-    });
-}
-
-/**
- * Initialize Account Page
- */
-function initAccountPage() {
+// ============================================
+// ACCOUNT PAGE
+// ============================================
+function setupAccount() {
     const menuItems = document.querySelectorAll('.account-menu .menu-item');
     
     menuItems.forEach(item => {
-        item.addEventListener('click', function() {
+        // Remove old listeners
+        const newItem = item.cloneNode(true);
+        item.parentNode.replaceChild(newItem, item);
+        
+        // Add new listener
+        newItem.addEventListener('click', function() {
             const text = this.querySelector('span').textContent;
             
-            // Handle different menu items
-            if (text.includes('طلباتي')) {
-                alert('صفحة الطلبات قيد التطوير');
-            } else if (text.includes('المفضلة')) {
-                if (window.bottomNav) {
-                    window.bottomNav.navigateTo('favorites');
-                }
+            if (text.includes('المفضلة')) {
+                window.bottomNav.navigateTo('favorites');
             } else if (text.includes('الإشعارات')) {
-                if (window.bottomNav) {
-                    window.bottomNav.navigateTo('notifications');
-                }
+                window.bottomNav.navigateTo('notifications');
             } else if (text.includes('عن LaVish')) {
-                if (window.bottomNav) {
-                    window.bottomNav.navigateTo('about');
-                }
+                window.bottomNav.navigateTo('about');
             } else {
                 alert('هذه الميزة قيد التطوير');
             }
         });
     });
+}
+
+// ============================================
+// FILTER FUNCTIONALITY
+// ============================================
+function setupFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
     
-    // Login button
-    const loginBtn = document.querySelector('.btn-login');
-    if (loginBtn) {
-        loginBtn.addEventListener('click', function() {
-            alert('نظام تسجيل الدخول قيد التطوير');
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Update active state
+            filterButtons.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Apply filter
+            const filter = this.getAttribute('data-filter');
+            AppState.currentFilter = filter;
+            renderAllProducts(filter);
+        });
+    });
+}
+
+// ============================================
+// GLOBAL CLICK HANDLERS
+// ============================================
+window.addToCartClick = function(productId) {
+    // Find product in database
+    const allProducts = [
+        ...productsDatabase.women,
+        ...productsDatabase.men,
+        ...productsDatabase.kids
+    ];
+    
+    const product = allProducts.find(p => p.id === productId);
+    if (product) {
+        cartManager.addToCart(product);
+    }
+};
+
+window.removeFromCartClick = function(productId) {
+    if (confirm('هل تريد حذف هذا المنتج من السلة؟')) {
+        cartManager.removeFromCart(productId);
+        renderCart();
+    }
+};
+
+window.updateCartQuantity = function(productId, newQuantity) {
+    cartManager.updateQuantity(productId, newQuantity);
+    renderCart();
+};
+
+window.clearCartClick = function() {
+    if (confirm('هل تريد إفراغ السلة بالكامل؟')) {
+        cartManager.clearCart();
+        renderCart();
+    }
+};
+
+window.checkout = function() {
+    const total = cartManager.getCartTotal();
+    alert(`إتمام الطلب\nالمجموع: ${formatPrice(total)}\n\nهذه الميزة قيد التطوير`);
+};
+
+window.showProductDetail = function(productId) {
+    alert(`عرض تفاصيل المنتج #${productId}\nهذه الميزة قيد التطوير`);
+};
+
+window.toggleFavorite = function(productId) {
+    alert(`إضافة/إزالة من المفضلة #${productId}\nهذه الميزة قيد التطوير`);
+};
+
+// ============================================
+// SEARCH FUNCTIONALITY
+// ============================================
+function setupSearch() {
+    const searchInput = document.getElementById('topSearchInput');
+    const searchBtn = document.getElementById('topSearchBtn');
+
+    if (searchBtn) {
+        searchBtn.addEventListener('click', performSearch);
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
         });
     }
 }
 
-// Initialize all pages when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    initCategoriesPage();
-    initProductsPage();
-    initAccountPage();
+function performSearch() {
+    const searchInput = document.getElementById('topSearchInput');
+    const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+
+    if (!query) {
+        alert('الرجاء إدخال كلمة البحث');
+        return;
+    }
+
+    // Get all products
+    const allProducts = [
+        ...productsDatabase.women,
+        ...productsDatabase.men,
+        ...productsDatabase.kids
+    ];
+
+    // Search in products
+    const results = allProducts.filter(p => 
+        p.name.toLowerCase().includes(query) ||
+        p.description.toLowerCase().includes(query)
+    );
+
+    // Navigate to products page and show results
+    if (window.bottomNav) {
+        window.bottomNav.navigateTo('products');
+    }
+
+    setTimeout(() => {
+        const productsGrid = document.getElementById('allProductsGrid');
+        if (!productsGrid) return;
+
+        productsGrid.innerHTML = '';
+
+        if (results.length === 0) {
+            productsGrid.innerHTML = `
+                <div class="no-products">
+                    <i class="fas fa-search"></i>
+                    <p>لم يتم العثور على نتائج لـ "${query}"</p>
+                </div>
+            `;
+        } else {
+            results.forEach(product => {
+                productsGrid.appendChild(createProductCard(product));
+            });
+        }
+    }, 100);
+}
+
+// ============================================
+// POPUP AD
+// ============================================
+function setupPopupAd() {
+    setTimeout(() => {
+        const popup = document.getElementById('popupAdOverlay');
+        if (popup) {
+            popup.style.display = 'flex';
+        }
+    }, 3000);
+}
+
+window.closePopupAd = function() {
+    const popup = document.getElementById('popupAdOverlay');
+    if (popup) {
+        popup.style.display = 'none';
+    }
+};
+
+window.goToAdProduct = function() {
+    closePopupAd();
+    if (window.bottomNav) {
+        window.bottomNav.navigateTo('products');
+    }
+};
+
+// ============================================
+// LOADING SCREEN
+// ============================================
+function hideLoadingScreen() {
+    const loadingScreen = document.getElementById('loadingScreen');
+    if (loadingScreen) {
+        setTimeout(() => {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }, 2000);
+    }
+}
+
+// ============================================
+// PWA INSTALL
+// ============================================
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    
+    const installBtn = document.getElementById('installBtn');
+    if (installBtn) {
+        installBtn.style.display = 'flex';
+        
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    installBtn.style.display = 'none';
+                }
+                deferredPrompt = null;
+            }
+        });
+    }
 });
 
+// ============================================
+// SCROLL TO TOP
+// ============================================
+function setupScrollTop() {
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    
+    if (scrollBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollBtn.classList.add('show');
+            } else {
+                scrollBtn.classList.remove('show');
+            }
+        });
+
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+}
+
+// ============================================
+// INITIALIZATION
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('🚀 LaVish Center App Initializing...');
+
+    // Initialize bottom navigation
+    window.bottomNav = new BottomNavigation();
+    
+    // Setup initial page
+    renderHomeProducts();
+    
+    // Setup filters
+    setupFilters();
+    
+    // Setup categories
+    setupCategories();
+    
+    // Setup account
+    setupAccount();
+    
+    // Setup search
+    setupSearch();
+    
+    // Setup scroll to top
+    setupScrollTop();
+    
+    // Hide loading screen
+    hideLoadingScreen();
+    
+    // Show popup ad
+    setupPopupAd();
+    
+    // Update cart badges
+    cartManager.updateAllCartBadges();
+
+    console.log('✅ LaVish Center App Ready!');
+});
+
+// ============================================
+// ANIMATIONS
+// ============================================
+// Add CSS for animations
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideInRight {
+        from {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideOutRight {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+    }
+
+    .empty-cart {
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+    .empty-cart i {
+        font-size: 80px;
+        color: #ddd;
+        margin-bottom: 20px;
+    }
+
+    .empty-cart h3 {
+        font-size: 24px;
+        color: var(--dark-color);
+        margin-bottom: 10px;
+    }
+
+    .empty-cart p {
+        color: #999;
+        margin-bottom: 30px;
+    }
+
+    .no-products {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+    .no-products i {
+        font-size: 60px;
+        color: #ddd;
+        margin-bottom: 15px;
+    }
+
+    .no-products p {
+        font-size: 18px;
+        color: #999;
+    }
+
+    .cart-item {
+        display: flex;
+        gap: 15px;
+        padding: 15px;
+        background: white;
+        border-radius: 12px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .cart-item-image {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .cart-item-details {
+        flex: 1;
+    }
+
+    .cart-item-details h4 {
+        font-size: 16px;
+        margin-bottom: 5px;
+        color: var(--dark-color);
+    }
+
+    .cart-item-price {
+        color: var(--primary-color);
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .quantity-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .quantity-controls button {
+        width: 30px;
+        height: 30px;
+        border: none;
+        background: var(--light-color);
+        border-radius: 6px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .quantity-controls button:hover {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    .quantity-controls span {
+        min-width: 30px;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .cart-item-total {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
+
+    .item-total {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--dark-color);
+    }
+
+    .btn-remove {
+        width: 36px;
+        height: 36px;
+        border: none;
+        background: #fee;
+        color: var(--danger-color);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-remove:hover {
+        background: var(--danger-color);
+        color: white;
+    }
+
+    .cart-summary {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        margin-top: 20px;
+    }
+
+    .cart-summary h3 {
+        margin-bottom: 20px;
+        color: var(--dark-color);
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .summary-row.total {
+        border-bottom: none;
+        margin-top: 15px;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--primary-color);
+    }
+
+    .btn-checkout {
+        width: 100%;
+        padding: 15px;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-checkout:hover {
+        background: var(--secondary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 107, 157, 0.3);
+    }
+
+    .btn-clear-cart {
+        width: 100%;
+        padding: 12px;
+        background: #f8f9fa;
+        color: var(--danger-color);
+        border: 2px solid var(--danger-color);
+        border-radius: 25px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-clear-cart:hover {
+        background: var(--danger-color);
+        color: white;
+    }
+`;
+document.head.appendChild(style);
+
+console.log('📱 LaVish Center - Complete Application Loaded!');
