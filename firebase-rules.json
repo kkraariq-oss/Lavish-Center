@@ -1,0 +1,44 @@
+{
+  "rules": {
+    "categories": {
+      ".read": true,
+      ".write": "auth != null"
+    },
+    "products": {
+      ".read": true,
+      ".write": "auth != null"
+    },
+    "popupAds": {
+      ".read": true,
+      ".write": "auth != null"
+    },
+    "banners": {
+      ".read": true,
+      ".write": "auth != null"
+    },
+    "orders": {
+      ".read": "auth != null",
+      ".write": true
+    }
+  }
+}
+
+/**
+ * شرح القواعد:
+ * 
+ * categories, products, popupAds, banners:
+ * - القراءة متاحة للجميع (لعرضها في التطبيق الرئيسي)
+ * - الكتابة متاحة فقط للمستخدمين المصرح لهم (admin)
+ * 
+ * orders:
+ * - القراءة متاحة فقط للمستخدمين المصرح لهم (admin في لوحة التحكم)
+ * - الكتابة متاحة للجميع (لإرسال الطلبات من التطبيق الرئيسي)
+ * 
+ * كيفية تطبيق القواعد:
+ * 1. افتح Firebase Console
+ * 2. اختر مشروعك (messageemeapp)
+ * 3. اذهب إلى Realtime Database
+ * 4. انقر على "Rules"
+ * 5. انسخ والصق المحتوى أعلاه
+ * 6. انقر "Publish"
+ */
