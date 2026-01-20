@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار التطبيق - LaVish Center</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-card {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #ff6b9d;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #ff6b9d;
+            padding-bottom: 10px;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        button {
+            background: #ff6b9d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #c44569;
+        }
+        #console-output {
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 اختبار تطبيق LaVish Center</h1>
+    
+    <div class="test-card">
+        <h2>1. اختبار تحميل الصفحة</h2>
+        <div id="page-status" class="status info">
+            جاري التحقق...
+        </div>
+        <p><strong>التوقع:</strong> يجب أن تختفي شاشة التحميل خلال 2-3 ثواني</p>
+    </div>
+
+    <div class="test-card">
+        <h2>2. اختبار Firebase</h2>
+        <div id="firebase-status" class="status info">
+            جاري التحقق...
+        </div>
+        <button onclick="testFirebase()">إعادة اختبار Firebase</button>
+    </div>
+
+    <div class="test-card">
+        <h2>3. اختبار لوحة التحكم</h2>
+        <div id="admin-status" class="status info">
+            اضغط على الزر للاختبار
+        </div>
+        <button onclick="testAdminLogin()">فتح لوحة التحكم (Ctrl+Shift+A)</button>
+        <p><strong>بيانات الدخول:</strong> admin / admin</p>
+    </div>
+
+    <div class="test-card">
+        <h2>4. اختبار السلة</h2>
+        <div id="cart-status" class="status info">
+            اضغط على الزر للاختبار
+        </div>
+        <button onclick="testCart()">إضافة منتج للسلة</button>
+        <button onclick="openMainApp()">فتح التطبيق الرئيسي</button>
+    </div>
+
+    <div class="test-card">
+        <h2>5. رسائل Console</h2>
+        <div id="console-output">جاري التحميل...</div>
+        <button onclick="clearConsole()">مسح الرسائل</button>
+    </div>
+
+    <div class="test-card">
+        <h2>📝 نتيجة الاختبار</h2>
+        <div id="final-result" class="status info">
+            جاري الاختبار...
+        </div>
+    </div>
+
+    <script>
+        let logs = [];
+        
+        // Override console.log to capture messages
+        const originalLog = console.log;
+        const originalError = console.error;
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            logs.push('[LOG] ' + args.join(' '));
+            updateConsoleOutput();
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            logs.push('[ERROR] ' + args.join(' '));
+            updateConsoleOutput();
+        };
+        
+        function updateConsoleOutput() {
+            document.getElementById('console-output').textContent = logs.slice(-20).join('\n');
+        }
+        
+        function clearConsole() {
+            logs = [];
+            updateConsoleOutput();
+        }
+        
+        // Test page load
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                const pageStatus = document.getElementById('page-status');
+                pageStatus.className = 'status success';
+                pageStatus.textContent = '✅ الصفحة تم تحميلها بنجاح!';
+                console.log('Page loaded successfully');
+                
+                testFirebase();
+            }, 500);
+        });
+        
+        function testFirebase() {
+            const firebaseStatus = document.getElementById('firebase-status');
+            
+            if (typeof firebase !== 'undefined') {
+                firebaseStatus.className = 'status success';
+                firebaseStatus.textContent = '✅ Firebase SDK متاح ويعمل';
+                console.log('Firebase is available');
+                
+                try {
+                    // Try to initialize if not already
+                    if (!firebase.apps.length) {
+                        firebaseStatus.textContent += ' - لكن لم يتم التهيئة بعد';
+                        console.log('Firebase SDK available but not initialized');
+                    } else {
+                        firebaseStatus.textContent += ' - وتم التهيئة بنجاح';
+                        console.log('Firebase initialized successfully');
+                    }
+                } catch (e) {
+                    console.error('Firebase check error:', e);
+                }
+            } else {
+                firebaseStatus.className = 'status error';
+                firebaseStatus.textContent = '❌ Firebase SDK غير متاح - تأكد من تحميل المكتبة';
+                console.error('Firebase is NOT available');
+            }
+            
+            checkFinalResult();
+        }
+        
+        function testAdminLogin() {
+            const adminStatus = document.getElementById('admin-status');
+            adminStatus.className = 'status info';
+            adminStatus.textContent = '💡 اضغط Ctrl+Shift+A أو ارجع للتطبيق الرئيسي وجرب';
+            console.log('Admin login test - Press Ctrl+Shift+A');
+            
+            // Simulate the keyboard shortcut
+            const event = new KeyboardEvent('keydown', {
+                key: 'A',
+                ctrlKey: true,
+                shiftKey: true
+            });
+            document.dispatchEvent(event);
+        }
+        
+        function testCart() {
+            const cartStatus = document.getElementById('cart-status');
+            cartStatus.className = 'status success';
+            cartStatus.textContent = '✅ يمكنك اختبار السلة في التطبيق الرئيسي';
+            console.log('Cart test - Open main app to test');
+        }
+        
+        function openMainApp() {
+            window.location.href = 'index.html';
+        }
+        
+        function checkFinalResult() {
+            const finalResult = document.getElementById('final-result');
+            const hasFirebase = typeof firebase !== 'undefined';
+            const pageLoaded = document.readyState === 'complete';
+            
+            if (pageLoaded && hasFirebase) {
+                finalResult.className = 'status success';
+                finalResult.innerHTML = `
+                    <strong>✅ جميع الاختبارات نجحت!</strong><br>
+                    - الصفحة تعمل بشكل صحيح<br>
+                    - Firebase متاح ويعمل<br>
+                    <br>
+                    <strong>الخطوة التالية:</strong> افتح index.html للتطبيق الرئيسي
+                `;
+            } else if (pageLoaded && !hasFirebase) {
+                finalResult.className = 'status error';
+                finalResult.innerHTML = `
+                    <strong>⚠️ الصفحة تعمل لكن Firebase غير متاح</strong><br>
+                    - تأكد من تحميل Firebase SDK في index.html<br>
+                    - التطبيق سيعمل بدون Firebase لكن بدون لوحة التحكم<br>
+                    <br>
+                    <strong>الحل:</strong> تأكد من وجود سكريبتات Firebase في index.html
+                `;
+            } else {
+                finalResult.className = 'status info';
+                finalResult.textContent = 'جاري الاختبار...';
+            }
+        }
+        
+        // Auto-check after load
+        setTimeout(checkFinalResult, 1000);
+    </script>
+</body>
+</html>

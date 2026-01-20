@@ -12,11 +12,20 @@ const firebaseConfig = {
     measurementId: "G-4QBEWRC583"
 };
 
-// Initialize Firebase
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
+// Initialize Firebase with error handling
+let database = null;
+try {
+    if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+        database = firebase.database();
+        console.log('Firebase initialized successfully');
+    } else if (typeof firebase !== 'undefined' && firebase.apps.length) {
+        database = firebase.database();
+    }
+} catch (error) {
+    console.error('Firebase initialization error:', error);
+    console.log('App will continue without Firebase features');
 }
-const database = firebase.database();
 
 // ============================================
 // ADMIN AUTHENTICATION
@@ -42,38 +51,42 @@ function logoutAdmin() {
     document.querySelector('.bottom-nav').style.display = 'flex';
 }
 
-// Admin Login Form Handler
-document.addEventListener('DOMContentLoaded', function() {
-    const loginForm = document.getElementById('adminLoginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const username = document.getElementById('adminUsername').value;
-            const password = document.getElementById('adminPassword').value;
-            
-            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-                isAdminLoggedIn = true;
-                localStorage.setItem('adminLoggedIn', 'true');
-                closeAdminLogin();
-                showAdminDashboard();
-            } else {
-                alert('اسم المستخدم أو كلمة المرور غير صحيحة');
+// Initialize Admin System (will be called from main DOMContentLoaded)
+function initializeAdminSystem() {
+    try {
+        const loginForm = document.getElementById('adminLoginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('adminUsername').value;
+                const password = document.getElementById('adminPassword').value;
+                
+                if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                    isAdminLoggedIn = true;
+                    localStorage.setItem('adminLoggedIn', 'true');
+                    closeAdminLogin();
+                    showAdminDashboard();
+                } else {
+                    alert('اسم المستخدم أو كلمة المرور غير صحيحة');
+                }
+            });
+        }
+        
+        // Check if admin is already logged in
+        if (localStorage.getItem('adminLoggedIn') === 'true') {
+            isAdminLoggedIn = true;
+        }
+        
+        // Add secret key combination to open admin login (Ctrl+Shift+A)
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+                openAdminLogin();
             }
         });
+    } catch (error) {
+        console.error('Error initializing admin system:', error);
     }
-    
-    // Check if admin is already logged in
-    if (localStorage.getItem('adminLoggedIn') === 'true') {
-        isAdminLoggedIn = true;
-    }
-    
-    // Add secret key combination to open admin login (Ctrl+Shift+A)
-    document.addEventListener('keydown', function(e) {
-        if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-            openAdminLogin();
-        }
-    });
-});
+}
 
 function showAdminDashboard() {
     document.getElementById('adminDashboard').style.display = 'flex';
@@ -216,56 +229,72 @@ function closeCheckoutModal() {
     document.getElementById('checkoutModal').style.display = 'none';
 }
 
-// Checkout Form Handler
-document.addEventListener('DOMContentLoaded', function() {
-    const checkoutForm = document.getElementById('checkoutForm');
-    if (checkoutForm) {
-        checkoutForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const customerName = document.getElementById('customerName').value;
-            const customerPhone = document.getElementById('customerPhone').value;
-            const customerAddress = document.getElementById('customerAddress').value;
-            const customerNotes = document.getElementById('customerNotes').value;
-            
-            const order = {
-                id: Date.now(),
-                date: new Date().toISOString(),
-                customer: {
-                    name: customerName,
-                    phone: customerPhone,
-                    address: customerAddress,
-                    notes: customerNotes
-                },
-                items: cart,
-                total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-                status: 'pending'
-            };
-            
-            try {
-                // Save order to Firebase
-                await database.ref('orders').push(order);
+// Initialize Checkout System (will be called from main DOMContentLoaded)
+function initializeCheckoutSystem() {
+    try {
+        const checkoutForm = document.getElementById('checkoutForm');
+        if (checkoutForm) {
+            checkoutForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
                 
-                // Send to WhatsApp
-                sendOrderToWhatsApp(order);
+                const customerName = document.getElementById('customerName').value;
+                const customerPhone = document.getElementById('customerPhone').value;
+                const customerAddress = document.getElementById('customerAddress').value;
+                const customerNotes = document.getElementById('customerNotes').value;
                 
-                // Clear cart
-                cart = [];
-                localStorage.setItem('cart', JSON.stringify(cart));
-                updateCartCount();
+                const order = {
+                    id: Date.now(),
+                    date: new Date().toISOString(),
+                    customer: {
+                        name: customerName,
+                        phone: customerPhone,
+                        address: customerAddress,
+                        notes: customerNotes
+                    },
+                    items: cart,
+                    total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                    status: 'pending'
+                };
                 
-                closeCheckoutModal();
-                showNotification('تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً', 'success');
-                
-                // Reset form
-                checkoutForm.reset();
-            } catch (error) {
-                console.error('Error saving order:', error);
-                showNotification('حدث خطأ أثناء إرسال الطلب. حاول مرة أخرى.', 'error');
-            }
-        });
+                try {
+                    // Save order to Firebase (if available)
+                    if (typeof database !== 'undefined' && database) {
+                        await database.ref('orders').push(order);
+                    }
+                    
+                    // Send to WhatsApp
+                    sendOrderToWhatsApp(order);
+                    
+                    // Clear cart
+                    cart = [];
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCartCount();
+                    
+                    closeCheckoutModal();
+                    showNotification('تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً', 'success');
+                    
+                    // Reset form
+                    checkoutForm.reset();
+                } catch (error) {
+                    console.error('Error saving order:', error);
+                    // Still send to WhatsApp even if Firebase fails
+                    sendOrderToWhatsApp(order);
+                    
+                    // Clear cart
+                    cart = [];
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCartCount();
+                    
+                    closeCheckoutModal();
+                    showNotification('تم إرسال طلبك! قد تكون هناك مشكلة في حفظ البيانات.', 'success');
+                    checkoutForm.reset();
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Error initializing checkout system:', error);
     }
-});
+}
 
 function sendOrderToWhatsApp(order) {
     let message = `🛍️ *طلب جديد من LaVish Center*\n\n`;
@@ -296,19 +325,35 @@ function sendOrderToWhatsApp(order) {
 // FIREBASE DATA MANAGEMENT
 // ============================================
 async function loadAdminData() {
-    loadCategories();
-    loadProducts();
-    loadPopupAds();
-    loadSliderAds();
-    loadOrders();
+    if (!database) {
+        showNotification('Firebase غير متاح. بعض الميزات قد لا تعمل.', 'error');
+        return;
+    }
+    
+    try {
+        await loadCategories();
+        await loadProducts();
+        await loadPopupAds();
+        await loadSliderAds();
+        await loadOrders();
+    } catch (error) {
+        console.error('Error loading admin data:', error);
+        showNotification('حدث خطأ أثناء تحميل البيانات', 'error');
+    }
 }
 
 // Categories Management
 async function loadCategories() {
-    const snapshot = await database.ref('categories').once('value');
-    const categories = snapshot.val() || {};
-    renderCategoriesTable(categories);
-    updateCategoryFilters(categories);
+    if (!database) return;
+    
+    try {
+        const snapshot = await database.ref('categories').once('value');
+        const categories = snapshot.val() || {};
+        renderCategoriesTable(categories);
+        updateCategoryFilters(categories);
+    } catch (error) {
+        console.error('Error loading categories:', error);
+    }
 }
 
 function renderCategoriesTable(categories) {
@@ -804,23 +849,34 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
-// Initialize cart count on load
-document.addEventListener('DOMContentLoaded', function() {
-    updateCartCount();
-    
-    // Cart button handler
-    const cartBtn = document.getElementById('cartBtn');
-    if (cartBtn) {
-        cartBtn.addEventListener('click', openCartModal);
+// Initialize Cart and Firebase System (will be called from main DOMContentLoaded)
+function initializeCartAndFirebase() {
+    try {
+        updateCartCount();
+        
+        // Cart button handler
+        const cartBtn = document.getElementById('cartBtn');
+        if (cartBtn) {
+            cartBtn.addEventListener('click', openCartModal);
+        }
+        
+        // Load products from Firebase on app start (if available)
+        if (typeof database !== 'undefined' && database) {
+            loadProductsFromFirebase();
+            loadAdsFromFirebase();
+        }
+    } catch (error) {
+        console.error('Error initializing cart and Firebase:', error);
     }
-    
-    // Load products from Firebase on app start
-    loadProductsFromFirebase();
-    loadAdsFromFirebase();
-});
+}
 
 async function loadProductsFromFirebase() {
     try {
+        if (!database) {
+            console.log('Firebase not available, skipping products load');
+            return;
+        }
+        
         const snapshot = await database.ref('products').once('value');
         const firebaseProducts = snapshot.val();
         
@@ -851,6 +907,11 @@ async function loadProductsFromFirebase() {
 
 async function loadAdsFromFirebase() {
     try {
+        if (!database) {
+            console.log('Firebase not available, skipping ads load');
+            return;
+        }
+        
         // Load popup ads
         const popupSnapshot = await database.ref('popupAds').once('value');
         const popupAds = popupSnapshot.val();
@@ -1373,48 +1434,79 @@ let deferredPrompt;
 // INITIALIZATION
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
-    // Hide loading screen
-    setTimeout(() => {
-        document.getElementById('loadingScreen').style.opacity = '0';
+    // Hide loading screen with error handling
+    try {
         setTimeout(() => {
-            document.getElementById('loadingScreen').style.display = 'none';
-        }, 500);
-    }, 1500);
+            const loadingScreen = document.getElementById('loadingScreen');
+            if (loadingScreen) {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }
+        }, 1500);
+    } catch (error) {
+        console.error('Error hiding loading screen:', error);
+        // Force hide loading screen if error occurs
+        const loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen) loadingScreen.style.display = 'none';
+    }
 
     // Show popup ad after 3 seconds
     setTimeout(() => {
-        showPopupAd();
+        try {
+            showPopupAd();
+        } catch (error) {
+            console.error('Error showing popup ad:', error);
+        }
     }, 3000);
 
     // Initialize AOS
-    AOS.init({
-        duration: 800,
-        easing: 'ease-in-out',
-        once: true
-    });
+    try {
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+    } catch (error) {
+        console.error('Error initializing AOS:', error);
+    }
 
     // Initialize Swiper
-    new Swiper('.hero-swiper', {
-        loop: true,
-        autoplay: {
-            delay: 4000,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        effect: 'fade',
-        speed: 1000
-    });
+    try {
+        new Swiper('.hero-swiper', {
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            effect: 'fade',
+            speed: 1000
+        });
+    } catch (error) {
+        console.error('Error initializing Swiper:', error);
+    }
 
     // Load initial products
-    loadProducts();
-    updateCartCount();
-    updateFavoritesCount();
-    initializeEventListeners();
-    initializeScrollToTop();
-    initializePWA();
+    try {
+        loadProducts();
+        updateCartCount();
+        updateFavoritesCount();
+        initializeEventListeners();
+        initializeScrollToTop();
+        initializePWA();
+    } catch (error) {
+        console.error('Error in main initialization:', error);
+    }
+    
+    // Initialize new systems
+    initializeAdminSystem();
+    initializeCheckoutSystem();
+    initializeCartAndFirebase();
 });
 
 // ============================================
