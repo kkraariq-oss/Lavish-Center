@@ -117,7 +117,7 @@ document.addEventListener('click', function(e) {
 // ============================================
 // CART SYSTEM
 // ============================================
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
+// Removed duplicate declaration of cart to avoid redeclaration error
 
 function addToCart(productId) {
     const product = findProductById(productId);
