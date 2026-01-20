@@ -638,6 +638,280 @@
         </div>
     </main>
 
+    <!-- Admin Login Modal -->
+    <div class="admin-login-modal" id="adminLoginModal" style="display: none;">
+        <div class="admin-login-content">
+            <button class="admin-login-close" onclick="closeAdminLogin()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="admin-login-header">
+                <i class="fas fa-shield-alt"></i>
+                <h2>تسجيل دخول المدير</h2>
+            </div>
+            <form id="adminLoginForm">
+                <div class="admin-form-group">
+                    <label for="adminUsername">اسم المستخدم</label>
+                    <input type="text" id="adminUsername" placeholder="admin" required>
+                </div>
+                <div class="admin-form-group">
+                    <label for="adminPassword">كلمة المرور</label>
+                    <input type="password" id="adminPassword" placeholder="admin" required>
+                </div>
+                <button type="submit" class="admin-login-btn">
+                    <i class="fas fa-sign-in-alt"></i> دخول
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div class="admin-dashboard" id="adminDashboard" style="display: none;">
+        <div class="admin-sidebar">
+            <div class="admin-sidebar-header">
+                <i class="fas fa-gem"></i>
+                <span>لوحة التحكم</span>
+            </div>
+            <nav class="admin-nav">
+                <button class="admin-nav-btn active" data-section="categories">
+                    <i class="fas fa-th-large"></i>
+                    <span>الأقسام</span>
+                </button>
+                <button class="admin-nav-btn" data-section="products">
+                    <i class="fas fa-box"></i>
+                    <span>المنتجات</span>
+                </button>
+                <button class="admin-nav-btn" data-section="popup-ads">
+                    <i class="fas fa-ad"></i>
+                    <span>الإعلانات المنبثقة</span>
+                </button>
+                <button class="admin-nav-btn" data-section="slider-ads">
+                    <i class="fas fa-images"></i>
+                    <span>إعلانات السلايدر</span>
+                </button>
+                <button class="admin-nav-btn" data-section="orders">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>الطلبات</span>
+                    <span class="admin-badge" id="ordersCount">0</span>
+                </button>
+                <button class="admin-logout-btn" onclick="logoutAdmin()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>تسجيل الخروج</span>
+                </button>
+            </nav>
+        </div>
+
+        <div class="admin-content">
+            <!-- Categories Section -->
+            <div class="admin-section active" id="categoriesSection">
+                <div class="admin-section-header">
+                    <h2><i class="fas fa-th-large"></i> إدارة الأقسام</h2>
+                    <button class="admin-add-btn" onclick="showAddCategoryModal()">
+                        <i class="fas fa-plus"></i> إضافة قسم
+                    </button>
+                </div>
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>الرقم</th>
+                                <th>اسم القسم</th>
+                                <th>الرمز</th>
+                                <th>عدد المنتجات</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="categoriesTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Products Section -->
+            <div class="admin-section" id="productsSection">
+                <div class="admin-section-header">
+                    <h2><i class="fas fa-box"></i> إدارة المنتجات</h2>
+                    <button class="admin-add-btn" onclick="showAddProductModal()">
+                        <i class="fas fa-plus"></i> إضافة منتج
+                    </button>
+                </div>
+                <div class="admin-filter-group">
+                    <label>تصفية حسب القسم:</label>
+                    <select id="productCategoryFilter" onchange="filterProductsByCategory()">
+                        <option value="all">جميع الأقسام</option>
+                    </select>
+                </div>
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>الرقم</th>
+                                <th>الصورة</th>
+                                <th>اسم المنتج</th>
+                                <th>القسم</th>
+                                <th>السعر</th>
+                                <th>الحالة</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Popup Ads Section -->
+            <div class="admin-section" id="popupAdsSection">
+                <div class="admin-section-header">
+                    <h2><i class="fas fa-ad"></i> إدارة الإعلانات المنبثقة</h2>
+                    <button class="admin-add-btn" onclick="showAddPopupAdModal()">
+                        <i class="fas fa-plus"></i> إضافة إعلان
+                    </button>
+                </div>
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>الرقم</th>
+                                <th>الصورة</th>
+                                <th>العنوان</th>
+                                <th>السعر</th>
+                                <th>حالة العرض</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="popupAdsTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Slider Ads Section -->
+            <div class="admin-section" id="sliderAdsSection">
+                <div class="admin-section-header">
+                    <h2><i class="fas fa-images"></i> إدارة إعلانات السلايدر</h2>
+                    <button class="admin-add-btn" onclick="showAddSliderAdModal()">
+                        <i class="fas fa-plus"></i> إضافة إعلان
+                    </button>
+                </div>
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>الرقم</th>
+                                <th>الصورة</th>
+                                <th>العنوان</th>
+                                <th>الوصف</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sliderAdsTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Orders Section -->
+            <div class="admin-section" id="ordersSection">
+                <div class="admin-section-header">
+                    <h2><i class="fas fa-shopping-bag"></i> إدارة الطلبات</h2>
+                    <div class="admin-filter-group">
+                        <label>الحالة:</label>
+                        <select id="orderStatusFilter" onchange="filterOrdersByStatus()">
+                            <option value="all">جميع الطلبات</option>
+                            <option value="pending">قيد الانتظار</option>
+                            <option value="processing">قيد المعالجة</option>
+                            <option value="completed">مكتمل</option>
+                            <option value="cancelled">ملغي</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>رقم الطلب</th>
+                                <th>التاريخ</th>
+                                <th>اسم العميل</th>
+                                <th>الهاتف</th>
+                                <th>المبلغ الكلي</th>
+                                <th>الحالة</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal" style="display: none;">
+        <div class="cart-modal-content">
+            <div class="cart-modal-header">
+                <h2><i class="fas fa-shopping-cart"></i> سلة التسوق</h2>
+                <button class="cart-modal-close" onclick="closeCartModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>السلة فارغة</p>
+                </div>
+            </div>
+            <div class="cart-footer" id="cartFooter" style="display: none;">
+                <div class="cart-total">
+                    <span>المجموع:</span>
+                    <span id="cartTotalAmount">0 د.ع</span>
+                </div>
+                <button class="cart-checkout-btn" onclick="showCheckoutForm()">
+                    <i class="fas fa-check"></i> إتمام الطلب
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkoutModal" style="display: none;">
+        <div class="checkout-modal-content">
+            <div class="checkout-modal-header">
+                <h2><i class="fas fa-user"></i> معلومات التوصيل</h2>
+                <button class="checkout-modal-close" onclick="closeCheckoutModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="checkoutForm">
+                <div class="checkout-form-group">
+                    <label for="customerName">الاسم الكامل *</label>
+                    <input type="text" id="customerName" required>
+                </div>
+                <div class="checkout-form-group">
+                    <label for="customerPhone">رقم الهاتف *</label>
+                    <input type="tel" id="customerPhone" required>
+                </div>
+                <div class="checkout-form-group">
+                    <label for="customerAddress">العنوان الكامل *</label>
+                    <textarea id="customerAddress" rows="3" required></textarea>
+                </div>
+                <div class="checkout-form-group">
+                    <label for="customerNotes">ملاحظات إضافية</label>
+                    <textarea id="customerNotes" rows="2"></textarea>
+                </div>
+                <div class="checkout-summary">
+                    <div class="checkout-summary-item">
+                        <span>المجموع:</span>
+                        <span id="checkoutTotal">0 د.ع</span>
+                    </div>
+                </div>
+                <button type="submit" class="checkout-submit-btn">
+                    <i class="fab fa-whatsapp"></i> إرسال الطلب عبر واتساب
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -670,7 +944,7 @@
                     <ul class="footer-links">
                         <li><i class="fas fa-phone"></i> <a href="tel:+9647813798636">+964 781 379 8636</a></li>
                         <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/9647813798636" target="_blank">+964 781 379 8636</a></li>
-                        <li><i class="fas fa-envelope"></i> <a href="mailto:info@lavishcenter.com">info@lavishcenter.com</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection#e28b8c848da28e83948b918a81878c968790cc818d8f"><span class="__cf_email__" data-cfemail="066f686069466a67706f756e6563687263742865696b">[email&#160;protected]</span></a></li>
                         <li><i class="fas fa-map-marker-alt"></i> <a href="https://maps.app.goo.gl/VoYaRGjXjhUQGCJa9" target="_blank">بابل - الهاشمية، شارع حي الديوانية، مقابل محطة وقود صرح بابل</a></li>
                     </ul>
                 </div>
@@ -694,14 +968,8 @@
     </button>
 
     <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
     <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="app.js"></script>
-
-</body>
-</html>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://unpkg.com/aos@2.3.1/dis
